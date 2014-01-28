@@ -16,59 +16,99 @@ MonoBehaviour:
   - serializedVersion: 2
     x: 0
     y: 0
-    width: .763183594
+    width: .381591797
     height: .735839844
   - serializedVersion: 2
-    x: .763671875
-    y: 0
-    width: .134765625
+    x: 0
+    y: .736328125
+    width: .0673828125
     height: .109375
   - serializedVersion: 2
-    x: .763671875
-    y: .329589844
-    width: .134765625
+    x: .0676269531
+    y: .846191406
+    width: .0673828125
     height: .106445312
   - serializedVersion: 2
-    x: .763671875
-    y: .109863281
-    width: .134765625
+    x: 0
+    y: .846191406
+    width: .0673828125
     height: .109375
   - serializedVersion: 2
-    x: .763671875
-    y: .219726562
-    width: .134765625
+    x: .0676269531
+    y: .736328125
+    width: .0673828125
     height: .109375
+  - serializedVersion: 2
+    x: .135253906
+    y: .736328125
+    width: .0395507812
+    height: .0537109375
+  - serializedVersion: 2
+    x: 0
+    y: .956054688
+    width: .00732421875
+    height: .0122070312
+  - serializedVersion: 2
+    x: .135253906
+    y: .790527344
+    width: .0307617188
+    height: .0634765625
+  - serializedVersion: 2
+    x: .381835938
+    y: 0
+    width: .379394531
+    height: .73046875
   textureGUIDs:
   - c81544ed74e0aae4e877f12f5eb64151
   - db3aadcc2007d984da834fd81f082a9e
   - ee8cf7536a5347641899773281a4551a
   - 040ee6b9bbe7b27488a727cddb51213e
   - 778666ca11a655e409215b3ee6a1adf9
+  - 3e68d64110da1114fb54b85f47b9a8d9
+  - c5bfab7a85a17fb43accb8068d9a26d3
+  - 53b13d209b6b6844ab18b9e800067d5e
+  - e40ee2124481a3f4699e745b7e30392a
   textureSizes:
   - {x: 1563, y: 1507}
   - {x: 276, y: 224}
   - {x: 276, y: 218}
   - {x: 276, y: 224}
   - {x: 276, y: 224}
+  - {x: 162, y: 110}
+  - {x: 30, y: 25}
+  - {x: 126, y: 130}
+  - {x: 1554, y: 1496}
   defaultPivotOffsets:
   - {x: 0, y: 0}
   - {x: -.150000006, y: .425749391}
   - {x: -.198214293, y: .423902392}
   - {x: -.176785722, y: .419148624}
   - {x: -.155357152, y: .425749391}
+  - {x: -.0482142828, y: .469431788}
+  - {x: -.224999994, y: .331071436}
+  - {x: -.171428576, y: .324519247}
+  - {x: 0, y: 0}
   textureNames:
   - fluffle_0000_Body
   - fluffle_0001_FL
   - fluffle_0002_FR
   - fluffle_0003_BL
   - fluffle_0004_BR
+  - fluffle_0000_bottomlip
+  - tongue
+  - fluffle_0002_tongue
+  - fluffle_0001_body
   texturePaths:
   - Assets/fluffle/fluffle_0000_Body.png
   - Assets/fluffle/fluffle_0001_FL.png
   - Assets/fluffle/fluffle_0002_FR.png
   - Assets/fluffle/fluffle_0003_BL.png
   - Assets/fluffle/fluffle_0004_BR.png
-  lastBuildID: 20140127044548759
+  - Assets/fluffle/fluffle_0000_bottomlip.png
+  - Assets/fluffle/tongue.png
+  - Assets/fluffle/fluffle_0002_tongue.png
+  - Assets/fluffle/fluffle_0001_body.png
+  lastBuildID: 20140128024849184
   needsRebuilt: 0
   dataVersion: 4
   maxAtlasSize: 2048

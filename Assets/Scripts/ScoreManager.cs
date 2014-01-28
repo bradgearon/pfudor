@@ -9,7 +9,6 @@ public class ScoreManager : MonoBehaviour
     private int score;
     private bool started;
     private int totalTime;
-    
 
     // Use this for initialization
     void Start()
@@ -31,4 +30,10 @@ public class ScoreManager : MonoBehaviour
             scoreLabel.text = score.ToString();
         }
     }
+
+    void GameOver()
+    {
+
+    }
+
 }

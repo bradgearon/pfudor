@@ -16,6 +16,8 @@ public class RainbowSpawner : MonoBehaviour
     public float topPadY;
     public float bottomPadY;
 
+    public bool drawDebug = false;
+
     private Vector3 screenMax;
     private Vector3 screenMin;
     private Random random;
@@ -43,18 +45,25 @@ public class RainbowSpawner : MonoBehaviour
         screenMax = new Vector3(screenMax.x, topEnd);
 
         var bottomEnd = screenMin.y + bottomPadY;
-        Debug.DrawLine(new Vector3(1, bottomEnd), new Vector3(1, topEnd), Color.yellow);
         screenMin = new Vector3(screenMin.x, bottomEnd);
+
+        if (drawDebug)
+        {
+            Debug.DrawLine(new Vector3(1, bottomEnd), new Vector3(1, topEnd), Color.yellow);
+        }
     }
 
     void OnGUI()
     {
-        GUILayout.Label("Top: " + screenMax.y);
-        GUILayout.Label("top pad: " + (screenMax.y - topPadY));
+        if (drawDebug)
+        {
+            GUILayout.Label("Top: " + screenMax.y);
+            GUILayout.Label("top pad: " + (screenMax.y - topPadY));
 
-        GUILayout.Label("Bottom: " + screenMin.y);
-        GUILayout.Label("player: " + player.transform.position);
-        GUILayout.Label("player max: " + (player.transform.position.y + maxDistanceYFromPlayer));
+            GUILayout.Label("Bottom: " + screenMin.y);
+            GUILayout.Label("player: " + player.transform.position);
+            GUILayout.Label("player max: " + (player.transform.position.y + maxDistanceYFromPlayer));
+        }
     }
 
     IEnumerator Spawn()

@@ -23,6 +23,7 @@ public class Pauser : MonoBehaviour
         if (pauseDown)
         {
             paused = !paused;
+            AudioListener.pause = paused;
         }
 
         Time.timeScale = paused ? 0 : 1;

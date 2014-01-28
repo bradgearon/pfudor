@@ -4,11 +4,11 @@ using SmoothMoves;
 public class PlayerControl : MonoBehaviour
 {
     [HideInInspector]
-    public bool jump = false;				// Condition for whether the player should jump.
+    public bool jump = false;
     public int maxJump;
 
-    public float jumpForce = 1000f;			// Amount of force added when the player jumps.
-    private BoneAnimation anim;					// Reference to the player's animator component.
+    public float jumpForce = 1000f;
+    private BoneAnimation anim;
     private int jumpLeft = 2;
     private CharacterController2D controller;
     private bool inJump;
@@ -79,10 +79,9 @@ public class PlayerControl : MonoBehaviour
         {
             jumpLeft = maxJump;
         }
-
-        if (other.CompareTag("Dead"))
+        else if (other.CompareTag("Dead"))
         {
-            Application.Quit();
+            BroadcastMessage("GameOver");
         }
     }
 
