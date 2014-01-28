@@ -1,0 +1,76 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 529336600, guid: 289bab7cc27a12745b5df9b71d7b06c4, type: 3}
+  m_Name: Fluffle Puff Atlas
+  m_EditorClassIdentifier: 
+  material: {fileID: 2100000, guid: 1f6668a2b00afc14ba8d6f6247af5b34, type: 2}
+  uvs:
+  - serializedVersion: 2
+    x: 0
+    y: 0
+    width: .763183594
+    height: .735839844
+  - serializedVersion: 2
+    x: .763671875
+    y: 0
+    width: .134765625
+    height: .109375
+  - serializedVersion: 2
+    x: .763671875
+    y: .329589844
+    width: .134765625
+    height: .106445312
+  - serializedVersion: 2
+    x: .763671875
+    y: .109863281
+    width: .134765625
+    height: .109375
+  - serializedVersion: 2
+    x: .763671875
+    y: .219726562
+    width: .134765625
+    height: .109375
+  textureGUIDs:
+  - c81544ed74e0aae4e877f12f5eb64151
+  - db3aadcc2007d984da834fd81f082a9e
+  - ee8cf7536a5347641899773281a4551a
+  - 040ee6b9bbe7b27488a727cddb51213e
+  - 778666ca11a655e409215b3ee6a1adf9
+  textureSizes:
+  - {x: 1563, y: 1507}
+  - {x: 276, y: 224}
+  - {x: 276, y: 218}
+  - {x: 276, y: 224}
+  - {x: 276, y: 224}
+  defaultPivotOffsets:
+  - {x: 0, y: 0}
+  - {x: -.150000006, y: .425749391}
+  - {x: -.198214293, y: .423902392}
+  - {x: -.176785722, y: .419148624}
+  - {x: -.155357152, y: .425749391}
+  textureNames:
+  - fluffle_0000_Body
+  - fluffle_0001_FL
+  - fluffle_0002_FR
+  - fluffle_0003_BL
+  - fluffle_0004_BR
+  texturePaths:
+  - Assets/fluffle/fluffle_0000_Body.png
+  - Assets/fluffle/fluffle_0001_FL.png
+  - Assets/fluffle/fluffle_0002_FR.png
+  - Assets/fluffle/fluffle_0003_BL.png
+  - Assets/fluffle/fluffle_0004_BR.png
+  lastBuildID: 20140127044548759
+  needsRebuilt: 0
+  dataVersion: 4
+  maxAtlasSize: 2048
+  padding: 1
+  forceSquare: 0

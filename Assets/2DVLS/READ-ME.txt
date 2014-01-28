@@ -1,0 +1,105 @@
+Setup:
+Move the 'Gizmos' folder to the root 'Assets' folder to use Gizmos.
+Add lights by going to "GameObject -> Create Other -> Light2D -> [Radial Light/Spot Light/Shadow Emitter]"
+
+
+FAQ:
+Q - Where can I find help and tutorials on 2DVLS?
+   A - Please click "Online Help" in the "Light2D" file menu. Or visit directly at this link http://reverieinteractive.com/2DVLS/Documentation/
+
+Q - The lights do not 'light up' the objects in my scene. Instead they seem to go through the object!
+   A - Please use "2DVLS/Diffuse" or "2DVLS/Cuttout" shaders on the objects you wish for the lights to affect.
+
+
+API Reference:
+
+- Enums -
+
+LightDetailSetting		Light2D.LightDetailSetting.Rays_50
+LightDetailSetting		Light2D.LightDetailSetting.Rays_100
+LightDetailSetting		Light2D.LightDetailSetting.Rays_200
+LightDetailSetting 		Light2D.LightDetailSetting.Rays_300
+LightDetailSetting 		Light2D.LightDetailSetting.Rays_400
+LightDetailSetting 		Light2D.LightDetailSetting.Rays_500
+LightDetailSetting 		Light2D.LightDetailSetting.Rays_600
+LightDetailSetting 		Light2D.LightDetailSetting.Rays_700
+LightDetailSetting 		Light2D.LightDetailSetting.Rays_800
+LightDetailSetting 		Light2D.LightDetailSetting.Rays_900
+LightDetailSetting 		Light2D.LightDetailSetting.Rays_1000
+LightDetailSetting 		Light2D.LightDetailSetting.Rays_2000
+LightDetailSetting 		Light2D.LightDetailSetting.Rays_3000
+LightDetailSetting 		Light2D.LightDetailSetting.Rays_4000
+LightDetailSetting 		Light2D.LightDetailSetting.Rays_5000
+
+LightEventListenerType 		OnEnter
+LightEventListenerType 		OnStay
+LightEventListenerType 		OnExit
+
+PivotPointType		Light2D.PivotPointType.Center
+PivotPointType		Light2D.PivotPointType.End
+PivotPointType		Light2D.PivotPointType.Custom
+
+LightTypeSetting		Light2D.LightTypeSetting.Radial
+LightTypeSetting		Light2D.LightTypeSetting.Directional
+LightTypeSetting		Light2D.LightTypeSetting.Shadow
+
+- Static Create Methods -
+ 
+Light2D.Create(Vector3 _position, Color _lightColor) : returns Light2D
+Light2D.Create(Vector3 _position, Material _lightMaterial, Color _lightColor) : returns Light2D
+Light2D.Create(Vector3 _position, Color _lightColor, float _lightRadius) : returns Light2D
+Light2D.Create(Vector3 _position, Material _lightMaterial, Color _lightColor, float _lightRadius) : returns Light2D
+Light2D.Create(Vector3 _position, Color _lightColor, float _lightRadius, int _lightConeAngle) : returns Light2D
+Light2D.Create(Vector3 _position, Material _lightMaterial, Color _lightColor, float _lightRadius, int _lightConeAngle) : returns Light2D
+Light2D.Create(Vector3 _position, Color _lightColor, float _lightRadius, int _lightConeAngle, LightDetailSetting _lightDetail) : returns Light2D
+Light2D.Create(Vector3 _position, Material _lightMaterial, Color _lightColor, float _lightRadius, int _lightConeAngle, LightDetailSetting _lightDetail) : returns Light2D
+Light2D.Create(Vector3 _position, Color _lightColor, float _lightRadius, int _lightConeAngle, LightDetailSetting _lightDetail, bool _useEvents) : returns Light2D
+Light2D.Create(Vector3 _position, Material _lightMaterial, Color _lightColor, float _lightRadius, int _lightConeAngle, LightDetailSetting _lightDetail, bool _useEvents) : returns Light2D
+Light2D.Create(Vector3 _position, Color _lightColor, float _lightRadius, int _lightConeAngle, LightDetailSetting _lightDetail, bool _useEvents, LightTypeSetting _lightType) : returns Light2D
+Light2D.Create(Vector3 _position, Material _lightMaterial, Color _lightColor, float _lightRadius, int _lightConeAngle, LightDetailSetting _lightDetail, bool _useEvents, LightTypeSetting _lightType) : returns Light2D
+
+- Helpful Functions -
+
+bool ToggleLight()					Toggles light on or off and returns light state
+bool ToggleLight(bool _updateMesh)	""
+void LookAt(Vector3 _target)		Forces light to look at _target using Right vector.
+void LookAt(Transform _target)		""
+void LookAt(GameObject _target)		""
+
+
+- Public Variables -
+
+LightType					LightTypeSetting	Sets the type of light which will be rendered
+LightRadius 	 			float				Sets radius of light
+LightBeamSize				float				Sets the width of the directional light beam (Local X-Axis)
+LightBeamRange				float				Sets the distance of the directional light beam (Local Y-Axis)
+LightConeAngle				float				Sets the light cone angle
+LightConeStart				float				Sets the rotation of the lights cone
+LightColor 	 				Color				Sets the lights color
+LightDetail 				LightDetailSetting	Sets how many rays are cast from light per update
+LightMaterial 	 			Material			Sets the material of the lights
+ShadowMask 	 				LayerMask			Sets the shadow layer. The layer listed in this will be the layer the lights detect
+EnableEvents				bool				If 'TRUE' event messages will be sent
+LightEnabled				bool				Sets the lights visibility.
+IsVisible					bool				Gets if the lights renderer is currently visible. (READ-ONLY)
+IsStatic					bool				If 'TRUE' light will only be rendered once in the "Start()" function
+DirectionalLightPivotPoint	Vector3				Returns the directional lights custom pivot point Vector.
+DirectionalPivotPointType	PivotPointType		Sets which type of pivot point will be used on the directional light
+UVTiling					Vector2				Sets the UV tiling value
+UVOffset					Vector2				Sets the UV offset value
+
+- EVENTS -
+
+void Light2DEvent(Light2D lightObject, GameObject objectInLight)			Delegate used for events
+
+Light2D.RegisterEventListener(LightEventListenerType _eventType, Light2DEvent _eventMethod)		Static method used to register event functions
+Light2D.UnregisterEventListener(LightEventListenerType _eventType, Light2DEvent _eventMethod)	Static method used to unregister event functions
+
+
+- Depriciated Variables - 
+
+SweepStart 	 				float	[Depriciated] Use "transform.Rotate()" as this is now calculated automatically.
+SweepSize 	 				float	[Depriciated, use LightConeAngle] Sets the angle of the cone
+ignoreOptimizations			bool	[Depriciated, no longer used]
+allowHideInsideColliders	bool	[Depriciated, use AllowLightsToHide] If 'TRUE' lights will turn off when inside of a collider on the same layer as the shodow layer
+IsShadowEmitter				bool	[Depreciated] When set to 'TRUE' the light will produce inverse of what the light produces which is shadow.
