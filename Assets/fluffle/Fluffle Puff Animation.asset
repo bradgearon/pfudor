@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: -1545704558, guid: 289bab7cc27a12745b5df9b71d7b06c4, type: 3}
   m_Name: Fluffle Puff Animation
   m_EditorClassIdentifier: 
-  buildID: 201401270544528403
+  buildID: 201401272340132893
   needsRebuilt: 1
   boneDataList:
   - active: 1

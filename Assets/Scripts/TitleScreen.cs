@@ -13,6 +13,8 @@ public class TitleScreen : MonoBehaviour
     private bool starting;
 
     public UIWidget[] titleObjects;
+    public UIWidget[] playObjects;
+    private GameObject player;
 
     // Use this for initialization
     void Start()
@@ -22,7 +24,10 @@ public class TitleScreen : MonoBehaviour
 
     void OnFingerDown(FingerDownEvent e)
     {
-        OnLoadMain();
+        if (!starting)
+        {
+            OnLoadMain();
+        }
     }
 
     void OnLoadMain()
@@ -57,10 +62,17 @@ public class TitleScreen : MonoBehaviour
 
             if (!loaded && loading)
             {
+                foreach (var so in playObjects)
+                {
+                    so.gameObject.SetActive(true);
+                }
+
                 Application.LoadLevelAdditive(mainScene);
                 loaded = true;
             }
         }
 
     }
+
+    
 }

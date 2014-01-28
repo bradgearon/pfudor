@@ -23,6 +23,8 @@ public class PlayerControl : MonoBehaviour
         }
         anim = GetComponentInChildren<BoneAnimation>();
         controller = GetComponent<CharacterController2D>();
+        var fingerDownDetector = gameObject.AddComponent<FingerDownDetector>();
+        fingerDownDetector.MessageTarget = gameObject;
     }
 
     void Update()

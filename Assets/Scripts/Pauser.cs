@@ -1,19 +1,31 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Pauser : MonoBehaviour {
-	private bool paused = false;
-	
-	// Update is called once per frame
-	void Update () {
-		if(Input.GetKeyUp(KeyCode.P))
-		{
-			paused = !paused;
-		}
+public class Pauser : MonoBehaviour
+{
+    private bool paused = false;
+    private bool pauseDown;
 
-		if(paused)
-			Time.timeScale = 0;
-		else
-			Time.timeScale = 1;
-	}
+
+    void OnFingerDown(FingerDownEvent e)
+    {
+        Debug.Log(e.Selection);
+
+        if (e.Selection != null && e.Selection.GetInstanceID() == this.gameObject.GetInstanceID())
+        {
+            pauseDown = true;
+        }
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (pauseDown)
+        {
+            paused = !paused;
+        }
+
+        Time.timeScale = paused ? 0 : 1;
+        pauseDown = false;
+    }
 }
