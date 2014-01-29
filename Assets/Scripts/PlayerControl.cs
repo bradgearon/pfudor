@@ -7,6 +7,7 @@ public class PlayerControl : MonoBehaviour
     public bool jump = false;
     public int maxJump;
 
+    public float gravity = -9.8f;
     public float jumpForce = 1000f;
     private BoneAnimation anim;
     private int jumpLeft = 2;
@@ -14,6 +15,7 @@ public class PlayerControl : MonoBehaviour
     private bool inJump;
     private float jumpForceRemain;
     public Vector2 initialVelocity = new Vector2(15f, 0);
+    private ScoreManager scoreManager;
 
     void Awake()
     {
@@ -25,6 +27,10 @@ public class PlayerControl : MonoBehaviour
         controller = GetComponent<CharacterController2D>();
         var fingerDownDetector = gameObject.AddComponent<FingerDownDetector>();
         fingerDownDetector.MessageTarget = gameObject;
+        scoreManager = FindObjectOfType<ScoreManager>();
+
+        var screenMin = Camera.main.ScreenToWorldPoint(new Vector3(0, 0));
+        transform.position = new Vector3(screenMin.x, transform.position.y);
     }
 
     void Update()
@@ -61,7 +67,7 @@ public class PlayerControl : MonoBehaviour
         }
         if (!controller.collisionState.below)
         {
-            vSpeed -= 9.8f * Time.deltaTime;
+            vSpeed += gravity * Time.deltaTime;
         }
         controller.move(new Vector3(xSpeed, vSpeed));
     }
@@ -81,7 +87,7 @@ public class PlayerControl : MonoBehaviour
         }
         else if (other.CompareTag("Dead"))
         {
-            BroadcastMessage("GameOver");
+            scoreManager.SendMessage("GameOver");
         }
     }
 
