@@ -7,15 +7,20 @@ public class PlayerControl : MonoBehaviour
     public bool jump = false;
     public int maxJump;
 
+    private Animation uniAnimation;
+    private BoneAnimation anim;
+    private Uni2DAnimationPlayer ap;
+    private CharacterController2D controller;
+
+    public Vector2 initialVelocity = new Vector2(15f, 0);
     public float gravity = -9.8f;
     public float jumpForce = 1000f;
-    private BoneAnimation anim;
+
     private int jumpLeft = 2;
-    private CharacterController2D controller;
     private bool inJump;
     private float jumpForceRemain;
-    public Vector2 initialVelocity = new Vector2(15f, 0);
     private ScoreManager scoreManager;
+    private bool isSM;
 
     void Awake()
     {
@@ -24,6 +29,11 @@ public class PlayerControl : MonoBehaviour
             render.sortingLayerName = "Character";
         }
         anim = GetComponentInChildren<BoneAnimation>();
+        isSM = anim != null;
+        if (!isSM)
+        {
+            uniAnimation = GetComponentInChildren<Animation>();
+        }
         controller = GetComponent<CharacterController2D>();
         var fingerDownDetector = gameObject.AddComponent<FingerDownDetector>();
         fingerDownDetector.MessageTarget = gameObject;
@@ -49,7 +59,15 @@ public class PlayerControl : MonoBehaviour
             if (jump)
             {
                 jumpLeft--;
-                anim.PlayQueued("Jump", QueueMode.PlayNow);
+                if (isSM)
+                {
+                    anim.PlayQueued("Jump", QueueMode.PlayNow);
+                }
+                else
+                {
+                    uniAnimation.PlayQueued("jump-uni", QueueMode.PlayNow);
+                    uniAnimation.PlayQueued("wobble", QueueMode.CompleteOthers);
+                }
                 jumpForceRemain = jumpForce;
                 jump = false;
             }

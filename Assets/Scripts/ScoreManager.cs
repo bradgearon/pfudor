@@ -1,13 +1,20 @@
-﻿using UnityEngine;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using ServiceStack.Text;
+#if UNITY_METRO
+// using System.Runtime.Serialization.Json;
+#else
+using System.Runtime.Serialization.Formatters.Binary;
+#endif
+
+using UnityEngine;
+
 
 public class ScoreManager : MonoBehaviour
 {
     public float scoreScale;
-
     public UILabel scoreLabel;
     public UITable scoreTable;
 
@@ -17,6 +24,13 @@ public class ScoreManager : MonoBehaviour
     private bool gameOver;
 
     private GameObject sceneManager;
+
+#if UNITY_METRO
+    // DataContractJsonSerializer json = new DataContractJsonSerializer(typeof(List<Scores>));
+#else
+    [NonSerialized]
+    BinaryFormatter bf = new BinaryFormatter();
+#endif
 
     // Use this for initialization
     void Start()
@@ -54,8 +68,35 @@ public class ScoreManager : MonoBehaviour
     void updateScores()
     {
 
-        var scoreText = PlayerPrefs.GetString("scores", JsonSerializer.SerializeToString(new List<Scores>()));
-        var scores = JsonSerializer.DeserializeFromString<List<Scores>>(scoreText);
+
+        List<Scores> scores;
+
+        var scoreText = PlayerPrefs.GetString("scores");
+        if (!string.IsNullOrEmpty(scoreText))
+        {
+            try
+            {
+                var mbytes = Convert.FromBase64String(scoreText);
+
+                using (var m = new MemoryStream(mbytes))
+                {
+#if UNITY_METRO
+                // scores = json.ReadObject(m) as List<Scores>;
+                scores = new List<Scores>();
+#else
+                    scores = bf.Deserialize(m) as List<Scores>;
+#endif
+                }
+            }
+            catch (Exception ex)
+            {
+                scores = new List<Scores>();
+            }
+        }
+        else
+        {
+            scores = new List<Scores>();
+        }
 
         scores.Add(new Scores { Name = "Player", Score = score });
         var scoresOrdered = scores.OrderByDescending(s => s.Score).Take(10);
@@ -77,11 +118,18 @@ public class ScoreManager : MonoBehaviour
             scoreLabel.height = 50;
             scoreLabel.text = s.Score + string.Empty;
         }
-
         scoreTable.Reposition();
-        scoreText = JsonSerializer.SerializeToString(scoresOrdered.ToList());
 
-        Debug.Log(scoreText);
+        using (var m = new MemoryStream())
+        {
+#if UNITY_METRO
+            // json.WriteObject(m, scores);
+#else
+            bf.Serialize(m, scores);
+            scoreText = Convert.ToBase64String(m.GetBuffer());
+#endif
+        }
+
         PlayerPrefs.SetString("scores", scoreText);
         PlayerPrefs.Save();
 

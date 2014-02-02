@@ -15,51 +15,135 @@ MonoBehaviour:
   uvs:
   - serializedVersion: 2
     x: 0
-    y: 0
-    width: .381591797
-    height: .735839844
-  - serializedVersion: 2
-    x: 0
-    y: .736328125
+    y: .730957031
     width: .0673828125
     height: .109375
   - serializedVersion: 2
     x: .0676269531
-    y: .846191406
+    y: .840820312
     width: .0673828125
     height: .106445312
   - serializedVersion: 2
     x: 0
-    y: .846191406
+    y: .840820312
     width: .0673828125
     height: .109375
   - serializedVersion: 2
     x: .0676269531
-    y: .736328125
+    y: .730957031
     width: .0673828125
     height: .109375
   - serializedVersion: 2
-    x: .135253906
-    y: .736328125
+    x: .323730469
+    y: .885253906
     width: .0395507812
     height: .0537109375
   - serializedVersion: 2
     x: 0
-    y: .956054688
+    y: .982421875
     width: .00732421875
     height: .0122070312
   - serializedVersion: 2
-    x: .135253906
-    y: .790527344
+    x: .379638672
+    y: .730957031
     width: .0307617188
     height: .0634765625
   - serializedVersion: 2
-    x: .381835938
+    x: 0
     y: 0
     width: .379394531
     height: .73046875
+  - serializedVersion: 2
+    x: .379638672
+    y: 0
+    width: .379394531
+    height: .73046875
+  - serializedVersion: 2
+    x: .185302734
+    y: .906738281
+    width: .0256347656
+    height: .0717773438
+  - serializedVersion: 2
+    x: 0
+    y: .950683594
+    width: .0632324219
+    height: .03125
+  - serializedVersion: 2
+    x: .323730469
+    y: .822265625
+    width: .0349121094
+    height: .0625
+  - serializedVersion: 2
+    x: .263427734
+    y: .822265625
+    width: .0275878906
+    height: .0966796875
+  - serializedVersion: 2
+    x: .354003906
+    y: .730957031
+    width: .0183105469
+    height: .0688476562
+  - serializedVersion: 2
+    x: .135253906
+    y: .906738281
+    width: .0498046875
+    height: .0927734375
+  - serializedVersion: 2
+    x: .323730469
+    y: .939453125
+    width: .0297851562
+    height: .0571289062
+  - serializedVersion: 2
+    x: .135253906
+    y: .800292969
+    width: .044921875
+    height: .105957031
+  - serializedVersion: 2
+    x: .263427734
+    y: .730957031
+    width: .0505371094
+    height: .0908203125
+  - serializedVersion: 2
+    x: .214111328
+    y: .730957031
+    width: .0490722656
+    height: .09375
+  - serializedVersion: 2
+    x: .291259766
+    y: .896972656
+    width: .03125
+    height: .072265625
+  - serializedVersion: 2
+    x: .245117188
+    y: .825195312
+    width: .0170898438
+    height: .107910156
+  - serializedVersion: 2
+    x: .314208984
+    y: .730957031
+    width: .0395507812
+    height: .0693359375
+  - serializedVersion: 2
+    x: .214111328
+    y: .825195312
+    width: .0307617188
+    height: .12109375
+  - serializedVersion: 2
+    x: .135253906
+    y: .730957031
+    width: .0786132812
+    height: .0688476562
+  - serializedVersion: 2
+    x: .291259766
+    y: .822265625
+    width: .0322265625
+    height: .07421875
+  - serializedVersion: 2
+    x: .180419922
+    y: .800292969
+    width: .0280761719
+    height: .105957031
   textureGUIDs:
-  - c81544ed74e0aae4e877f12f5eb64151
   - db3aadcc2007d984da834fd81f082a9e
   - ee8cf7536a5347641899773281a4551a
   - 040ee6b9bbe7b27488a727cddb51213e
@@ -68,8 +152,25 @@ MonoBehaviour:
   - c5bfab7a85a17fb43accb8068d9a26d3
   - 53b13d209b6b6844ab18b9e800067d5e
   - e40ee2124481a3f4699e745b7e30392a
+  - 7d0cd4a4c9c8bd6489aaef22f6c35e40
+  - 04b9a8bd3c1196a4d82208a3ef031874
+  - 2e58bdcc809862c4aa4db389f8f065eb
+  - 42ff5d70ecf593e49b0fb4b5f0bf7b6c
+  - 5540abb8aab35b94dac9768aac794641
+  - 63b59fd301326a8498bf5ca1e5ac1ba7
+  - 858f0b0d7cc098941933694f79c4a318
+  - 997472a8a550a87439749efdefcad96b
+  - afbe0f05e967dc1488c65d19e3eba38e
+  - b11be2e9f365cc24dbc015f7d24a426a
+  - b609d46d1c66d9b4594df869c557171d
+  - bfca15b368d0ed9428af3db3ac2fbeaf
+  - d174e80b87c27b64ab95ca072f56e4b0
+  - d271d24f157c448478fd91589db38294
+  - d6bc3d61e547ccb41b0384715b7925ad
+  - f89ba758c743ebf4e9fc2dade2a2ced7
+  - f9f8d4afeeb92eb479f2283a8de46d90
+  - fd4cccb12b91da2409207b0cff7ecdaa
   textureSizes:
-  - {x: 1563, y: 1507}
   - {x: 276, y: 224}
   - {x: 276, y: 218}
   - {x: 276, y: 224}
@@ -78,8 +179,25 @@ MonoBehaviour:
   - {x: 30, y: 25}
   - {x: 126, y: 130}
   - {x: 1554, y: 1496}
+  - {x: 1554, y: 1496}
+  - {x: 105, y: 147}
+  - {x: 259, y: 64}
+  - {x: 143, y: 128}
+  - {x: 113, y: 198}
+  - {x: 75, y: 141}
+  - {x: 204, y: 190}
+  - {x: 122, y: 117}
+  - {x: 184, y: 217}
+  - {x: 207, y: 186}
+  - {x: 201, y: 192}
+  - {x: 128, y: 148}
+  - {x: 70, y: 221}
+  - {x: 162, y: 142}
+  - {x: 126, y: 248}
+  - {x: 322, y: 141}
+  - {x: 132, y: 152}
+  - {x: 115, y: 217}
   defaultPivotOffsets:
-  - {x: 0, y: 0}
   - {x: -.150000006, y: .425749391}
   - {x: -.198214293, y: .423902392}
   - {x: -.176785722, y: .419148624}
@@ -88,8 +206,25 @@ MonoBehaviour:
   - {x: -.224999994, y: .331071436}
   - {x: -.171428576, y: .324519247}
   - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
   textureNames:
-  - fluffle_0000_Body
   - fluffle_0001_FL
   - fluffle_0002_FR
   - fluffle_0003_BL
@@ -98,8 +233,25 @@ MonoBehaviour:
   - tongue
   - fluffle_0002_tongue
   - fluffle_0001_body
+  - fluffle_0000_Layer-0
+  - fluffle_0004_Layer-9
+  - fluffle_0013_Layer-1
+  - fluffle_0005_Layer-10
+  - fluffle_0011_Layer-16
+  - fluffle_0008_Layer-13
+  - fluffle_0016_Layer-5
+  - fluffle_0006_Layer-11
+  - fluffle_0017_Layer-4
+  - fluffle_0015_Layer-3
+  - fluffle_0010_Layer-15
+  - fluffle_0009_Layer-14
+  - fluffle_0002_Layer-7
+  - fluffle_0007_Layer-12
+  - fluffle_0003_Layer-8
+  - fluffle_0014_Layer-2
+  - fluffle_0001_Layer-6
+  - fluffle_0012_Layer-17
   texturePaths:
-  - Assets/fluffle/fluffle_0000_Body.png
   - Assets/fluffle/fluffle_0001_FL.png
   - Assets/fluffle/fluffle_0002_FR.png
   - Assets/fluffle/fluffle_0003_BL.png
@@ -108,7 +260,25 @@ MonoBehaviour:
   - Assets/fluffle/tongue.png
   - Assets/fluffle/fluffle_0002_tongue.png
   - Assets/fluffle/fluffle_0001_body.png
-  lastBuildID: 20140128024849184
+  - Assets/fluffle/pieces/fluffle_0000_Layer-0.png
+  - Assets/fluffle/pieces/fluffle_0004_Layer-9.png
+  - Assets/fluffle/pieces/fluffle_0013_Layer-1.png
+  - Assets/fluffle/pieces/fluffle_0005_Layer-10.png
+  - Assets/fluffle/pieces/fluffle_0011_Layer-16.png
+  - Assets/fluffle/pieces/fluffle_0008_Layer-13.png
+  - Assets/fluffle/pieces/fluffle_0016_Layer-5.png
+  - Assets/fluffle/pieces/fluffle_0006_Layer-11.png
+  - Assets/fluffle/pieces/fluffle_0017_Layer-4.png
+  - Assets/fluffle/pieces/fluffle_0015_Layer-3.png
+  - Assets/fluffle/pieces/fluffle_0010_Layer-15.png
+  - Assets/fluffle/pieces/fluffle_0009_Layer-14.png
+  - Assets/fluffle/pieces/fluffle_0002_Layer-7.png
+  - Assets/fluffle/pieces/fluffle_0007_Layer-12.png
+  - Assets/fluffle/pieces/fluffle_0003_Layer-8.png
+  - Assets/fluffle/pieces/fluffle_0014_Layer-2.png
+  - Assets/fluffle/pieces/fluffle_0001_Layer-6.png
+  - Assets/fluffle/pieces/fluffle_0012_Layer-17.png
+  lastBuildID: 20140201025855601
   needsRebuilt: 0
   dataVersion: 4
   maxAtlasSize: 2048

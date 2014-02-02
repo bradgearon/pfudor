@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: -1545704558, guid: 289bab7cc27a12745b5df9b71d7b06c4, type: 3}
   m_Name: Fluffle Puff Animation
   m_EditorClassIdentifier: 
-  buildID: 201401280302596711
+  buildID: 201402010300347441
   needsRebuilt: 0
   boneDataList:
   - active: 1
@@ -59,6 +59,16 @@ MonoBehaviour:
     boneColor:
       blendingWeight: 0
       color: {r: 1, g: 1, b: 1, a: 1}
+  - active: 1
+    boneName: Bone
+    boneColor:
+      blendingWeight: 0
+      color: {r: 1, g: 1, b: 1, a: 1}
+  - active: 1
+    boneName: Bone 2
+    boneColor:
+      blendingWeight: 0
+      color: {r: 1, g: 1, b: 1, a: 1}
   dfsBoneNodeList:
   - parentBoneIndex: -1
     boneDataIndex: 0
@@ -87,6 +97,12 @@ MonoBehaviour:
   - parentBoneIndex: 1
     boneDataIndex: 8
     depth: 2
+  - parentBoneIndex: 8
+    boneDataIndex: 9
+    depth: 3
+  - parentBoneIndex: 0
+    boneDataIndex: 10
+    depth: 1
   animationClips:
   - animationName: Idle
     bones:
@@ -303,7 +319,7 @@ MonoBehaviour:
           layer: 0
           isTrigger: 0
           tag: 
-        textureIndex: 8
+        textureIndex: 7
       - boneDataIndex: 1
         frame: 5
         userTriggerCallback: 0
@@ -402,7 +418,7 @@ MonoBehaviour:
           layer: 0
           isTrigger: 0
           tag: 
-        textureIndex: 8
+        textureIndex: 7
       mixTransform: 0
       visible: 1
       colorRCurveSerialized:
@@ -555,7 +571,7 @@ MonoBehaviour:
           layer: 0
           isTrigger: 1
           tag: 
-        textureIndex: 1
+        textureIndex: 0
       - boneDataIndex: 2
         frame: 5
         userTriggerCallback: 0
@@ -654,7 +670,7 @@ MonoBehaviour:
           layer: 0
           isTrigger: 1
           tag: 
-        textureIndex: 1
+        textureIndex: 0
       mixTransform: 0
       visible: 1
       colorRCurveSerialized:
@@ -807,7 +823,7 @@ MonoBehaviour:
           layer: 0
           isTrigger: 1
           tag: 
-        textureIndex: 2
+        textureIndex: 1
       - boneDataIndex: 3
         frame: 5
         userTriggerCallback: 0
@@ -906,7 +922,7 @@ MonoBehaviour:
           layer: 0
           isTrigger: 1
           tag: 
-        textureIndex: 2
+        textureIndex: 1
       mixTransform: 0
       visible: 1
       colorRCurveSerialized:
@@ -1059,7 +1075,7 @@ MonoBehaviour:
           layer: 0
           isTrigger: 1
           tag: 
-        textureIndex: 4
+        textureIndex: 3
       - boneDataIndex: 4
         frame: 5
         userTriggerCallback: 0
@@ -1158,7 +1174,7 @@ MonoBehaviour:
           layer: 0
           isTrigger: 1
           tag: 
-        textureIndex: 4
+        textureIndex: 3
       mixTransform: 0
       visible: 1
       colorRCurveSerialized:
@@ -1311,7 +1327,7 @@ MonoBehaviour:
           layer: 0
           isTrigger: 1
           tag: 
-        textureIndex: 3
+        textureIndex: 2
       - boneDataIndex: 5
         frame: 5
         userTriggerCallback: 0
@@ -1410,7 +1426,7 @@ MonoBehaviour:
           layer: 0
           isTrigger: 1
           tag: 
-        textureIndex: 3
+        textureIndex: 2
       mixTransform: 0
       visible: 1
       colorRCurveSerialized:
@@ -1563,7 +1579,7 @@ MonoBehaviour:
           layer: 0
           isTrigger: 1
           tag: 
-        textureIndex: 5
+        textureIndex: 4
       - boneDataIndex: 6
         frame: 5
         userTriggerCallback: 0
@@ -1662,7 +1678,7 @@ MonoBehaviour:
           layer: 0
           isTrigger: 1
           tag: 
-        textureIndex: 5
+        textureIndex: 4
       mixTransform: 0
       visible: 1
       colorRCurveSerialized:
@@ -1815,7 +1831,7 @@ MonoBehaviour:
           layer: 0
           isTrigger: 1
           tag: 
-        textureIndex: 7
+        textureIndex: 6
       - boneDataIndex: 7
         frame: 5
         userTriggerCallback: 0
@@ -1914,7 +1930,7 @@ MonoBehaviour:
           layer: 0
           isTrigger: 1
           tag: 
-        textureIndex: 7
+        textureIndex: 6
       mixTransform: 0
       visible: 1
       colorRCurveSerialized:
@@ -2067,7 +2083,7 @@ MonoBehaviour:
           layer: 0
           isTrigger: 1
           tag: 
-        textureIndex: 6
+        textureIndex: 5
       - boneDataIndex: 8
         frame: 5
         userTriggerCallback: 0
@@ -2166,7 +2182,7 @@ MonoBehaviour:
           layer: 0
           isTrigger: 1
           tag: 
-        textureIndex: 6
+        textureIndex: 5
       mixTransform: 0
       visible: 1
       colorRCurveSerialized:
@@ -2219,6 +2235,232 @@ MonoBehaviour:
           value: 0
           inTangent: 0
           outTangent: 0
+    - boneDataIndex: 9
+      keyframes:
+      - boneDataIndex: 9
+        frame: 0
+        userTriggerCallback: 0
+        userTriggerTag: 
+        useKeyframeType: 1
+        keyframeType: 0
+        localPosition:
+          val: {x: 0, y: 0}
+          inTangentX: 0
+          outTangentX: 0
+          tangentModeX: 0
+          inTangentY: 0
+          outTangentY: 0
+          tangentModeY: 0
+          useX: 0
+          useY: 0
+        localPosition3:
+          val: {x: 0, y: 0, z: 0}
+          inTangentX: 0
+          outTangentX: 0
+          tangentModeX: 0
+          inTangentY: 0
+          outTangentY: 0
+          tangentModeY: 0
+          inTangentZ: 0
+          outTangentZ: 0
+          tangentModeZ: 0
+          useX: 1
+          useY: 1
+          useZ: 1
+        localRotation:
+          val: 0
+          inTangent: 0
+          outTangent: 0
+          tangentMode: 0
+          use: 1
+        localScale3:
+          val: {x: 1, y: 1, z: 1}
+          inTangentX: 0
+          outTangentX: 0
+          tangentModeX: 0
+          inTangentY: 0
+          outTangentY: 0
+          tangentModeY: 0
+          inTangentZ: 0
+          outTangentZ: 0
+          tangentModeZ: 0
+          useX: 1
+          useY: 1
+          useZ: 1
+        imageScale:
+          val: {x: 1, y: 1}
+          inTangentX: 0
+          outTangentX: 0
+          tangentModeX: 0
+          inTangentY: 0
+          outTangentY: 0
+          tangentModeY: 0
+          useX: 1
+          useY: 1
+        color:
+          val: {r: 1, g: 1, b: 1, a: 1}
+          inTangentR: 0
+          outTangentR: 0
+          tangentModeR: 0
+          inTangentG: 0
+          outTangentG: 0
+          tangentModeG: 0
+          inTangentB: 0
+          outTangentB: 0
+          tangentModeB: 0
+          inTangentA: 0
+          outTangentA: 0
+          tangentModeA: 0
+          use: 1
+          blendWeight: 0
+          inTangentBlendWeight: 0
+          outTangentBlendWeight: 0
+          tangentModeBlendWeight: 0
+        useAtlas: 1
+        atlas: {fileID: 0}
+        useTextureGUID: 1
+        textureGUID: 
+        usePivotOffset: 1
+        pivotOffset: {x: 0, y: 0}
+        useDefaultPivot: 1
+        useDepth: 1
+        depth: 0
+        useCollider: 1
+        collider:
+          type: 0
+          center: {x: 0, y: 0, z: 0}
+          boxSize: {x: 0, y: 0, z: 0}
+          sphereRadius: 0
+          useAnimationLayer: 1
+          layer: 0
+          isTrigger: 1
+          tag: 
+        textureIndex: -1
+      mixTransform: 0
+      visible: 1
+      colorRCurveSerialized:
+        keyframes: []
+      colorGCurveSerialized:
+        keyframes: []
+      colorBCurveSerialized:
+        keyframes: []
+      colorACurveSerialized:
+        keyframes: []
+      colorBlendWeightCurveSerialized:
+        keyframes: []
+    - boneDataIndex: 10
+      keyframes:
+      - boneDataIndex: 10
+        frame: 0
+        userTriggerCallback: 0
+        userTriggerTag: 
+        useKeyframeType: 1
+        keyframeType: 0
+        localPosition:
+          val: {x: 0, y: 0}
+          inTangentX: 0
+          outTangentX: 0
+          tangentModeX: 0
+          inTangentY: 0
+          outTangentY: 0
+          tangentModeY: 0
+          useX: 0
+          useY: 0
+        localPosition3:
+          val: {x: 0, y: 0, z: 0}
+          inTangentX: 0
+          outTangentX: 0
+          tangentModeX: 0
+          inTangentY: 0
+          outTangentY: 0
+          tangentModeY: 0
+          inTangentZ: 0
+          outTangentZ: 0
+          tangentModeZ: 0
+          useX: 1
+          useY: 1
+          useZ: 1
+        localRotation:
+          val: 0
+          inTangent: 0
+          outTangent: 0
+          tangentMode: 0
+          use: 1
+        localScale3:
+          val: {x: 1, y: 1, z: 1}
+          inTangentX: 0
+          outTangentX: 0
+          tangentModeX: 0
+          inTangentY: 0
+          outTangentY: 0
+          tangentModeY: 0
+          inTangentZ: 0
+          outTangentZ: 0
+          tangentModeZ: 0
+          useX: 1
+          useY: 1
+          useZ: 1
+        imageScale:
+          val: {x: 1, y: 1}
+          inTangentX: 0
+          outTangentX: 0
+          tangentModeX: 0
+          inTangentY: 0
+          outTangentY: 0
+          tangentModeY: 0
+          useX: 1
+          useY: 1
+        color:
+          val: {r: 1, g: 1, b: 1, a: 1}
+          inTangentR: 0
+          outTangentR: 0
+          tangentModeR: 0
+          inTangentG: 0
+          outTangentG: 0
+          tangentModeG: 0
+          inTangentB: 0
+          outTangentB: 0
+          tangentModeB: 0
+          inTangentA: 0
+          outTangentA: 0
+          tangentModeA: 0
+          use: 1
+          blendWeight: 0
+          inTangentBlendWeight: 0
+          outTangentBlendWeight: 0
+          tangentModeBlendWeight: 0
+        useAtlas: 1
+        atlas: {fileID: 0}
+        useTextureGUID: 1
+        textureGUID: 
+        usePivotOffset: 1
+        pivotOffset: {x: 0, y: 0}
+        useDefaultPivot: 1
+        useDepth: 1
+        depth: 0
+        useCollider: 1
+        collider:
+          type: 0
+          center: {x: 0, y: 0, z: 0}
+          boxSize: {x: 0, y: 0, z: 0}
+          sphereRadius: 0
+          useAnimationLayer: 1
+          layer: 0
+          isTrigger: 1
+          tag: 
+        textureIndex: -1
+      mixTransform: 0
+      visible: 1
+      colorRCurveSerialized:
+        keyframes: []
+      colorGCurveSerialized:
+        keyframes: []
+      colorBCurveSerialized:
+        keyframes: []
+      colorACurveSerialized:
+        keyframes: []
+      colorBlendWeightCurveSerialized:
+        keyframes: []
     fps: 5
     maxFrame: 5
     wrapMode: 2
@@ -2361,7 +2603,7 @@ MonoBehaviour:
           useX: 0
           useY: 0
         localPosition3:
-          val: {x: 0, y: -2.70270133, z: 0}
+          val: {x: 0, y: 0, z: 0}
           inTangentX: 0
           outTangentX: 0
           tangentModeX: 0
@@ -2442,7 +2684,7 @@ MonoBehaviour:
           layer: 0
           isTrigger: 0
           tag: 
-        textureIndex: 8
+        textureIndex: 7
       - boneDataIndex: 1
         frame: 10
         userTriggerCallback: 0
@@ -2541,7 +2783,7 @@ MonoBehaviour:
           layer: 0
           isTrigger: 0
           tag: 
-        textureIndex: 8
+        textureIndex: 7
       - boneDataIndex: 1
         frame: 15
         userTriggerCallback: 0
@@ -2640,7 +2882,7 @@ MonoBehaviour:
           layer: 0
           isTrigger: 0
           tag: 
-        textureIndex: 8
+        textureIndex: 7
       - boneDataIndex: 1
         frame: 20
         userTriggerCallback: 0
@@ -2739,7 +2981,7 @@ MonoBehaviour:
           layer: 0
           isTrigger: 0
           tag: 
-        textureIndex: 8
+        textureIndex: 7
       - boneDataIndex: 1
         frame: 25
         userTriggerCallback: 0
@@ -2838,7 +3080,7 @@ MonoBehaviour:
           layer: 0
           isTrigger: 0
           tag: 
-        textureIndex: 8
+        textureIndex: 7
       mixTransform: 0
       visible: 1
       colorRCurveSerialized:
@@ -2991,7 +3233,7 @@ MonoBehaviour:
           layer: 0
           isTrigger: 1
           tag: 
-        textureIndex: 1
+        textureIndex: 0
       - boneDataIndex: 2
         frame: 5
         userTriggerCallback: 0
@@ -3090,7 +3332,7 @@ MonoBehaviour:
           layer: 0
           isTrigger: 1
           tag: 
-        textureIndex: 1
+        textureIndex: 0
       - boneDataIndex: 2
         frame: 15
         userTriggerCallback: 0
@@ -3189,7 +3431,7 @@ MonoBehaviour:
           layer: 0
           isTrigger: 1
           tag: 
-        textureIndex: 1
+        textureIndex: 0
       - boneDataIndex: 2
         frame: 25
         userTriggerCallback: 0
@@ -3288,7 +3530,7 @@ MonoBehaviour:
           layer: 0
           isTrigger: 1
           tag: 
-        textureIndex: 1
+        textureIndex: 0
       mixTransform: 0
       visible: 1
       colorRCurveSerialized:
@@ -3481,7 +3723,7 @@ MonoBehaviour:
           layer: 0
           isTrigger: 1
           tag: 
-        textureIndex: 2
+        textureIndex: 1
       - boneDataIndex: 3
         frame: 5
         userTriggerCallback: 0
@@ -3580,7 +3822,7 @@ MonoBehaviour:
           layer: 0
           isTrigger: 1
           tag: 
-        textureIndex: 2
+        textureIndex: 1
       - boneDataIndex: 3
         frame: 15
         userTriggerCallback: 0
@@ -3679,7 +3921,7 @@ MonoBehaviour:
           layer: 0
           isTrigger: 1
           tag: 
-        textureIndex: 2
+        textureIndex: 1
       - boneDataIndex: 3
         frame: 25
         userTriggerCallback: 0
@@ -3778,7 +4020,7 @@ MonoBehaviour:
           layer: 0
           isTrigger: 1
           tag: 
-        textureIndex: 2
+        textureIndex: 1
       mixTransform: 0
       visible: 1
       colorRCurveSerialized:
@@ -3971,7 +4213,7 @@ MonoBehaviour:
           layer: 0
           isTrigger: 1
           tag: 
-        textureIndex: 4
+        textureIndex: 3
       - boneDataIndex: 4
         frame: 5
         userTriggerCallback: 0
@@ -4070,7 +4312,7 @@ MonoBehaviour:
           layer: 0
           isTrigger: 1
           tag: 
-        textureIndex: 4
+        textureIndex: 3
       - boneDataIndex: 4
         frame: 15
         userTriggerCallback: 0
@@ -4169,7 +4411,7 @@ MonoBehaviour:
           layer: 0
           isTrigger: 1
           tag: 
-        textureIndex: 4
+        textureIndex: 3
       - boneDataIndex: 4
         frame: 25
         userTriggerCallback: 0
@@ -4268,7 +4510,7 @@ MonoBehaviour:
           layer: 0
           isTrigger: 1
           tag: 
-        textureIndex: 4
+        textureIndex: 3
       mixTransform: 0
       visible: 1
       colorRCurveSerialized:
@@ -4461,7 +4703,7 @@ MonoBehaviour:
           layer: 0
           isTrigger: 1
           tag: 
-        textureIndex: 3
+        textureIndex: 2
       - boneDataIndex: 5
         frame: 5
         userTriggerCallback: 0
@@ -4560,7 +4802,7 @@ MonoBehaviour:
           layer: 0
           isTrigger: 1
           tag: 
-        textureIndex: 3
+        textureIndex: 2
       - boneDataIndex: 5
         frame: 15
         userTriggerCallback: 0
@@ -4659,7 +4901,7 @@ MonoBehaviour:
           layer: 0
           isTrigger: 1
           tag: 
-        textureIndex: 3
+        textureIndex: 2
       - boneDataIndex: 5
         frame: 25
         userTriggerCallback: 0
@@ -4758,7 +5000,7 @@ MonoBehaviour:
           layer: 0
           isTrigger: 1
           tag: 
-        textureIndex: 3
+        textureIndex: 2
       mixTransform: 0
       visible: 1
       colorRCurveSerialized:
@@ -4951,7 +5193,7 @@ MonoBehaviour:
           layer: 0
           isTrigger: 1
           tag: 
-        textureIndex: 5
+        textureIndex: 4
       - boneDataIndex: 6
         frame: 10
         userTriggerCallback: 0
@@ -5050,7 +5292,7 @@ MonoBehaviour:
           layer: 0
           isTrigger: 1
           tag: 
-        textureIndex: 5
+        textureIndex: 4
       - boneDataIndex: 6
         frame: 25
         userTriggerCallback: 0
@@ -5149,7 +5391,7 @@ MonoBehaviour:
           layer: 0
           isTrigger: 1
           tag: 
-        textureIndex: 5
+        textureIndex: 4
       mixTransform: 0
       visible: 1
       colorRCurveSerialized:
@@ -5322,7 +5564,7 @@ MonoBehaviour:
           layer: 0
           isTrigger: 1
           tag: 
-        textureIndex: 7
+        textureIndex: 6
       - boneDataIndex: 7
         frame: 25
         userTriggerCallback: 0
@@ -5421,7 +5663,7 @@ MonoBehaviour:
           layer: 0
           isTrigger: 1
           tag: 
-        textureIndex: 7
+        textureIndex: 6
       mixTransform: 0
       visible: 1
       colorRCurveSerialized:
@@ -5574,7 +5816,7 @@ MonoBehaviour:
           layer: 0
           isTrigger: 1
           tag: 
-        textureIndex: 6
+        textureIndex: 5
       - boneDataIndex: 8
         frame: 25
         userTriggerCallback: 0
@@ -5673,7 +5915,7 @@ MonoBehaviour:
           layer: 0
           isTrigger: 1
           tag: 
-        textureIndex: 6
+        textureIndex: 5
       mixTransform: 0
       visible: 1
       colorRCurveSerialized:
@@ -5726,6 +5968,351 @@ MonoBehaviour:
           value: 0
           inTangent: 0
           outTangent: 0
+    - boneDataIndex: 9
+      keyframes:
+      - boneDataIndex: 9
+        frame: 0
+        userTriggerCallback: 0
+        userTriggerTag: 
+        useKeyframeType: 1
+        keyframeType: 0
+        localPosition:
+          val: {x: 0, y: 0}
+          inTangentX: 0
+          outTangentX: 0
+          tangentModeX: 0
+          inTangentY: 0
+          outTangentY: 0
+          tangentModeY: 0
+          useX: 0
+          useY: 0
+        localPosition3:
+          val: {x: 0, y: 0, z: 0}
+          inTangentX: 0
+          outTangentX: 0
+          tangentModeX: 0
+          inTangentY: 0
+          outTangentY: 0
+          tangentModeY: 0
+          inTangentZ: 0
+          outTangentZ: 0
+          tangentModeZ: 0
+          useX: 1
+          useY: 1
+          useZ: 1
+        localRotation:
+          val: 0
+          inTangent: 0
+          outTangent: 0
+          tangentMode: 0
+          use: 1
+        localScale3:
+          val: {x: 1, y: 1, z: 1}
+          inTangentX: 0
+          outTangentX: 0
+          tangentModeX: 0
+          inTangentY: 0
+          outTangentY: 0
+          tangentModeY: 0
+          inTangentZ: 0
+          outTangentZ: 0
+          tangentModeZ: 0
+          useX: 1
+          useY: 1
+          useZ: 1
+        imageScale:
+          val: {x: 1, y: .381818354}
+          inTangentX: 0
+          outTangentX: 0
+          tangentModeX: 0
+          inTangentY: 0
+          outTangentY: 0
+          tangentModeY: 0
+          useX: 1
+          useY: 1
+        color:
+          val: {r: 1, g: 1, b: 1, a: 1}
+          inTangentR: 0
+          outTangentR: 0
+          tangentModeR: 0
+          inTangentG: 0
+          outTangentG: 0
+          tangentModeG: 0
+          inTangentB: 0
+          outTangentB: 0
+          tangentModeB: 0
+          inTangentA: 0
+          outTangentA: 0
+          tangentModeA: 0
+          use: 1
+          blendWeight: 0
+          inTangentBlendWeight: 0
+          outTangentBlendWeight: 0
+          tangentModeBlendWeight: 0
+        useAtlas: 1
+        atlas: {fileID: 0}
+        useTextureGUID: 1
+        textureGUID: 
+        usePivotOffset: 1
+        pivotOffset: {x: 0, y: 0}
+        useDefaultPivot: 1
+        useDepth: 1
+        depth: 0
+        useCollider: 1
+        collider:
+          type: 0
+          center: {x: 0, y: 0, z: 0}
+          boxSize: {x: 0, y: 0, z: 0}
+          sphereRadius: 0
+          useAnimationLayer: 1
+          layer: 0
+          isTrigger: 1
+          tag: 
+        textureIndex: -1
+      - boneDataIndex: 9
+        frame: 5
+        userTriggerCallback: 0
+        userTriggerTag: 
+        useKeyframeType: 0
+        keyframeType: 0
+        localPosition:
+          val: {x: 0, y: 0}
+          inTangentX: 0
+          outTangentX: 0
+          tangentModeX: 0
+          inTangentY: 0
+          outTangentY: 0
+          tangentModeY: 0
+          useX: 0
+          useY: 0
+        localPosition3:
+          val: {x: -160.382584, y: 0, z: 0}
+          inTangentX: 0
+          outTangentX: 0
+          tangentModeX: 0
+          inTangentY: 0
+          outTangentY: 0
+          tangentModeY: 0
+          inTangentZ: 0
+          outTangentZ: 0
+          tangentModeZ: 0
+          useX: 1
+          useY: 0
+          useZ: 0
+        localRotation:
+          val: 0
+          inTangent: 0
+          outTangent: 0
+          tangentMode: 0
+          use: 0
+        localScale3:
+          val: {x: 1, y: 1, z: 1}
+          inTangentX: 0
+          outTangentX: 0
+          tangentModeX: 0
+          inTangentY: 0
+          outTangentY: 0
+          tangentModeY: 0
+          inTangentZ: 0
+          outTangentZ: 0
+          tangentModeZ: 0
+          useX: 0
+          useY: 0
+          useZ: 0
+        imageScale:
+          val: {x: 1, y: 1}
+          inTangentX: 0
+          outTangentX: 0
+          tangentModeX: 0
+          inTangentY: 0
+          outTangentY: 0
+          tangentModeY: 0
+          useX: 0
+          useY: 0
+        color:
+          val: {r: 1, g: 1, b: 1, a: 1}
+          inTangentR: 0
+          outTangentR: 0
+          tangentModeR: 0
+          inTangentG: 0
+          outTangentG: 0
+          tangentModeG: 0
+          inTangentB: 0
+          outTangentB: 0
+          tangentModeB: 0
+          inTangentA: 0
+          outTangentA: 0
+          tangentModeA: 0
+          use: 0
+          blendWeight: 0
+          inTangentBlendWeight: 0
+          outTangentBlendWeight: 0
+          tangentModeBlendWeight: 0
+        useAtlas: 0
+        atlas: {fileID: 0}
+        useTextureGUID: 0
+        textureGUID: 
+        usePivotOffset: 0
+        pivotOffset: {x: 0, y: 0}
+        useDefaultPivot: 1
+        useDepth: 0
+        depth: 0
+        useCollider: 0
+        collider:
+          type: 0
+          center: {x: 0, y: 0, z: 0}
+          boxSize: {x: 0, y: 0, z: 0}
+          sphereRadius: 0
+          useAnimationLayer: 1
+          layer: 0
+          isTrigger: 1
+          tag: 
+        textureIndex: -1
+      mixTransform: 0
+      visible: 1
+      colorRCurveSerialized:
+        keyframes: []
+      colorGCurveSerialized:
+        keyframes: []
+      colorBCurveSerialized:
+        keyframes: []
+      colorACurveSerialized:
+        keyframes: []
+      colorBlendWeightCurveSerialized:
+        keyframes: []
+    - boneDataIndex: 10
+      keyframes:
+      - boneDataIndex: 10
+        frame: 0
+        userTriggerCallback: 0
+        userTriggerTag: 
+        useKeyframeType: 1
+        keyframeType: 1
+        localPosition:
+          val: {x: 0, y: 0}
+          inTangentX: 0
+          outTangentX: 0
+          tangentModeX: 0
+          inTangentY: 0
+          outTangentY: 0
+          tangentModeY: 0
+          useX: 0
+          useY: 0
+        localPosition3:
+          val: {x: 0, y: 0, z: 0}
+          inTangentX: 0
+          outTangentX: 0
+          tangentModeX: 0
+          inTangentY: 0
+          outTangentY: 0
+          tangentModeY: 0
+          inTangentZ: 0
+          outTangentZ: 0
+          tangentModeZ: 0
+          useX: 1
+          useY: 1
+          useZ: 1
+        localRotation:
+          val: 0
+          inTangent: 0
+          outTangent: 0
+          tangentMode: 0
+          use: 1
+        localScale3:
+          val: {x: 1, y: 1, z: 1}
+          inTangentX: 0
+          outTangentX: 0
+          tangentModeX: 0
+          inTangentY: 0
+          outTangentY: 0
+          tangentModeY: 0
+          inTangentZ: 0
+          outTangentZ: 0
+          tangentModeZ: 0
+          useX: 1
+          useY: 1
+          useZ: 1
+        imageScale:
+          val: {x: 1, y: 1}
+          inTangentX: 0
+          outTangentX: 0
+          tangentModeX: 0
+          inTangentY: 0
+          outTangentY: 0
+          tangentModeY: 0
+          useX: 1
+          useY: 1
+        color:
+          val: {r: 1, g: 1, b: 1, a: 1}
+          inTangentR: 0
+          outTangentR: 0
+          tangentModeR: 0
+          inTangentG: 0
+          outTangentG: 0
+          tangentModeG: 0
+          inTangentB: 0
+          outTangentB: 0
+          tangentModeB: 0
+          inTangentA: 0
+          outTangentA: 0
+          tangentModeA: 0
+          use: 1
+          blendWeight: 0
+          inTangentBlendWeight: 0
+          outTangentBlendWeight: 0
+          tangentModeBlendWeight: 0
+        useAtlas: 1
+        atlas: {fileID: 11400000, guid: 189174f2b5de6b1458c6660db8ed7038, type: 2}
+        useTextureGUID: 1
+        textureGUID: f9f8d4afeeb92eb479f2283a8de46d90
+        usePivotOffset: 1
+        pivotOffset: {x: 0, y: 0}
+        useDefaultPivot: 1
+        useDepth: 1
+        depth: 0
+        useCollider: 1
+        collider:
+          type: 0
+          center: {x: 0, y: 0, z: 0}
+          boxSize: {x: 0, y: 0, z: 0}
+          sphereRadius: 0
+          useAnimationLayer: 1
+          layer: 0
+          isTrigger: 1
+          tag: 
+        textureIndex: 24
+      mixTransform: 0
+      visible: 1
+      colorRCurveSerialized:
+        keyframes:
+        - time: 0
+          value: 1
+          inTangent: 0
+          outTangent: 0
+      colorGCurveSerialized:
+        keyframes:
+        - time: 0
+          value: 1
+          inTangent: 0
+          outTangent: 0
+      colorBCurveSerialized:
+        keyframes:
+        - time: 0
+          value: 1
+          inTangent: 0
+          outTangent: 0
+      colorACurveSerialized:
+        keyframes:
+        - time: 0
+          value: 1
+          inTangent: 0
+          outTangent: 0
+      colorBlendWeightCurveSerialized:
+        keyframes:
+        - time: 0
+          value: 0
+          inTangent: 0
+          outTangent: 0
     fps: 60
     maxFrame: 25
     wrapMode: 1
@@ -5733,7 +6320,7 @@ MonoBehaviour:
     blendMode: 0
     layer: 0
     blendWeight: 1
-    animationNeedsTwoKeyframes: 0
+    animationNeedsTwoKeyframes: 1
   boneTransformPaths:
   - Root
   - Root/Body
@@ -5744,6 +6331,8 @@ MonoBehaviour:
   - Root/Body/Bottom Lip
   - Root/Body/Mouth
   - Root/Body/Tongue
+  - Root/Body/Tongue/Bone
+  - Root/Bone 2
   spriteTransformPaths:
   - Root/Root_Sprite
   - Root/Body/Body_Sprite
@@ -5754,6 +6343,8 @@ MonoBehaviour:
   - Root/Body/Bottom Lip/Bottom Lip_Sprite
   - Root/Body/Mouth/Mouth_Sprite
   - Root/Body/Tongue/Tongue_Sprite
+  - Root/Body/Tongue/Bone/Bone_Sprite
+  - Root/Bone 2/Bone 2_Sprite
   meshColor: {r: 1, g: 1, b: 1, a: 1}
   importScale: .00400000019
   dataVersion: 8
@@ -5823,7 +6414,7 @@ MonoBehaviour:
         upperRight: {x: 777, y: 748, z: 0}
         uv:
           serializedVersion: 2
-          x: .381835938
+          x: 0
           y: 0
           width: .379394531
           height: .73046875
@@ -5849,7 +6440,7 @@ MonoBehaviour:
         originalMaterialIndex: 0
         originalUV:
           serializedVersion: 2
-          x: .381835938
+          x: 0
           y: 0
           width: .379394531
           height: .73046875
@@ -5865,7 +6456,7 @@ MonoBehaviour:
         uv:
           serializedVersion: 2
           x: 0
-          y: .736328125
+          y: .730957031
           width: .0673828125
           height: .109375
         localPosition: {x: 0, y: 0, z: 0}
@@ -5891,7 +6482,7 @@ MonoBehaviour:
         originalUV:
           serializedVersion: 2
           x: 0
-          y: .736328125
+          y: .730957031
           width: .0673828125
           height: .109375
         originalPivotOffset: {x: -.150000006, y: .425749391}
@@ -5906,7 +6497,7 @@ MonoBehaviour:
         uv:
           serializedVersion: 2
           x: .0676269531
-          y: .846191406
+          y: .840820312
           width: .0673828125
           height: .106445312
         localPosition: {x: 0, y: 0, z: 0}
@@ -5932,7 +6523,7 @@ MonoBehaviour:
         originalUV:
           serializedVersion: 2
           x: .0676269531
-          y: .846191406
+          y: .840820312
           width: .0673828125
           height: .106445312
         originalPivotOffset: {x: -.198214293, y: .423902392}
@@ -5947,7 +6538,7 @@ MonoBehaviour:
         uv:
           serializedVersion: 2
           x: .0676269531
-          y: .736328125
+          y: .730957031
           width: .0673828125
           height: .109375
         localPosition: {x: 0, y: 0, z: 0}
@@ -5973,7 +6564,7 @@ MonoBehaviour:
         originalUV:
           serializedVersion: 2
           x: .0676269531
-          y: .736328125
+          y: .730957031
           width: .0673828125
           height: .109375
         originalPivotOffset: {x: -.155357152, y: .425749391}
@@ -5988,7 +6579,7 @@ MonoBehaviour:
         uv:
           serializedVersion: 2
           x: 0
-          y: .846191406
+          y: .840820312
           width: .0673828125
           height: .109375
         localPosition: {x: 0, y: 0, z: 0}
@@ -6014,7 +6605,7 @@ MonoBehaviour:
         originalUV:
           serializedVersion: 2
           x: 0
-          y: .846191406
+          y: .840820312
           width: .0673828125
           height: .109375
         originalPivotOffset: {x: -.176785722, y: .419148624}
@@ -6028,8 +6619,8 @@ MonoBehaviour:
         upperRight: {x: 88.8107147, y: 3.36250329, z: 0}
         uv:
           serializedVersion: 2
-          x: .135253906
-          y: .736328125
+          x: .323730469
+          y: .885253906
           width: .0395507812
           height: .0537109375
         localPosition: {x: 0, y: 0, z: 0}
@@ -6054,8 +6645,8 @@ MonoBehaviour:
         originalMaterialIndex: 0
         originalUV:
           serializedVersion: 2
-          x: .135253906
-          y: .736328125
+          x: .323730469
+          y: .885253906
           width: .0395507812
           height: .0537109375
         originalPivotOffset: {x: -.0482142828, y: .469431788}
@@ -6069,8 +6660,8 @@ MonoBehaviour:
         upperRight: {x: 84.5999985, y: 22.8124981, z: 0}
         uv:
           serializedVersion: 2
-          x: .135253906
-          y: .790527344
+          x: .379638672
+          y: .730957031
           width: .0307617188
           height: .0634765625
         localPosition: {x: 0, y: 0, z: 0}
@@ -6095,8 +6686,8 @@ MonoBehaviour:
         originalMaterialIndex: 0
         originalUV:
           serializedVersion: 2
-          x: .135253906
-          y: .790527344
+          x: .379638672
+          y: .730957031
           width: .0307617188
           height: .0634765625
         originalPivotOffset: {x: -.171428576, y: .324519247}
@@ -6111,7 +6702,7 @@ MonoBehaviour:
         uv:
           serializedVersion: 2
           x: 0
-          y: .956054688
+          y: .982421875
           width: .00732421875
           height: .0122070312
         localPosition: {x: 0, y: 0, z: 0}
@@ -6137,10 +6728,90 @@ MonoBehaviour:
         originalUV:
           serializedVersion: 2
           x: 0
-          y: .956054688
+          y: .982421875
           width: .00732421875
           height: .0122070312
         originalPivotOffset: {x: -.224999994, y: .331071436}
+      - userTriggerTag: 
+        boneNodeIndex: 9
+        triggerEventTypes: 0100000006000000
+        pivotOffset: {x: 0, y: 0}
+        upperLeft: {x: 0, y: 0, z: 0}
+        bottomLeft: {x: 0, y: 0, z: 0}
+        bottomRight: {x: 0, y: 0, z: 0}
+        upperRight: {x: 0, y: 0, z: 0}
+        uv:
+          serializedVersion: 2
+          x: 0
+          y: 0
+          width: 0
+          height: 0
+        localPosition: {x: 0, y: 0, z: 0}
+        localRotation: 0
+        localScale: {x: 0, y: 0}
+        atlas: {fileID: 0}
+        textureGUID: 
+        materialIndex: 0
+        depth: 0
+        collider:
+          type: 0
+          center: {x: 0, y: 0, z: 0}
+          boxSize: {x: 0, y: 0, z: 0}
+          sphereRadius: 0
+          useAnimationLayer: 1
+          layer: 0
+          isTrigger: 1
+          tag: 
+        originalAtlas: {fileID: 0}
+        originalTextureGUID: 
+        originalMaterialIndex: 0
+        originalUV:
+          serializedVersion: 2
+          x: 0
+          y: 0
+          width: 0
+          height: 0
+        originalPivotOffset: {x: 0, y: 0}
+      - userTriggerTag: 
+        boneNodeIndex: 10
+        triggerEventTypes: 0100000006000000
+        pivotOffset: {x: 0, y: 0}
+        upperLeft: {x: 0, y: 0, z: 0}
+        bottomLeft: {x: 0, y: 0, z: 0}
+        bottomRight: {x: 0, y: 0, z: 0}
+        upperRight: {x: 0, y: 0, z: 0}
+        uv:
+          serializedVersion: 2
+          x: 0
+          y: 0
+          width: 0
+          height: 0
+        localPosition: {x: 0, y: 0, z: 0}
+        localRotation: 0
+        localScale: {x: 0, y: 0}
+        atlas: {fileID: 0}
+        textureGUID: 
+        materialIndex: 0
+        depth: 0
+        collider:
+          type: 0
+          center: {x: 0, y: 0, z: 0}
+          boxSize: {x: 0, y: 0, z: 0}
+          sphereRadius: 0
+          useAnimationLayer: 1
+          layer: 0
+          isTrigger: 1
+          tag: 
+        originalAtlas: {fileID: 0}
+        originalTextureGUID: 
+        originalMaterialIndex: 0
+        originalUV:
+          serializedVersion: 2
+          x: 0
+          y: 0
+          width: 0
+          height: 0
+        originalPivotOffset: {x: 0, y: 0}
     - clipIndex: 0
       frame: 5
       triggerFrameBones:
@@ -6154,7 +6825,7 @@ MonoBehaviour:
         upperRight: {x: 777, y: 748, z: 0}
         uv:
           serializedVersion: 2
-          x: .381835938
+          x: 0
           y: 0
           width: .379394531
           height: .73046875
@@ -6180,7 +6851,7 @@ MonoBehaviour:
         originalMaterialIndex: 0
         originalUV:
           serializedVersion: 2
-          x: .381835938
+          x: 0
           y: 0
           width: .379394531
           height: .73046875
@@ -6196,7 +6867,7 @@ MonoBehaviour:
         uv:
           serializedVersion: 2
           x: 0
-          y: .736328125
+          y: .730957031
           width: .0673828125
           height: .109375
         localPosition: {x: 0, y: 0, z: 0}
@@ -6222,7 +6893,7 @@ MonoBehaviour:
         originalUV:
           serializedVersion: 2
           x: 0
-          y: .736328125
+          y: .730957031
           width: .0673828125
           height: .109375
         originalPivotOffset: {x: -.150000006, y: .425749391}
@@ -6237,7 +6908,7 @@ MonoBehaviour:
         uv:
           serializedVersion: 2
           x: .0676269531
-          y: .846191406
+          y: .840820312
           width: .0673828125
           height: .106445312
         localPosition: {x: 0, y: 0, z: 0}
@@ -6263,7 +6934,7 @@ MonoBehaviour:
         originalUV:
           serializedVersion: 2
           x: .0676269531
-          y: .846191406
+          y: .840820312
           width: .0673828125
           height: .106445312
         originalPivotOffset: {x: -.198214293, y: .423902392}
@@ -6278,7 +6949,7 @@ MonoBehaviour:
         uv:
           serializedVersion: 2
           x: .0676269531
-          y: .736328125
+          y: .730957031
           width: .0673828125
           height: .109375
         localPosition: {x: 0, y: 0, z: 0}
@@ -6304,7 +6975,7 @@ MonoBehaviour:
         originalUV:
           serializedVersion: 2
           x: .0676269531
-          y: .736328125
+          y: .730957031
           width: .0673828125
           height: .109375
         originalPivotOffset: {x: -.155357152, y: .425749391}
@@ -6319,7 +6990,7 @@ MonoBehaviour:
         uv:
           serializedVersion: 2
           x: 0
-          y: .846191406
+          y: .840820312
           width: .0673828125
           height: .109375
         localPosition: {x: 0, y: 0, z: 0}
@@ -6345,7 +7016,7 @@ MonoBehaviour:
         originalUV:
           serializedVersion: 2
           x: 0
-          y: .846191406
+          y: .840820312
           width: .0673828125
           height: .109375
         originalPivotOffset: {x: -.176785722, y: .419148624}
@@ -6359,8 +7030,8 @@ MonoBehaviour:
         upperRight: {x: 88.8107147, y: 3.36250329, z: 0}
         uv:
           serializedVersion: 2
-          x: .135253906
-          y: .736328125
+          x: .323730469
+          y: .885253906
           width: .0395507812
           height: .0537109375
         localPosition: {x: 0, y: 0, z: 0}
@@ -6385,8 +7056,8 @@ MonoBehaviour:
         originalMaterialIndex: 0
         originalUV:
           serializedVersion: 2
-          x: .135253906
-          y: .736328125
+          x: .323730469
+          y: .885253906
           width: .0395507812
           height: .0537109375
         originalPivotOffset: {x: -.0482142828, y: .469431788}
@@ -6400,8 +7071,8 @@ MonoBehaviour:
         upperRight: {x: 84.5999985, y: 22.8124981, z: 0}
         uv:
           serializedVersion: 2
-          x: .135253906
-          y: .790527344
+          x: .379638672
+          y: .730957031
           width: .0307617188
           height: .0634765625
         localPosition: {x: 0, y: 0, z: 0}
@@ -6426,8 +7097,8 @@ MonoBehaviour:
         originalMaterialIndex: 0
         originalUV:
           serializedVersion: 2
-          x: .135253906
-          y: .790527344
+          x: .379638672
+          y: .730957031
           width: .0307617188
           height: .0634765625
         originalPivotOffset: {x: -.171428576, y: .324519247}
@@ -6442,7 +7113,7 @@ MonoBehaviour:
         uv:
           serializedVersion: 2
           x: 0
-          y: .956054688
+          y: .982421875
           width: .00732421875
           height: .0122070312
         localPosition: {x: 0, y: 0, z: 0}
@@ -6468,7 +7139,7 @@ MonoBehaviour:
         originalUV:
           serializedVersion: 2
           x: 0
-          y: .956054688
+          y: .982421875
           width: .00732421875
           height: .0122070312
         originalPivotOffset: {x: -.224999994, y: .331071436}
@@ -6527,7 +7198,7 @@ MonoBehaviour:
         upperRight: {x: 777, y: 748, z: 0}
         uv:
           serializedVersion: 2
-          x: .381835938
+          x: 0
           y: 0
           width: .379394531
           height: .73046875
@@ -6553,7 +7224,7 @@ MonoBehaviour:
         originalMaterialIndex: 0
         originalUV:
           serializedVersion: 2
-          x: .381835938
+          x: 0
           y: 0
           width: .379394531
           height: .73046875
@@ -6569,7 +7240,7 @@ MonoBehaviour:
         uv:
           serializedVersion: 2
           x: 0
-          y: .736328125
+          y: .730957031
           width: .0673828125
           height: .109375
         localPosition: {x: 0, y: 0, z: 0}
@@ -6595,7 +7266,7 @@ MonoBehaviour:
         originalUV:
           serializedVersion: 2
           x: 0
-          y: .736328125
+          y: .730957031
           width: .0673828125
           height: .109375
         originalPivotOffset: {x: -.150000006, y: .425749391}
@@ -6610,7 +7281,7 @@ MonoBehaviour:
         uv:
           serializedVersion: 2
           x: .0676269531
-          y: .846191406
+          y: .840820312
           width: .0673828125
           height: .106445312
         localPosition: {x: 0, y: 0, z: 0}
@@ -6636,7 +7307,7 @@ MonoBehaviour:
         originalUV:
           serializedVersion: 2
           x: .0676269531
-          y: .846191406
+          y: .840820312
           width: .0673828125
           height: .106445312
         originalPivotOffset: {x: -.198214293, y: .423902392}
@@ -6651,7 +7322,7 @@ MonoBehaviour:
         uv:
           serializedVersion: 2
           x: .0676269531
-          y: .736328125
+          y: .730957031
           width: .0673828125
           height: .109375
         localPosition: {x: 0, y: 0, z: 0}
@@ -6677,7 +7348,7 @@ MonoBehaviour:
         originalUV:
           serializedVersion: 2
           x: .0676269531
-          y: .736328125
+          y: .730957031
           width: .0673828125
           height: .109375
         originalPivotOffset: {x: -.155357152, y: .425749391}
@@ -6692,7 +7363,7 @@ MonoBehaviour:
         uv:
           serializedVersion: 2
           x: 0
-          y: .846191406
+          y: .840820312
           width: .0673828125
           height: .109375
         localPosition: {x: 0, y: 0, z: 0}
@@ -6718,7 +7389,7 @@ MonoBehaviour:
         originalUV:
           serializedVersion: 2
           x: 0
-          y: .846191406
+          y: .840820312
           width: .0673828125
           height: .109375
         originalPivotOffset: {x: -.176785722, y: .419148624}
@@ -6732,8 +7403,8 @@ MonoBehaviour:
         upperRight: {x: 88.8107147, y: 3.36250329, z: 0}
         uv:
           serializedVersion: 2
-          x: .135253906
-          y: .736328125
+          x: .323730469
+          y: .885253906
           width: .0395507812
           height: .0537109375
         localPosition: {x: 0, y: 0, z: 0}
@@ -6758,8 +7429,8 @@ MonoBehaviour:
         originalMaterialIndex: 0
         originalUV:
           serializedVersion: 2
-          x: .135253906
-          y: .736328125
+          x: .323730469
+          y: .885253906
           width: .0395507812
           height: .0537109375
         originalPivotOffset: {x: -.0482142828, y: .469431788}
@@ -6773,8 +7444,8 @@ MonoBehaviour:
         upperRight: {x: 84.5999985, y: 22.8124981, z: 0}
         uv:
           serializedVersion: 2
-          x: .135253906
-          y: .790527344
+          x: .379638672
+          y: .730957031
           width: .0307617188
           height: .0634765625
         localPosition: {x: 0, y: 0, z: 0}
@@ -6799,8 +7470,8 @@ MonoBehaviour:
         originalMaterialIndex: 0
         originalUV:
           serializedVersion: 2
-          x: .135253906
-          y: .790527344
+          x: .379638672
+          y: .730957031
           width: .0307617188
           height: .0634765625
         originalPivotOffset: {x: -.171428576, y: .324519247}
@@ -6815,7 +7486,7 @@ MonoBehaviour:
         uv:
           serializedVersion: 2
           x: 0
-          y: .956054688
+          y: .982421875
           width: .00732421875
           height: .0122070312
         localPosition: {x: 0, y: 0, z: 0}
@@ -6841,10 +7512,91 @@ MonoBehaviour:
         originalUV:
           serializedVersion: 2
           x: 0
-          y: .956054688
+          y: .982421875
           width: .00732421875
           height: .0122070312
         originalPivotOffset: {x: -.224999994, y: .331071436}
+      - userTriggerTag: 
+        boneNodeIndex: 9
+        triggerEventTypes: 0100000006000000
+        pivotOffset: {x: 0, y: 0}
+        upperLeft: {x: 0, y: 0, z: 0}
+        bottomLeft: {x: 0, y: 0, z: 0}
+        bottomRight: {x: 0, y: 0, z: 0}
+        upperRight: {x: 0, y: 0, z: 0}
+        uv:
+          serializedVersion: 2
+          x: 0
+          y: 0
+          width: 0
+          height: 0
+        localPosition: {x: 0, y: 0, z: 0}
+        localRotation: 0
+        localScale: {x: 0, y: 0}
+        atlas: {fileID: 0}
+        textureGUID: 
+        materialIndex: 0
+        depth: 0
+        collider:
+          type: 0
+          center: {x: 0, y: 0, z: 0}
+          boxSize: {x: 0, y: 0, z: 0}
+          sphereRadius: 0
+          useAnimationLayer: 1
+          layer: 0
+          isTrigger: 1
+          tag: 
+        originalAtlas: {fileID: 0}
+        originalTextureGUID: 
+        originalMaterialIndex: 0
+        originalUV:
+          serializedVersion: 2
+          x: 0
+          y: 0
+          width: 0
+          height: 0
+        originalPivotOffset: {x: 0, y: 0}
+      - userTriggerTag: 
+        boneNodeIndex: 10
+        triggerEventTypes: 02000000040000000300000006000000
+        pivotOffset: {x: 0, y: 0}
+        upperLeft: {x: -66, y: 76, z: 0}
+        bottomLeft: {x: -66, y: -76, z: 0}
+        bottomRight: {x: 66, y: -76, z: 0}
+        upperRight: {x: 66, y: 76, z: 0}
+        uv:
+          serializedVersion: 2
+          x: .291259766
+          y: .822265625
+          width: .0322265625
+          height: .07421875
+        localPosition: {x: 0, y: 0, z: 0}
+        localRotation: 0
+        localScale: {x: 0, y: 0}
+        atlas: {fileID: 11400000, guid: 189174f2b5de6b1458c6660db8ed7038, type: 2}
+        textureGUID: f9f8d4afeeb92eb479f2283a8de46d90
+        materialIndex: 0
+        depth: 0
+        collider:
+          type: 0
+          center: {x: 0, y: 0, z: 0}
+          boxSize: {x: 0, y: 0, z: 0}
+          sphereRadius: 0
+          useAnimationLayer: 1
+          layer: 0
+          isTrigger: 1
+          tag: 
+        originalAtlas: {fileID: 11400000, guid: 189174f2b5de6b1458c6660db8ed7038,
+          type: 2}
+        originalTextureGUID: f9f8d4afeeb92eb479f2283a8de46d90
+        originalMaterialIndex: 0
+        originalUV:
+          serializedVersion: 2
+          x: .291259766
+          y: .822265625
+          width: .0322265625
+          height: .07421875
+        originalPivotOffset: {x: 0, y: 0}
     - clipIndex: 1
       frame: 5
       triggerFrameBones:
@@ -6859,7 +7611,7 @@ MonoBehaviour:
         uv:
           serializedVersion: 2
           x: 0
-          y: .736328125
+          y: .730957031
           width: .0673828125
           height: .109375
         localPosition: {x: 0, y: 0, z: 0}
@@ -6885,7 +7637,7 @@ MonoBehaviour:
         originalUV:
           serializedVersion: 2
           x: 0
-          y: .736328125
+          y: .730957031
           width: .0673828125
           height: .109375
         originalPivotOffset: {x: -.150000006, y: .425749391}
@@ -6900,7 +7652,7 @@ MonoBehaviour:
         uv:
           serializedVersion: 2
           x: .0676269531
-          y: .846191406
+          y: .840820312
           width: .0673828125
           height: .106445312
         localPosition: {x: 0, y: 0, z: 0}
@@ -6926,7 +7678,7 @@ MonoBehaviour:
         originalUV:
           serializedVersion: 2
           x: .0676269531
-          y: .846191406
+          y: .840820312
           width: .0673828125
           height: .106445312
         originalPivotOffset: {x: -.198214293, y: .423902392}
@@ -6941,7 +7693,7 @@ MonoBehaviour:
         uv:
           serializedVersion: 2
           x: .0676269531
-          y: .736328125
+          y: .730957031
           width: .0673828125
           height: .109375
         localPosition: {x: 0, y: 0, z: 0}
@@ -6967,7 +7719,7 @@ MonoBehaviour:
         originalUV:
           serializedVersion: 2
           x: .0676269531
-          y: .736328125
+          y: .730957031
           width: .0673828125
           height: .109375
         originalPivotOffset: {x: -.155357152, y: .425749391}
@@ -6982,7 +7734,7 @@ MonoBehaviour:
         uv:
           serializedVersion: 2
           x: 0
-          y: .846191406
+          y: .840820312
           width: .0673828125
           height: .109375
         localPosition: {x: 0, y: 0, z: 0}
@@ -7008,7 +7760,7 @@ MonoBehaviour:
         originalUV:
           serializedVersion: 2
           x: 0
-          y: .846191406
+          y: .840820312
           width: .0673828125
           height: .109375
         originalPivotOffset: {x: -.176785722, y: .419148624}
@@ -7065,8 +7817,8 @@ MonoBehaviour:
         upperRight: {x: 88.8107147, y: 3.36250329, z: 0}
         uv:
           serializedVersion: 2
-          x: .135253906
-          y: .736328125
+          x: .323730469
+          y: .885253906
           width: .0395507812
           height: .0537109375
         localPosition: {x: 0, y: 0, z: 0}
@@ -7091,8 +7843,8 @@ MonoBehaviour:
         originalMaterialIndex: 0
         originalUV:
           serializedVersion: 2
-          x: .135253906
-          y: .736328125
+          x: .323730469
+          y: .885253906
           width: .0395507812
           height: .0537109375
         originalPivotOffset: {x: -.0482142828, y: .469431788}
@@ -7150,7 +7902,7 @@ MonoBehaviour:
         uv:
           serializedVersion: 2
           x: 0
-          y: .736328125
+          y: .730957031
           width: .0673828125
           height: .109375
         localPosition: {x: 0, y: 0, z: 0}
@@ -7176,7 +7928,7 @@ MonoBehaviour:
         originalUV:
           serializedVersion: 2
           x: 0
-          y: .736328125
+          y: .730957031
           width: .0673828125
           height: .109375
         originalPivotOffset: {x: -.150000006, y: .425749391}
@@ -7191,7 +7943,7 @@ MonoBehaviour:
         uv:
           serializedVersion: 2
           x: .0676269531
-          y: .846191406
+          y: .840820312
           width: .0673828125
           height: .106445312
         localPosition: {x: 0, y: 0, z: 0}
@@ -7217,7 +7969,7 @@ MonoBehaviour:
         originalUV:
           serializedVersion: 2
           x: .0676269531
-          y: .846191406
+          y: .840820312
           width: .0673828125
           height: .106445312
         originalPivotOffset: {x: -.198214293, y: .423902392}
@@ -7232,7 +7984,7 @@ MonoBehaviour:
         uv:
           serializedVersion: 2
           x: .0676269531
-          y: .736328125
+          y: .730957031
           width: .0673828125
           height: .109375
         localPosition: {x: 0, y: 0, z: 0}
@@ -7258,7 +8010,7 @@ MonoBehaviour:
         originalUV:
           serializedVersion: 2
           x: .0676269531
-          y: .736328125
+          y: .730957031
           width: .0673828125
           height: .109375
         originalPivotOffset: {x: -.155357152, y: .425749391}
@@ -7273,7 +8025,7 @@ MonoBehaviour:
         uv:
           serializedVersion: 2
           x: 0
-          y: .846191406
+          y: .840820312
           width: .0673828125
           height: .109375
         localPosition: {x: 0, y: 0, z: 0}
@@ -7299,7 +8051,7 @@ MonoBehaviour:
         originalUV:
           serializedVersion: 2
           x: 0
-          y: .846191406
+          y: .840820312
           width: .0673828125
           height: .109375
         originalPivotOffset: {x: -.176785722, y: .419148624}
@@ -7359,7 +8111,7 @@ MonoBehaviour:
         upperRight: {x: 777, y: 748, z: 0}
         uv:
           serializedVersion: 2
-          x: .381835938
+          x: 0
           y: 0
           width: .379394531
           height: .73046875
@@ -7385,7 +8137,7 @@ MonoBehaviour:
         originalMaterialIndex: 0
         originalUV:
           serializedVersion: 2
-          x: .381835938
+          x: 0
           y: 0
           width: .379394531
           height: .73046875
@@ -7401,7 +8153,7 @@ MonoBehaviour:
         uv:
           serializedVersion: 2
           x: 0
-          y: .736328125
+          y: .730957031
           width: .0673828125
           height: .109375
         localPosition: {x: 0, y: 0, z: 0}
@@ -7427,7 +8179,7 @@ MonoBehaviour:
         originalUV:
           serializedVersion: 2
           x: 0
-          y: .736328125
+          y: .730957031
           width: .0673828125
           height: .109375
         originalPivotOffset: {x: -.150000006, y: .425749391}
@@ -7442,7 +8194,7 @@ MonoBehaviour:
         uv:
           serializedVersion: 2
           x: .0676269531
-          y: .846191406
+          y: .840820312
           width: .0673828125
           height: .106445312
         localPosition: {x: 0, y: 0, z: 0}
@@ -7468,7 +8220,7 @@ MonoBehaviour:
         originalUV:
           serializedVersion: 2
           x: .0676269531
-          y: .846191406
+          y: .840820312
           width: .0673828125
           height: .106445312
         originalPivotOffset: {x: -.198214293, y: .423902392}
@@ -7483,7 +8235,7 @@ MonoBehaviour:
         uv:
           serializedVersion: 2
           x: .0676269531
-          y: .736328125
+          y: .730957031
           width: .0673828125
           height: .109375
         localPosition: {x: 0, y: 0, z: 0}
@@ -7509,7 +8261,7 @@ MonoBehaviour:
         originalUV:
           serializedVersion: 2
           x: .0676269531
-          y: .736328125
+          y: .730957031
           width: .0673828125
           height: .109375
         originalPivotOffset: {x: -.155357152, y: .425749391}
@@ -7524,7 +8276,7 @@ MonoBehaviour:
         uv:
           serializedVersion: 2
           x: 0
-          y: .846191406
+          y: .840820312
           width: .0673828125
           height: .109375
         localPosition: {x: 0, y: 0, z: 0}
@@ -7550,7 +8302,7 @@ MonoBehaviour:
         originalUV:
           serializedVersion: 2
           x: 0
-          y: .846191406
+          y: .840820312
           width: .0673828125
           height: .109375
         originalPivotOffset: {x: -.176785722, y: .419148624}
@@ -7564,8 +8316,8 @@ MonoBehaviour:
         upperRight: {x: 88.8107147, y: 3.36250329, z: 0}
         uv:
           serializedVersion: 2
-          x: .135253906
-          y: .736328125
+          x: .323730469
+          y: .885253906
           width: .0395507812
           height: .0537109375
         localPosition: {x: 0, y: 0, z: 0}
@@ -7590,8 +8342,8 @@ MonoBehaviour:
         originalMaterialIndex: 0
         originalUV:
           serializedVersion: 2
-          x: .135253906
-          y: .736328125
+          x: .323730469
+          y: .885253906
           width: .0395507812
           height: .0537109375
         originalPivotOffset: {x: -.0482142828, y: .469431788}
@@ -7605,8 +8357,8 @@ MonoBehaviour:
         upperRight: {x: 84.5999985, y: 22.8124981, z: 0}
         uv:
           serializedVersion: 2
-          x: .135253906
-          y: .790527344
+          x: .379638672
+          y: .730957031
           width: .0307617188
           height: .0634765625
         localPosition: {x: 0, y: 0, z: 0}
@@ -7631,8 +8383,8 @@ MonoBehaviour:
         originalMaterialIndex: 0
         originalUV:
           serializedVersion: 2
-          x: .135253906
-          y: .790527344
+          x: .379638672
+          y: .730957031
           width: .0307617188
           height: .0634765625
         originalPivotOffset: {x: -.171428576, y: .324519247}
@@ -7647,7 +8399,7 @@ MonoBehaviour:
         uv:
           serializedVersion: 2
           x: 0
-          y: .956054688
+          y: .982421875
           width: .00732421875
           height: .0122070312
         localPosition: {x: 0, y: 0, z: 0}
@@ -7673,7 +8425,7 @@ MonoBehaviour:
         originalUV:
           serializedVersion: 2
           x: 0
-          y: .956054688
+          y: .982421875
           width: .00732421875
           height: .0122070312
         originalPivotOffset: {x: -.224999994, y: .331071436}
@@ -7731,7 +8483,7 @@ MonoBehaviour:
       upperRight: {x: 777, y: 748, z: 0}
       uv:
         serializedVersion: 2
-        x: .381835938
+        x: 0
         y: 0
         width: .379394531
         height: .73046875
@@ -7756,7 +8508,7 @@ MonoBehaviour:
       originalMaterialIndex: 0
       originalUV:
         serializedVersion: 2
-        x: .381835938
+        x: 0
         y: 0
         width: .379394531
         height: .73046875
@@ -7772,7 +8524,7 @@ MonoBehaviour:
       uv:
         serializedVersion: 2
         x: 0
-        y: .736328125
+        y: .730957031
         width: .0673828125
         height: .109375
       localPosition: {x: 0, y: 0, z: 0}
@@ -7797,7 +8549,7 @@ MonoBehaviour:
       originalUV:
         serializedVersion: 2
         x: 0
-        y: .736328125
+        y: .730957031
         width: .0673828125
         height: .109375
       originalPivotOffset: {x: -.150000006, y: .425749391}
@@ -7812,7 +8564,7 @@ MonoBehaviour:
       uv:
         serializedVersion: 2
         x: .0676269531
-        y: .846191406
+        y: .840820312
         width: .0673828125
         height: .106445312
       localPosition: {x: 0, y: 0, z: 0}
@@ -7837,7 +8589,7 @@ MonoBehaviour:
       originalUV:
         serializedVersion: 2
         x: .0676269531
-        y: .846191406
+        y: .840820312
         width: .0673828125
         height: .106445312
       originalPivotOffset: {x: -.198214293, y: .423902392}
@@ -7852,7 +8604,7 @@ MonoBehaviour:
       uv:
         serializedVersion: 2
         x: .0676269531
-        y: .736328125
+        y: .730957031
         width: .0673828125
         height: .109375
       localPosition: {x: 0, y: 0, z: 0}
@@ -7877,7 +8629,7 @@ MonoBehaviour:
       originalUV:
         serializedVersion: 2
         x: .0676269531
-        y: .736328125
+        y: .730957031
         width: .0673828125
         height: .109375
       originalPivotOffset: {x: -.155357152, y: .425749391}
@@ -7892,7 +8644,7 @@ MonoBehaviour:
       uv:
         serializedVersion: 2
         x: 0
-        y: .846191406
+        y: .840820312
         width: .0673828125
         height: .109375
       localPosition: {x: 0, y: 0, z: 0}
@@ -7917,7 +8669,7 @@ MonoBehaviour:
       originalUV:
         serializedVersion: 2
         x: 0
-        y: .846191406
+        y: .840820312
         width: .0673828125
         height: .109375
       originalPivotOffset: {x: -.176785722, y: .419148624}
@@ -7931,8 +8683,8 @@ MonoBehaviour:
       upperRight: {x: 88.8107147, y: 3.36250329, z: 0}
       uv:
         serializedVersion: 2
-        x: .135253906
-        y: .736328125
+        x: .323730469
+        y: .885253906
         width: .0395507812
         height: .0537109375
       localPosition: {x: 0, y: 0, z: 0}
@@ -7956,8 +8708,8 @@ MonoBehaviour:
       originalMaterialIndex: 0
       originalUV:
         serializedVersion: 2
-        x: .135253906
-        y: .736328125
+        x: .323730469
+        y: .885253906
         width: .0395507812
         height: .0537109375
       originalPivotOffset: {x: -.0482142828, y: .469431788}
@@ -7971,8 +8723,8 @@ MonoBehaviour:
       upperRight: {x: 84.5999985, y: 22.8124981, z: 0}
       uv:
         serializedVersion: 2
-        x: .135253906
-        y: .790527344
+        x: .379638672
+        y: .730957031
         width: .0307617188
         height: .0634765625
       localPosition: {x: 0, y: 0, z: 0}
@@ -7996,8 +8748,8 @@ MonoBehaviour:
       originalMaterialIndex: 0
       originalUV:
         serializedVersion: 2
-        x: .135253906
-        y: .790527344
+        x: .379638672
+        y: .730957031
         width: .0307617188
         height: .0634765625
       originalPivotOffset: {x: -.171428576, y: .324519247}
@@ -8012,7 +8764,7 @@ MonoBehaviour:
       uv:
         serializedVersion: 2
         x: 0
-        y: .956054688
+        y: .982421875
         width: .00732421875
         height: .0122070312
       localPosition: {x: 0, y: 0, z: 0}
@@ -8037,10 +8789,90 @@ MonoBehaviour:
       originalUV:
         serializedVersion: 2
         x: 0
-        y: .956054688
+        y: .982421875
         width: .00732421875
         height: .0122070312
       originalPivotOffset: {x: -.224999994, y: .331071436}
+    - userTriggerTag: 
+      boneNodeIndex: 9
+      triggerEventTypes: 0100000006000000
+      pivotOffset: {x: 0, y: 0}
+      upperLeft: {x: 0, y: 0, z: 0}
+      bottomLeft: {x: 0, y: 0, z: 0}
+      bottomRight: {x: 0, y: 0, z: 0}
+      upperRight: {x: 0, y: 0, z: 0}
+      uv:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 0
+        height: 0
+      localPosition: {x: 0, y: 0, z: 0}
+      localRotation: 0
+      localScale: {x: 0, y: 0}
+      atlas: {fileID: 0}
+      textureGUID: 
+      materialIndex: 0
+      depth: 0
+      collider:
+        type: 0
+        center: {x: 0, y: 0, z: 0}
+        boxSize: {x: 0, y: 0, z: 0}
+        sphereRadius: 0
+        useAnimationLayer: 1
+        layer: 0
+        isTrigger: 1
+        tag: 
+      originalAtlas: {fileID: 0}
+      originalTextureGUID: 
+      originalMaterialIndex: 0
+      originalUV:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 0
+        height: 0
+      originalPivotOffset: {x: 0, y: 0}
+    - userTriggerTag: 
+      boneNodeIndex: 10
+      triggerEventTypes: 0100000006000000
+      pivotOffset: {x: 0, y: 0}
+      upperLeft: {x: 0, y: 0, z: 0}
+      bottomLeft: {x: 0, y: 0, z: 0}
+      bottomRight: {x: 0, y: 0, z: 0}
+      upperRight: {x: 0, y: 0, z: 0}
+      uv:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 0
+        height: 0
+      localPosition: {x: 0, y: 0, z: 0}
+      localRotation: 0
+      localScale: {x: 0, y: 0}
+      atlas: {fileID: 0}
+      textureGUID: 
+      materialIndex: 0
+      depth: 0
+      collider:
+        type: 0
+        center: {x: 0, y: 0, z: 0}
+        boxSize: {x: 0, y: 0, z: 0}
+        sphereRadius: 0
+        useAnimationLayer: 1
+        layer: 0
+        isTrigger: 1
+        tag: 
+      originalAtlas: {fileID: 0}
+      originalTextureGUID: 
+      originalMaterialIndex: 0
+      originalUV:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 0
+        height: 0
+      originalPivotOffset: {x: 0, y: 0}
   - clipIndex: 0
     frame: 5
     triggerFrameBones:
@@ -8054,7 +8886,7 @@ MonoBehaviour:
       upperRight: {x: 777, y: 748, z: 0}
       uv:
         serializedVersion: 2
-        x: .381835938
+        x: 0
         y: 0
         width: .379394531
         height: .73046875
@@ -8079,7 +8911,7 @@ MonoBehaviour:
       originalMaterialIndex: 0
       originalUV:
         serializedVersion: 2
-        x: .381835938
+        x: 0
         y: 0
         width: .379394531
         height: .73046875
@@ -8095,7 +8927,7 @@ MonoBehaviour:
       uv:
         serializedVersion: 2
         x: 0
-        y: .736328125
+        y: .730957031
         width: .0673828125
         height: .109375
       localPosition: {x: 0, y: 0, z: 0}
@@ -8120,7 +8952,7 @@ MonoBehaviour:
       originalUV:
         serializedVersion: 2
         x: 0
-        y: .736328125
+        y: .730957031
         width: .0673828125
         height: .109375
       originalPivotOffset: {x: -.150000006, y: .425749391}
@@ -8135,7 +8967,7 @@ MonoBehaviour:
       uv:
         serializedVersion: 2
         x: .0676269531
-        y: .846191406
+        y: .840820312
         width: .0673828125
         height: .106445312
       localPosition: {x: 0, y: 0, z: 0}
@@ -8160,7 +8992,7 @@ MonoBehaviour:
       originalUV:
         serializedVersion: 2
         x: .0676269531
-        y: .846191406
+        y: .840820312
         width: .0673828125
         height: .106445312
       originalPivotOffset: {x: -.198214293, y: .423902392}
@@ -8175,7 +9007,7 @@ MonoBehaviour:
       uv:
         serializedVersion: 2
         x: .0676269531
-        y: .736328125
+        y: .730957031
         width: .0673828125
         height: .109375
       localPosition: {x: 0, y: 0, z: 0}
@@ -8200,7 +9032,7 @@ MonoBehaviour:
       originalUV:
         serializedVersion: 2
         x: .0676269531
-        y: .736328125
+        y: .730957031
         width: .0673828125
         height: .109375
       originalPivotOffset: {x: -.155357152, y: .425749391}
@@ -8215,7 +9047,7 @@ MonoBehaviour:
       uv:
         serializedVersion: 2
         x: 0
-        y: .846191406
+        y: .840820312
         width: .0673828125
         height: .109375
       localPosition: {x: 0, y: 0, z: 0}
@@ -8240,7 +9072,7 @@ MonoBehaviour:
       originalUV:
         serializedVersion: 2
         x: 0
-        y: .846191406
+        y: .840820312
         width: .0673828125
         height: .109375
       originalPivotOffset: {x: -.176785722, y: .419148624}
@@ -8254,8 +9086,8 @@ MonoBehaviour:
       upperRight: {x: 88.8107147, y: 3.36250329, z: 0}
       uv:
         serializedVersion: 2
-        x: .135253906
-        y: .736328125
+        x: .323730469
+        y: .885253906
         width: .0395507812
         height: .0537109375
       localPosition: {x: 0, y: 0, z: 0}
@@ -8279,8 +9111,8 @@ MonoBehaviour:
       originalMaterialIndex: 0
       originalUV:
         serializedVersion: 2
-        x: .135253906
-        y: .736328125
+        x: .323730469
+        y: .885253906
         width: .0395507812
         height: .0537109375
       originalPivotOffset: {x: -.0482142828, y: .469431788}
@@ -8294,8 +9126,8 @@ MonoBehaviour:
       upperRight: {x: 84.5999985, y: 22.8124981, z: 0}
       uv:
         serializedVersion: 2
-        x: .135253906
-        y: .790527344
+        x: .379638672
+        y: .730957031
         width: .0307617188
         height: .0634765625
       localPosition: {x: 0, y: 0, z: 0}
@@ -8319,8 +9151,8 @@ MonoBehaviour:
       originalMaterialIndex: 0
       originalUV:
         serializedVersion: 2
-        x: .135253906
-        y: .790527344
+        x: .379638672
+        y: .730957031
         width: .0307617188
         height: .0634765625
       originalPivotOffset: {x: -.171428576, y: .324519247}
@@ -8335,7 +9167,7 @@ MonoBehaviour:
       uv:
         serializedVersion: 2
         x: 0
-        y: .956054688
+        y: .982421875
         width: .00732421875
         height: .0122070312
       localPosition: {x: 0, y: 0, z: 0}
@@ -8360,7 +9192,7 @@ MonoBehaviour:
       originalUV:
         serializedVersion: 2
         x: 0
-        y: .956054688
+        y: .982421875
         width: .00732421875
         height: .0122070312
       originalPivotOffset: {x: -.224999994, y: .331071436}
@@ -8417,7 +9249,7 @@ MonoBehaviour:
       upperRight: {x: 777, y: 748, z: 0}
       uv:
         serializedVersion: 2
-        x: .381835938
+        x: 0
         y: 0
         width: .379394531
         height: .73046875
@@ -8442,7 +9274,7 @@ MonoBehaviour:
       originalMaterialIndex: 0
       originalUV:
         serializedVersion: 2
-        x: .381835938
+        x: 0
         y: 0
         width: .379394531
         height: .73046875
@@ -8458,7 +9290,7 @@ MonoBehaviour:
       uv:
         serializedVersion: 2
         x: 0
-        y: .736328125
+        y: .730957031
         width: .0673828125
         height: .109375
       localPosition: {x: 0, y: 0, z: 0}
@@ -8483,7 +9315,7 @@ MonoBehaviour:
       originalUV:
         serializedVersion: 2
         x: 0
-        y: .736328125
+        y: .730957031
         width: .0673828125
         height: .109375
       originalPivotOffset: {x: -.150000006, y: .425749391}
@@ -8498,7 +9330,7 @@ MonoBehaviour:
       uv:
         serializedVersion: 2
         x: .0676269531
-        y: .846191406
+        y: .840820312
         width: .0673828125
         height: .106445312
       localPosition: {x: 0, y: 0, z: 0}
@@ -8523,7 +9355,7 @@ MonoBehaviour:
       originalUV:
         serializedVersion: 2
         x: .0676269531
-        y: .846191406
+        y: .840820312
         width: .0673828125
         height: .106445312
       originalPivotOffset: {x: -.198214293, y: .423902392}
@@ -8538,7 +9370,7 @@ MonoBehaviour:
       uv:
         serializedVersion: 2
         x: .0676269531
-        y: .736328125
+        y: .730957031
         width: .0673828125
         height: .109375
       localPosition: {x: 0, y: 0, z: 0}
@@ -8563,7 +9395,7 @@ MonoBehaviour:
       originalUV:
         serializedVersion: 2
         x: .0676269531
-        y: .736328125
+        y: .730957031
         width: .0673828125
         height: .109375
       originalPivotOffset: {x: -.155357152, y: .425749391}
@@ -8578,7 +9410,7 @@ MonoBehaviour:
       uv:
         serializedVersion: 2
         x: 0
-        y: .846191406
+        y: .840820312
         width: .0673828125
         height: .109375
       localPosition: {x: 0, y: 0, z: 0}
@@ -8603,7 +9435,7 @@ MonoBehaviour:
       originalUV:
         serializedVersion: 2
         x: 0
-        y: .846191406
+        y: .840820312
         width: .0673828125
         height: .109375
       originalPivotOffset: {x: -.176785722, y: .419148624}
@@ -8617,8 +9449,8 @@ MonoBehaviour:
       upperRight: {x: 88.8107147, y: 3.36250329, z: 0}
       uv:
         serializedVersion: 2
-        x: .135253906
-        y: .736328125
+        x: .323730469
+        y: .885253906
         width: .0395507812
         height: .0537109375
       localPosition: {x: 0, y: 0, z: 0}
@@ -8642,8 +9474,8 @@ MonoBehaviour:
       originalMaterialIndex: 0
       originalUV:
         serializedVersion: 2
-        x: .135253906
-        y: .736328125
+        x: .323730469
+        y: .885253906
         width: .0395507812
         height: .0537109375
       originalPivotOffset: {x: -.0482142828, y: .469431788}
@@ -8657,8 +9489,8 @@ MonoBehaviour:
       upperRight: {x: 84.5999985, y: 22.8124981, z: 0}
       uv:
         serializedVersion: 2
-        x: .135253906
-        y: .790527344
+        x: .379638672
+        y: .730957031
         width: .0307617188
         height: .0634765625
       localPosition: {x: 0, y: 0, z: 0}
@@ -8682,8 +9514,8 @@ MonoBehaviour:
       originalMaterialIndex: 0
       originalUV:
         serializedVersion: 2
-        x: .135253906
-        y: .790527344
+        x: .379638672
+        y: .730957031
         width: .0307617188
         height: .0634765625
       originalPivotOffset: {x: -.171428576, y: .324519247}
@@ -8698,7 +9530,7 @@ MonoBehaviour:
       uv:
         serializedVersion: 2
         x: 0
-        y: .956054688
+        y: .982421875
         width: .00732421875
         height: .0122070312
       localPosition: {x: 0, y: 0, z: 0}
@@ -8723,10 +9555,90 @@ MonoBehaviour:
       originalUV:
         serializedVersion: 2
         x: 0
-        y: .956054688
+        y: .982421875
         width: .00732421875
         height: .0122070312
       originalPivotOffset: {x: -.224999994, y: .331071436}
+    - userTriggerTag: 
+      boneNodeIndex: 9
+      triggerEventTypes: 0100000006000000
+      pivotOffset: {x: 0, y: 0}
+      upperLeft: {x: 0, y: 0, z: 0}
+      bottomLeft: {x: 0, y: 0, z: 0}
+      bottomRight: {x: 0, y: 0, z: 0}
+      upperRight: {x: 0, y: 0, z: 0}
+      uv:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 0
+        height: 0
+      localPosition: {x: 0, y: 0, z: 0}
+      localRotation: 0
+      localScale: {x: 0, y: 0}
+      atlas: {fileID: 0}
+      textureGUID: 
+      materialIndex: 0
+      depth: 0
+      collider:
+        type: 0
+        center: {x: 0, y: 0, z: 0}
+        boxSize: {x: 0, y: 0, z: 0}
+        sphereRadius: 0
+        useAnimationLayer: 1
+        layer: 0
+        isTrigger: 1
+        tag: 
+      originalAtlas: {fileID: 0}
+      originalTextureGUID: 
+      originalMaterialIndex: 0
+      originalUV:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 0
+        height: 0
+      originalPivotOffset: {x: 0, y: 0}
+    - userTriggerTag: 
+      boneNodeIndex: 10
+      triggerEventTypes: 02000000040000000300000006000000
+      pivotOffset: {x: 0, y: 0}
+      upperLeft: {x: -66, y: 76, z: 0}
+      bottomLeft: {x: -66, y: -76, z: 0}
+      bottomRight: {x: 66, y: -76, z: 0}
+      upperRight: {x: 66, y: 76, z: 0}
+      uv:
+        serializedVersion: 2
+        x: .291259766
+        y: .822265625
+        width: .0322265625
+        height: .07421875
+      localPosition: {x: 0, y: 0, z: 0}
+      localRotation: 0
+      localScale: {x: 0, y: 0}
+      atlas: {fileID: 11400000, guid: 189174f2b5de6b1458c6660db8ed7038, type: 2}
+      textureGUID: f9f8d4afeeb92eb479f2283a8de46d90
+      materialIndex: 0
+      depth: 0
+      collider:
+        type: 0
+        center: {x: 0, y: 0, z: 0}
+        boxSize: {x: 0, y: 0, z: 0}
+        sphereRadius: 0
+        useAnimationLayer: 1
+        layer: 0
+        isTrigger: 1
+        tag: 
+      originalAtlas: {fileID: 11400000, guid: 189174f2b5de6b1458c6660db8ed7038, type: 2}
+      originalTextureGUID: f9f8d4afeeb92eb479f2283a8de46d90
+      originalMaterialIndex: 0
+      originalUV:
+        serializedVersion: 2
+        x: .291259766
+        y: .822265625
+        width: .0322265625
+        height: .07421875
+      originalPivotOffset: {x: 0, y: 0}
   - clipIndex: 1
     frame: 5
     triggerFrameBones:
@@ -8741,7 +9653,7 @@ MonoBehaviour:
       uv:
         serializedVersion: 2
         x: 0
-        y: .736328125
+        y: .730957031
         width: .0673828125
         height: .109375
       localPosition: {x: 0, y: 0, z: 0}
@@ -8766,7 +9678,7 @@ MonoBehaviour:
       originalUV:
         serializedVersion: 2
         x: 0
-        y: .736328125
+        y: .730957031
         width: .0673828125
         height: .109375
       originalPivotOffset: {x: -.150000006, y: .425749391}
@@ -8781,7 +9693,7 @@ MonoBehaviour:
       uv:
         serializedVersion: 2
         x: .0676269531
-        y: .846191406
+        y: .840820312
         width: .0673828125
         height: .106445312
       localPosition: {x: 0, y: 0, z: 0}
@@ -8806,7 +9718,7 @@ MonoBehaviour:
       originalUV:
         serializedVersion: 2
         x: .0676269531
-        y: .846191406
+        y: .840820312
         width: .0673828125
         height: .106445312
       originalPivotOffset: {x: -.198214293, y: .423902392}
@@ -8821,7 +9733,7 @@ MonoBehaviour:
       uv:
         serializedVersion: 2
         x: .0676269531
-        y: .736328125
+        y: .730957031
         width: .0673828125
         height: .109375
       localPosition: {x: 0, y: 0, z: 0}
@@ -8846,7 +9758,7 @@ MonoBehaviour:
       originalUV:
         serializedVersion: 2
         x: .0676269531
-        y: .736328125
+        y: .730957031
         width: .0673828125
         height: .109375
       originalPivotOffset: {x: -.155357152, y: .425749391}
@@ -8861,7 +9773,7 @@ MonoBehaviour:
       uv:
         serializedVersion: 2
         x: 0
-        y: .846191406
+        y: .840820312
         width: .0673828125
         height: .109375
       localPosition: {x: 0, y: 0, z: 0}
@@ -8886,7 +9798,7 @@ MonoBehaviour:
       originalUV:
         serializedVersion: 2
         x: 0
-        y: .846191406
+        y: .840820312
         width: .0673828125
         height: .109375
       originalPivotOffset: {x: -.176785722, y: .419148624}
@@ -8943,8 +9855,8 @@ MonoBehaviour:
       upperRight: {x: 88.8107147, y: 3.36250329, z: 0}
       uv:
         serializedVersion: 2
-        x: .135253906
-        y: .736328125
+        x: .323730469
+        y: .885253906
         width: .0395507812
         height: .0537109375
       localPosition: {x: 0, y: 0, z: 0}
@@ -8968,8 +9880,8 @@ MonoBehaviour:
       originalMaterialIndex: 0
       originalUV:
         serializedVersion: 2
-        x: .135253906
-        y: .736328125
+        x: .323730469
+        y: .885253906
         width: .0395507812
         height: .0537109375
       originalPivotOffset: {x: -.0482142828, y: .469431788}
@@ -9027,7 +9939,7 @@ MonoBehaviour:
       uv:
         serializedVersion: 2
         x: 0
-        y: .736328125
+        y: .730957031
         width: .0673828125
         height: .109375
       localPosition: {x: 0, y: 0, z: 0}
@@ -9052,7 +9964,7 @@ MonoBehaviour:
       originalUV:
         serializedVersion: 2
         x: 0
-        y: .736328125
+        y: .730957031
         width: .0673828125
         height: .109375
       originalPivotOffset: {x: -.150000006, y: .425749391}
@@ -9067,7 +9979,7 @@ MonoBehaviour:
       uv:
         serializedVersion: 2
         x: .0676269531
-        y: .846191406
+        y: .840820312
         width: .0673828125
         height: .106445312
       localPosition: {x: 0, y: 0, z: 0}
@@ -9092,7 +10004,7 @@ MonoBehaviour:
       originalUV:
         serializedVersion: 2
         x: .0676269531
-        y: .846191406
+        y: .840820312
         width: .0673828125
         height: .106445312
       originalPivotOffset: {x: -.198214293, y: .423902392}
@@ -9107,7 +10019,7 @@ MonoBehaviour:
       uv:
         serializedVersion: 2
         x: .0676269531
-        y: .736328125
+        y: .730957031
         width: .0673828125
         height: .109375
       localPosition: {x: 0, y: 0, z: 0}
@@ -9132,7 +10044,7 @@ MonoBehaviour:
       originalUV:
         serializedVersion: 2
         x: .0676269531
-        y: .736328125
+        y: .730957031
         width: .0673828125
         height: .109375
       originalPivotOffset: {x: -.155357152, y: .425749391}
@@ -9147,7 +10059,7 @@ MonoBehaviour:
       uv:
         serializedVersion: 2
         x: 0
-        y: .846191406
+        y: .840820312
         width: .0673828125
         height: .109375
       localPosition: {x: 0, y: 0, z: 0}
@@ -9172,7 +10084,7 @@ MonoBehaviour:
       originalUV:
         serializedVersion: 2
         x: 0
-        y: .846191406
+        y: .840820312
         width: .0673828125
         height: .109375
       originalPivotOffset: {x: -.176785722, y: .419148624}
@@ -9232,7 +10144,7 @@ MonoBehaviour:
       upperRight: {x: 777, y: 748, z: 0}
       uv:
         serializedVersion: 2
-        x: .381835938
+        x: 0
         y: 0
         width: .379394531
         height: .73046875
@@ -9257,7 +10169,7 @@ MonoBehaviour:
       originalMaterialIndex: 0
       originalUV:
         serializedVersion: 2
-        x: .381835938
+        x: 0
         y: 0
         width: .379394531
         height: .73046875
@@ -9273,7 +10185,7 @@ MonoBehaviour:
       uv:
         serializedVersion: 2
         x: 0
-        y: .736328125
+        y: .730957031
         width: .0673828125
         height: .109375
       localPosition: {x: 0, y: 0, z: 0}
@@ -9298,7 +10210,7 @@ MonoBehaviour:
       originalUV:
         serializedVersion: 2
         x: 0
-        y: .736328125
+        y: .730957031
         width: .0673828125
         height: .109375
       originalPivotOffset: {x: -.150000006, y: .425749391}
@@ -9313,7 +10225,7 @@ MonoBehaviour:
       uv:
         serializedVersion: 2
         x: .0676269531
-        y: .846191406
+        y: .840820312
         width: .0673828125
         height: .106445312
       localPosition: {x: 0, y: 0, z: 0}
@@ -9338,7 +10250,7 @@ MonoBehaviour:
       originalUV:
         serializedVersion: 2
         x: .0676269531
-        y: .846191406
+        y: .840820312
         width: .0673828125
         height: .106445312
       originalPivotOffset: {x: -.198214293, y: .423902392}
@@ -9353,7 +10265,7 @@ MonoBehaviour:
       uv:
         serializedVersion: 2
         x: .0676269531
-        y: .736328125
+        y: .730957031
         width: .0673828125
         height: .109375
       localPosition: {x: 0, y: 0, z: 0}
@@ -9378,7 +10290,7 @@ MonoBehaviour:
       originalUV:
         serializedVersion: 2
         x: .0676269531
-        y: .736328125
+        y: .730957031
         width: .0673828125
         height: .109375
       originalPivotOffset: {x: -.155357152, y: .425749391}
@@ -9393,7 +10305,7 @@ MonoBehaviour:
       uv:
         serializedVersion: 2
         x: 0
-        y: .846191406
+        y: .840820312
         width: .0673828125
         height: .109375
       localPosition: {x: 0, y: 0, z: 0}
@@ -9418,7 +10330,7 @@ MonoBehaviour:
       originalUV:
         serializedVersion: 2
         x: 0
-        y: .846191406
+        y: .840820312
         width: .0673828125
         height: .109375
       originalPivotOffset: {x: -.176785722, y: .419148624}
@@ -9432,8 +10344,8 @@ MonoBehaviour:
       upperRight: {x: 88.8107147, y: 3.36250329, z: 0}
       uv:
         serializedVersion: 2
-        x: .135253906
-        y: .736328125
+        x: .323730469
+        y: .885253906
         width: .0395507812
         height: .0537109375
       localPosition: {x: 0, y: 0, z: 0}
@@ -9457,8 +10369,8 @@ MonoBehaviour:
       originalMaterialIndex: 0
       originalUV:
         serializedVersion: 2
-        x: .135253906
-        y: .736328125
+        x: .323730469
+        y: .885253906
         width: .0395507812
         height: .0537109375
       originalPivotOffset: {x: -.0482142828, y: .469431788}
@@ -9472,8 +10384,8 @@ MonoBehaviour:
       upperRight: {x: 84.5999985, y: 22.8124981, z: 0}
       uv:
         serializedVersion: 2
-        x: .135253906
-        y: .790527344
+        x: .379638672
+        y: .730957031
         width: .0307617188
         height: .0634765625
       localPosition: {x: 0, y: 0, z: 0}
@@ -9497,8 +10409,8 @@ MonoBehaviour:
       originalMaterialIndex: 0
       originalUV:
         serializedVersion: 2
-        x: .135253906
-        y: .790527344
+        x: .379638672
+        y: .730957031
         width: .0307617188
         height: .0634765625
       originalPivotOffset: {x: -.171428576, y: .324519247}
@@ -9513,7 +10425,7 @@ MonoBehaviour:
       uv:
         serializedVersion: 2
         x: 0
-        y: .956054688
+        y: .982421875
         width: .00732421875
         height: .0122070312
       localPosition: {x: 0, y: 0, z: 0}
@@ -9538,7 +10450,7 @@ MonoBehaviour:
       originalUV:
         serializedVersion: 2
         x: 0
-        y: .956054688
+        y: .982421875
         width: .00732421875
         height: .0122070312
       originalPivotOffset: {x: -.224999994, y: .331071436}
@@ -9579,44 +10491,68 @@ MonoBehaviour:
   - {x: -8.25, y: -20.7767868, z: 0}
   - {x: 21.75, y: -20.7767868, z: 0}
   - {x: 21.75, y: 4.22321415, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
   uvs:
   - {x: 0, y: 0}
   - {x: 0, y: 0}
   - {x: 0, y: 0}
   - {x: 0, y: 0}
-  - {x: .381835938, y: .73046875}
-  - {x: .381835938, y: 0}
-  - {x: .761230469, y: 0}
-  - {x: .761230469, y: .73046875}
-  - {x: 0, y: .845703125}
-  - {x: 0, y: .736328125}
-  - {x: .0673828125, y: .736328125}
-  - {x: .0673828125, y: .845703125}
-  - {x: .0676269531, y: .952636719}
-  - {x: .0676269531, y: .846191406}
-  - {x: .135009766, y: .846191406}
-  - {x: .135009766, y: .952636719}
-  - {x: .0676269531, y: .845703125}
-  - {x: .0676269531, y: .736328125}
-  - {x: .135009766, y: .736328125}
-  - {x: .135009766, y: .845703125}
-  - {x: 0, y: .955566406}
-  - {x: 0, y: .846191406}
-  - {x: .0673828125, y: .846191406}
-  - {x: .0673828125, y: .955566406}
-  - {x: .135253906, y: .790039062}
-  - {x: .135253906, y: .736328125}
-  - {x: .174804688, y: .736328125}
-  - {x: .174804688, y: .790039062}
-  - {x: .135253906, y: .854003906}
-  - {x: .135253906, y: .790527344}
-  - {x: .166015625, y: .790527344}
-  - {x: .166015625, y: .854003906}
-  - {x: 0, y: .968261719}
-  - {x: 0, y: .956054688}
-  - {x: .00732421875, y: .956054688}
-  - {x: .00732421875, y: .968261719}
+  - {x: 0, y: .73046875}
+  - {x: 0, y: 0}
+  - {x: .379394531, y: 0}
+  - {x: .379394531, y: .73046875}
+  - {x: 0, y: .840332031}
+  - {x: 0, y: .730957031}
+  - {x: .0673828125, y: .730957031}
+  - {x: .0673828125, y: .840332031}
+  - {x: .0676269531, y: .947265625}
+  - {x: .0676269531, y: .840820312}
+  - {x: .135009766, y: .840820312}
+  - {x: .135009766, y: .947265625}
+  - {x: .0676269531, y: .840332031}
+  - {x: .0676269531, y: .730957031}
+  - {x: .135009766, y: .730957031}
+  - {x: .135009766, y: .840332031}
+  - {x: 0, y: .950195312}
+  - {x: 0, y: .840820312}
+  - {x: .0673828125, y: .840820312}
+  - {x: .0673828125, y: .950195312}
+  - {x: .323730469, y: .938964844}
+  - {x: .323730469, y: .885253906}
+  - {x: .36328125, y: .885253906}
+  - {x: .36328125, y: .938964844}
+  - {x: .379638672, y: .794433594}
+  - {x: .379638672, y: .730957031}
+  - {x: .410400391, y: .730957031}
+  - {x: .410400391, y: .794433594}
+  - {x: 0, y: .994628906}
+  - {x: 0, y: .982421875}
+  - {x: .00732421875, y: .982421875}
+  - {x: .00732421875, y: .994628906}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
   colors:
+  - {r: 1, g: 1, b: 1, a: 1}
+  - {r: 1, g: 1, b: 1, a: 1}
+  - {r: 1, g: 1, b: 1, a: 1}
+  - {r: 1, g: 1, b: 1, a: 1}
+  - {r: 1, g: 1, b: 1, a: 1}
+  - {r: 1, g: 1, b: 1, a: 1}
+  - {r: 1, g: 1, b: 1, a: 1}
+  - {r: 1, g: 1, b: 1, a: 1}
   - {r: 1, g: 1, b: 1, a: 1}
   - {r: 1, g: 1, b: 1, a: 1}
   - {r: 1, g: 1, b: 1, a: 1}
@@ -9690,7 +10626,79 @@ MonoBehaviour:
   - {x: 0, y: 0, z: -1}
   - {x: 0, y: 0, z: -1}
   - {x: 0, y: 0, z: -1}
+  - {x: 0, y: 0, z: -1}
+  - {x: 0, y: 0, z: -1}
+  - {x: 0, y: 0, z: -1}
+  - {x: 0, y: 0, z: -1}
+  - {x: 0, y: 0, z: -1}
+  - {x: 0, y: 0, z: -1}
+  - {x: 0, y: 0, z: -1}
+  - {x: 0, y: 0, z: -1}
   bindPoses:
+  - e00: 1
+    e01: 0
+    e02: 0
+    e03: 0
+    e10: 0
+    e11: 1
+    e12: 0
+    e13: 0
+    e20: 0
+    e21: 0
+    e22: 1
+    e23: 0
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 1
+  - e00: 1
+    e01: 0
+    e02: 0
+    e03: 0
+    e10: 0
+    e11: 1
+    e12: 0
+    e13: 0
+    e20: 0
+    e21: 0
+    e22: 1
+    e23: 0
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 1
+  - e00: 1
+    e01: 0
+    e02: 0
+    e03: 0
+    e10: 0
+    e11: 1
+    e12: 0
+    e13: 0
+    e20: 0
+    e21: 0
+    e22: 1
+    e23: 0
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 1
+  - e00: 1
+    e01: 0
+    e02: 0
+    e03: 0
+    e10: 0
+    e11: 1
+    e12: 0
+    e13: 0
+    e20: 0
+    e21: 0
+    e22: 1
+    e23: 0
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 1
   - e00: 1
     e01: 0
     e02: 0

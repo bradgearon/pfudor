@@ -155,17 +155,17 @@ PlayerSettings:
   spritePackerPolicy: DefaultPackerPolicy
   scriptingDefineSymbols: {}
   metroPackageName: PFUDOR
-  metroPackageLogo: 
+  metroPackageLogo: Assets/fluffle/50x50fluffle_0000_Body.png
   metroPackageVersion: 1.0.0.0
-  metroCertificatePath: 
-  metroCertificatePassword: 
-  metroCertificateSubject: 
-  metroCertificateIssuer: 
-  metroCertificateNotAfter: 0000000000000000
-  metroApplicationDescription: _2D v3
-  metroTileLogo: 
-  metroTileWideLogo: 
-  metroTileSmallLogo: 
+  metroCertificatePath: Assets/MetroTestCertificate.pfx
+  metroCertificatePassword: "E@\x19\x1F\x10\x18\x19\x05Y"
+  metroCertificateSubject: Brad Gearon
+  metroCertificateIssuer: Brad Gearon
+  metroCertificateNotAfter: 003a401a9f3bd001
+  metroApplicationDescription: PFUDOR
+  metroTileLogo: Assets/fluffle/150x150fluffle_0000_Body.png
+  metroTileWideLogo: Assets/fluffle/310x150fluffle_0000_Body.png
+  metroTileSmallLogo: Assets/fluffle/30x30fluffle_0000_Body.png
   metroTileShortName: PFUDOR
   metroCommandLineArgsFile: 
   metroTileShowName: 1
