@@ -7,14 +7,16 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{79C9F64F-452E-C55C-13FC-3F443897C745}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <AssemblyName>Assembly-Boo-Editor</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{E75E65B0-76B8-4121-92DA-342541B55AB5};{06C3D72F-0EBA-46A2-AFEE-5197E65B1782}</ProjectTypeGuids>
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Full v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -81,10 +83,6 @@
     <ProjectReference Include="UnityVS.unity-pufdor.UnityScript.Plugins.unityproj">
       <Project>{B72D4435-3939-3F8E-1219-A35F53C15C96}</Project>
       <Name>UnityVS.unity-pufdor.UnityScript.Plugins</Name>
-    </ProjectReference>
-    <ProjectReference Include="UnityVS.unity-pufdor.CSharp.csproj">
-      <Project>{CE687D9E-A4E5-942A-6036-AB1ACB393B1C}</Project>
-      <Name>UnityVS.unity-pufdor.CSharp</Name>
     </ProjectReference>
     <ProjectReference Include="UnityVS.unity-pufdor.CSharp.Editor.Plugins.csproj">
       <Project>{AA4C9945-2587-A64F-2A00-737F972E750F}</Project>

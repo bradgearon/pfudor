@@ -65,8 +65,8 @@ public class PlayerControl : MonoBehaviour
                 }
                 else
                 {
-                    uniAnimation.PlayQueued("jump-uni", QueueMode.PlayNow);
-                    uniAnimation.PlayQueued("wobble", QueueMode.CompleteOthers);
+                    uniAnimation.Stop("Wobble");
+                    uniAnimation.PlayQueued("Jump-Uni", QueueMode.PlayNow);
                 }
                 jumpForceRemain = jumpForce;
                 jump = false;
@@ -86,7 +86,12 @@ public class PlayerControl : MonoBehaviour
         if (!controller.collisionState.below)
         {
             vSpeed += gravity * Time.deltaTime;
-        }
+
+        }    
+        if (vSpeed < 0f)
+            {
+                uniAnimation.Blend("Wobble");
+            }
         controller.move(new Vector3(xSpeed, vSpeed));
     }
 
