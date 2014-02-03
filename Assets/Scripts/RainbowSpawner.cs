@@ -27,9 +27,6 @@ public class RainbowSpawner : MonoBehaviour
 
     void Start()
     {
-        // Set the random seed so it's not the same each game.
-        Random.seed = System.Guid.NewGuid().GetHashCode();
-
         // Start the Spawn coroutine.
         StartCoroutine("Spawn");
     }
@@ -82,7 +79,7 @@ public class RainbowSpawner : MonoBehaviour
         // Create a random y coordinate for the prop.
         float posY = Random.Range(screenMin.y, screenMax.y);
 
-        Debug.Log(posY);
+        //Debug.Log(posY);
 
         // Set the position the prop should spawn at.
         Vector3 spawnPos = new Vector3(posX, posY, transform.position.z);

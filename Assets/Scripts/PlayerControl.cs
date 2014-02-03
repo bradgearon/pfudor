@@ -7,7 +7,7 @@ public class PlayerControl : MonoBehaviour
     public bool jump = false;
     public int maxJump;
 
-    private Animation uniAnimation;
+    private Animator mecanim;
     private BoneAnimation anim;
     private Uni2DAnimationPlayer ap;
     private CharacterController2D controller;
@@ -21,6 +21,12 @@ public class PlayerControl : MonoBehaviour
     private float jumpForceRemain;
     private ScoreManager scoreManager;
     private bool isSM;
+    private bool grounded;
+
+    void Start()
+    {
+
+    }
 
     void Awake()
     {
@@ -32,7 +38,7 @@ public class PlayerControl : MonoBehaviour
         isSM = anim != null;
         if (!isSM)
         {
-            uniAnimation = GetComponentInChildren<Animation>();
+            mecanim = GetComponentInChildren<Animator>();
         }
         controller = GetComponent<CharacterController2D>();
         var fingerDownDetector = gameObject.AddComponent<FingerDownDetector>();
@@ -53,6 +59,7 @@ public class PlayerControl : MonoBehaviour
             xSpeed = delta.x;
         }
 
+        mecanim.SetBool("jump", jump);
         if (jumpLeft > 0)
         {
             jump = Input.GetButtonDown("Jump") || jump;
@@ -65,11 +72,10 @@ public class PlayerControl : MonoBehaviour
                 }
                 else
                 {
-                    uniAnimation.Stop("Wobble");
-                    uniAnimation.PlayQueued("Jump-Uni", QueueMode.PlayNow);
+                    Debug.Log("jumpup");
                 }
                 jumpForceRemain = jumpForce;
-                jump = false;
+                inJump = true;
             }
         }
         var vSpeed = 0f;
@@ -86,19 +92,30 @@ public class PlayerControl : MonoBehaviour
         if (!controller.collisionState.below)
         {
             vSpeed += gravity * Time.deltaTime;
+        }
 
-        }    
-        if (vSpeed < 0f)
-            {
-                uniAnimation.Blend("Wobble");
-            }
+        if (controller.isGrounded)
+        {
+            mecanim.SetBool("grounded", true);
+        }
+        else
+        {
+            mecanim.SetBool("grounded", false);
+        }
+
         controller.move(new Vector3(xSpeed, vSpeed));
+        mecanim.SetFloat("vSpeed", vSpeed, 1f, Time.deltaTime);
+
+        jump = false;
     }
 
     void OnFingerDown(FingerDownEvent e)
     {
         Debug.Log("OnFingerDown");
-        jump = true;
+        if (jumpLeft > 0)
+        {
+            jump = true;
+        }
     }
 
     void OnTriggerEnter2D(Collider2D other)

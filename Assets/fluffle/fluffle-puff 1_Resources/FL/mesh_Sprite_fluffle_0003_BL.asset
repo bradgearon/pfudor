@@ -26,7 +26,7 @@ Mesh:
   - e00: 1
     e01: 0
     e02: 0
-    e03: -.146562576
+    e03: -.146537781
     e10: 0
     e11: 1
     e12: 0
@@ -42,7 +42,7 @@ Mesh:
   - e00: 1
     e01: 0
     e02: 0
-    e03: .314100266
+    e03: .314125061
     e10: 0
     e11: 1
     e12: 0
@@ -72,7 +72,7 @@ Mesh:
     boneIndex[1]: 0
     boneIndex[2]: 0
     boneIndex[3]: 0
-  - weight[0]: .99999994
+  - weight[0]: 1
     weight[1]: 0
     weight[2]: 0
     weight[3]: 0
@@ -80,7 +80,7 @@ Mesh:
     boneIndex[1]: 0
     boneIndex[2]: 0
     boneIndex[3]: 0
-  - weight[0]: 1
+  - weight[0]: .99999994
     weight[1]: 0
     weight[2]: 0
     weight[3]: 0

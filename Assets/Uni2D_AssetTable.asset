@@ -12,65 +12,39 @@ MonoBehaviour:
   m_Name: Uni2D_AssetTable
   m_EditorClassIdentifier: 
   m_oAtlasPathGUIDEntries:
-  - key: 4173736574732f5465787475726541746c61735f4e65772e707265666162
-    genericValue: 6234616666353334663363366265383466393337313263366638393736386264
-  - key: Assets/Root/Uni2D/Samples/Sprite Animation Viewer/Atlases/TextureAtlas_AllAnims.prefab
-    genericValue: 18284b4832a8946828bfc30a5cce7cef
-  - key: Assets/fluffle/fluffle.prefab
-    genericValue: 217d718df67885d4fb1e8bafb0d427ef
-  m_oClipPathGUIDEntries:
-  - key: 4173736574732f416e696d6174696f6e436c69705f4e65772e707265666162
-    genericValue: 6139653839633164346562356164613438383466343239656233346436373464
-  - key: 4173736574732f416e696d6174696f6e436c69702e707265666162
-    genericValue: 6562633135633539383631356436343432393638363038306364343438656561
-  - key: Assets/Root/Uni2D/Samples/Sprite Animation Viewer/SpriteAnimationClips/AnimationClip_Stand02.prefab
-    genericValue: 9318702077fdb4dde8e336a2d883985e
-  - key: Assets/Root/Uni2D/Samples/Sprite Animation Viewer/SpriteAnimationClips/AnimationClip_Stand01.prefab
-    genericValue: bedbe84c41310469392cb3716b677974
-  - key: Assets/Root/Uni2D/Samples/Sprite Animation Viewer/SpriteAnimationClips/AnimationClip_Walk02.prefab
-    genericValue: f98a561d7f5f641629093f089afd52a8
-  - key: Assets/Root/Uni2D/Samples/Sprite Animation Viewer/SpriteAnimationClips/AnimationClip_Walk01.prefab
-    genericValue: f0f60aeefc4eb4665b8e7c81e6313235
-  - key: Assets/fluffle/wobble.prefab
-    genericValue: 3dfb46ad25cb1014c8e1adb0a9364ac8
-  m_oTextureImportGUIDEntries:
-  - key: db3aadcc2007d984da834fd81f082a9e
-    genericValue: 249c559d-867b-4771-bcff-fb0828781f6c
-  - key: ee8cf7536a5347641899773281a4551a
-    genericValue: a912c37e-c1dc-4458-bf7c-54815b37f1a6
-  - key: 040ee6b9bbe7b27488a727cddb51213e
-    genericValue: 94c5d5f8-2f6a-4f36-b9d8-020b7676ee0d
-  - key: 778666ca11a655e409215b3ee6a1adf9
-    genericValue: 7782a25c-8355-4eb1-b85d-71c66cbb2a8b
+  - key: Assets/fluffle/fluffy-uni2d-atlas.prefab
+    genericValue: b5080d19fda0867468f878b6dcd0f82d
+  m_oClipPathGUIDEntries: []
+  m_oTextureImportGUIDEntries: []
   m_oTextureGUIDAtlasEntries:
-  - key: 6534306565323132343438316133663436393965373435623765333033393261
-    genericValue:
-    - 6234616666353334663363366265383466393337313263366638393736386264
-  - key: 040ee6b9bbe7b27488a727cddb51213e
-    genericValue:
-    - 217d718df67885d4fb1e8bafb0d427ef
   - key: e40ee2124481a3f4699e745b7e30392a
     genericValue:
+    - b5080d19fda0867468f878b6dcd0f82d
     - 217d718df67885d4fb1e8bafb0d427ef
   - key: 3e68d64110da1114fb54b85f47b9a8d9
     genericValue:
+    - b5080d19fda0867468f878b6dcd0f82d
     - 217d718df67885d4fb1e8bafb0d427ef
+  - key: 040ee6b9bbe7b27488a727cddb51213e
+    genericValue:
+    - 217d718df67885d4fb1e8bafb0d427ef
+    - b5080d19fda0867468f878b6dcd0f82d
   m_oTextureGUIDClipEntries: []
   m_oTextureGUIDSpritePrefabEntries:
   - key: e40ee2124481a3f4699e745b7e30392a
     genericValue:
-    - d1395822f331069449c6fa964e2ccade
-    - 2d44af084e0344842919d0d607a7f025
+    - bdeb7d725c7ec924dbb797d0fbcad5fb
+    - d68398ecc0c84fb4aa564c952edd1182
   - key: 040ee6b9bbe7b27488a727cddb51213e
     genericValue:
-    - d1395822f331069449c6fa964e2ccade
-    - 2d44af084e0344842919d0d607a7f025
+    - bdeb7d725c7ec924dbb797d0fbcad5fb
+    - d68398ecc0c84fb4aa564c952edd1182
   - key: 3e68d64110da1114fb54b85f47b9a8d9
     genericValue:
-    - d1395822f331069449c6fa964e2ccade
-    - 2d44af084e0344842919d0d607a7f025
+    - bdeb7d725c7ec924dbb797d0fbcad5fb
+    - d68398ecc0c84fb4aa564c952edd1182
   m_oAtlasGUIDSpritePrefabEntries:
-  - key: 217d718df67885d4fb1e8bafb0d427ef
+  - key: b5080d19fda0867468f878b6dcd0f82d
     genericValue:
-    - d1395822f331069449c6fa964e2ccade
-    - 2d44af084e0344842919d0d607a7f025
+    - bdeb7d725c7ec924dbb797d0fbcad5fb
+    - d68398ecc0c84fb4aa564c952edd1182

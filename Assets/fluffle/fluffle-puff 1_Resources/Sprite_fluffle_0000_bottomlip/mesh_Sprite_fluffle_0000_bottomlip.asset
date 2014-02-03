@@ -24,13 +24,13 @@ Mesh:
     fullWeights: []
   m_BindPose:
   - e00: 1.00000012
-    e01: 6.14661388e-09
+    e01: -1.71066716e-09
     e02: 0
-    e03: .584878147
-    e10: -6.14661388e-09
+    e03: .584906161
+    e10: 1.71066716e-09
     e11: 1.00000012
     e12: 0
-    e13: .482601345
+    e13: .482628733
     e20: 0
     e21: 0
     e22: 1
@@ -40,13 +40,13 @@ Mesh:
     e32: 0
     e33: 1
   - e00: 1.00000012
-    e01: 6.14661388e-09
+    e01: -1.71066716e-09
     e02: 0
-    e03: -.286276639
-    e10: -6.14661388e-09
+    e03: -.286248654
+    e10: 1.71066716e-09
     e11: 1.00000012
     e12: 0
-    e13: 1.1878016
+    e13: 1.1878289
     e20: 0
     e21: 0
     e22: 1
@@ -72,23 +72,23 @@ Mesh:
     boneIndex[1]: 0
     boneIndex[2]: 0
     boneIndex[3]: 0
+  - weight[0]: 1
+    weight[1]: 0
+    weight[2]: 0
+    weight[3]: 0
+    boneIndex[0]: 0
+    boneIndex[1]: 0
+    boneIndex[2]: 0
+    boneIndex[3]: 0
+  - weight[0]: 1
+    weight[1]: 0
+    weight[2]: 0
+    weight[3]: 0
+    boneIndex[0]: 0
+    boneIndex[1]: 0
+    boneIndex[2]: 0
+    boneIndex[3]: 0
   - weight[0]: .99999994
-    weight[1]: 0
-    weight[2]: 0
-    weight[3]: 0
-    boneIndex[0]: 0
-    boneIndex[1]: 0
-    boneIndex[2]: 0
-    boneIndex[3]: 0
-  - weight[0]: 1
-    weight[1]: 0
-    weight[2]: 0
-    weight[3]: 0
-    boneIndex[0]: 0
-    boneIndex[1]: 0
-    boneIndex[2]: 0
-    boneIndex[3]: 0
-  - weight[0]: 1
     weight[1]: 0
     weight[2]: 0
     weight[3]: 0
