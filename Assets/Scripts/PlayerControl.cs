@@ -59,7 +59,6 @@ public class PlayerControl : MonoBehaviour
             xSpeed = delta.x;
         }
 
-        mecanim.SetBool("jump", jump);
         if (jumpLeft > 0)
         {
             jump = Input.GetButtonDown("Jump") || jump;
@@ -78,35 +77,43 @@ public class PlayerControl : MonoBehaviour
                 inJump = true;
             }
         }
+
+        mecanim.SetBool("jump", jump);
+
         var vSpeed = 0f;
-        if (jumpForceRemain > 0.2f)
+        if (jumpForceRemain > 0f)
         {
             var jumpFrame = jumpForceRemain * Time.deltaTime;
             jumpForceRemain -= jumpFrame;
             vSpeed += jumpFrame;
+            inJump = true;
         }
         else
         {
             jumpForceRemain = 0f;
         }
+
         if (!controller.collisionState.below)
         {
             vSpeed += gravity * Time.deltaTime;
         }
 
-        if (controller.isGrounded)
+        mecanim.SetFloat("vSpeed", vSpeed);
+        controller.move(new Vector3(xSpeed, vSpeed));
+
+        if (controller.collisionState.becameGroundedThisFrame)
         {
-            mecanim.SetBool("grounded", true);
+            mecanim.SetBool("thisframe", true);
+            jumpForceRemain = 0;
         }
         else
         {
-            mecanim.SetBool("grounded", false);
+            mecanim.SetBool("thisframe", false);
         }
 
-        controller.move(new Vector3(xSpeed, vSpeed));
-        mecanim.SetFloat("vSpeed", vSpeed, 1f, Time.deltaTime);
-
+        mecanim.SetBool("grounded", controller.collisionState.below);
         jump = false;
+
     }
 
     void OnFingerDown(FingerDownEvent e)

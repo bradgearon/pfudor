@@ -64,7 +64,7 @@ Mesh:
   m_KeepIndices: 1
   m_IndexBuffer: 010000000200020000000300
   m_Skin:
-  - weight[0]: 1
+  - weight[0]: .99999994
     weight[1]: 0
     weight[2]: 0
     weight[3]: 0

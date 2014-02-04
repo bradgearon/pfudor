@@ -2113,7 +2113,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100136}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .146576256, y: 1.16217065, z: -0}
+  m_LocalPosition: {x: .146576375, y: 1.16217065, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400134}
@@ -2148,7 +2148,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100142}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .14657414, y: 1.16218007, z: -0}
+  m_LocalPosition: {x: .14657414, y: 1.16217947, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400140}
@@ -2333,8 +2333,8 @@ BoxCollider2D:
   m_Enabled: 1
   m_Material: {fileID: 6200000, guid: 24ac79603fb61400588e37d9f6fe952a, type: 2}
   m_IsTrigger: 1
-  m_Size: {x: 6.21601915, y: 2.37139511}
-  m_Center: {x: -.00936889648, y: -1.77295113}
+  m_Size: {x: 6.21601915, y: 2.69532204}
+  m_Center: {x: -.00936889648, y: -1.93491364}
 --- !u!95 &9500000
 Animator:
   serializedVersion: 2
@@ -2345,9 +2345,9 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 90d9891a2d2de7e4a92e3b21929c59c5, type: 2}
-  m_CullingMode: 0
-  m_ApplyRootMotion: 1
-  m_AnimatePhysics: 1
+  m_CullingMode: 1
+  m_ApplyRootMotion: 0
+  m_AnimatePhysics: 0
   m_HasTransformHierarchy: 1
 --- !u!114 &11400000
 MonoBehaviour:
@@ -3673,7 +3673,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   usePhysicsForMovement: 0
-  skinWidth: .0399999991
+  skinWidth: .200000003
   platformMask:
     serializedVersion: 2
     m_Bits: 0
@@ -3697,7 +3697,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
   totalHorizontalRays: 4
-  totalVerticalRays: 8
+  totalVerticalRays: 4
   transform: {fileID: 0}
   boxCollider: {fileID: 0}
 --- !u!114 &11400162
