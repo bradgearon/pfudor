@@ -10,6 +10,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 #endif
 
 using UnityEngine;
+using UnityEngine.SocialPlatforms;
 
 
 public class ScoreManager : MonoBehaviour
@@ -17,6 +18,7 @@ public class ScoreManager : MonoBehaviour
     public float scoreScale;
     public UILabel scoreLabel;
     public UITable scoreTable;
+    public long highScore;
 
     private int score;
     private bool started;
@@ -24,12 +26,15 @@ public class ScoreManager : MonoBehaviour
     private bool gameOver;
 
     private GameObject sceneManager;
+    private ILeaderboard leaderboard;
 
 #if UNITY_METRO
     // DataContractJsonSerializer json = new DataContractJsonSerializer(typeof(List<Scores>));
 #else
     [NonSerialized]
     BinaryFormatter bf = new BinaryFormatter();
+    private bool scoresLoaded;
+    private int highScoreRank;
 #endif
 
     // Use this for initialization
@@ -67,8 +72,6 @@ public class ScoreManager : MonoBehaviour
 
     void updateScores()
     {
-
-
         List<Scores> scores;
 
         var scoreText = PlayerPrefs.GetString("scores");
@@ -132,6 +135,12 @@ public class ScoreManager : MonoBehaviour
 
         PlayerPrefs.SetString("scores", scoreText);
         PlayerPrefs.Save();
+
+
+        if (Social.localUser.authenticated)
+        {
+            GameManager.Instance.PostToLeaderboard(score);
+        }
 
         sceneManager.SendMessage("GameOver");
     }

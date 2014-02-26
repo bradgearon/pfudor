@@ -45,6 +45,12 @@ public class PlayerControl : MonoBehaviour
         fingerDownDetector.MessageTarget = gameObject;
         scoreManager = FindObjectOfType<ScoreManager>();
 
+        if (Application.isEditor && Camera.main == null)
+        {
+            Application.LoadLevel("title");
+        }
+
+
         var screenMin = Camera.main.ScreenToWorldPoint(new Vector3(0, 0));
         transform.position = new Vector3(screenMin.x, transform.position.y);
     }
@@ -118,10 +124,15 @@ public class PlayerControl : MonoBehaviour
 
     void OnFingerDown(FingerDownEvent e)
     {
-        Debug.Log("OnFingerDown");
-        if (jumpLeft > 0)
+        if (Time.timeScale > 0)
         {
-            jump = true;
+            if (e.Selection == null)
+            {
+                if (jumpLeft > 0)
+                {
+                    jump = true;
+                }
+            }
         }
     }
 

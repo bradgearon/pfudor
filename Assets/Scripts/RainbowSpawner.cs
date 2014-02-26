@@ -78,17 +78,17 @@ public class RainbowSpawner : MonoBehaviour
 
         // Create a random y coordinate for the prop.
         float posY = Random.Range(screenMin.y, screenMax.y);
-
-        //Debug.Log(posY);
+        float scaleX = Random.Range(minScaleX, maxScaleX);
+        float speed = Random.Range(minSpeed, maxSpeed) * -1;
 
         // Set the position the prop should spawn at.
         Vector3 spawnPos = new Vector3(posX, posY, transform.position.z);
 
         // Instantiate the prop at the desired position.
         var propInstance = Instantiate(rainbowPrefab, spawnPos, Quaternion.identity) as GameObject;
+        
         propInstance.transform.parent = transform;
-        // Create a random speed.
-        float speed = Random.Range(minSpeed, maxSpeed) * -1;
+        propInstance.transform.localScale = new Vector3(scaleX, propInstance.transform.localScale.y, propInstance.transform.localScale.z);
 
         StartCoroutine(Spawn());
         // Set the prop's velocity to this speed in the x axis

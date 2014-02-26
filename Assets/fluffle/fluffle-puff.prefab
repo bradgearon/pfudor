@@ -2113,7 +2113,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100136}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .146576375, y: 1.16217065, z: -0}
+  m_LocalPosition: {x: .146576613, y: 1.16217065, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400134}
@@ -3136,7 +3136,7 @@ MonoBehaviour:
     meshCollidersList: []
     meshColliderComponentsList: []
   isPhysicsDirty: 0
-  atlasGenerationID: 1d887257-e6f3-41ac-9e2c-4e55e5611a38
+  atlasGenerationID: c4ebbc32-a580-4061-a196-cf1374b7360a
   m_oTextureImportGUID: 
   spriteAnimation:
     m_rAnimationClips: []
@@ -3227,7 +3227,7 @@ MonoBehaviour:
     meshColliderComponentsList: []
   isPhysicsDirty: 0
   atlasGenerationID: 
-  m_oTextureImportGUID: 
+  m_oTextureImportGUID: 101bda90-53be-4040-9b53-62a9b3af9129
   spriteAnimation:
     m_rAnimationClips: []
     m_iStartClipIndex: 0
@@ -3317,7 +3317,7 @@ MonoBehaviour:
     meshColliderComponentsList: []
   isPhysicsDirty: 0
   atlasGenerationID: 
-  m_oTextureImportGUID: 
+  m_oTextureImportGUID: 101bda90-53be-4040-9b53-62a9b3af9129
   spriteAnimation:
     m_rAnimationClips: []
     m_iStartClipIndex: 0
@@ -3407,7 +3407,7 @@ MonoBehaviour:
     meshColliderComponentsList: []
   isPhysicsDirty: 0
   atlasGenerationID: 
-  m_oTextureImportGUID: 
+  m_oTextureImportGUID: 101bda90-53be-4040-9b53-62a9b3af9129
   spriteAnimation:
     m_rAnimationClips: []
     m_iStartClipIndex: 0
@@ -3497,7 +3497,7 @@ MonoBehaviour:
     meshColliderComponentsList: []
   isPhysicsDirty: 0
   atlasGenerationID: 
-  m_oTextureImportGUID: 
+  m_oTextureImportGUID: 101bda90-53be-4040-9b53-62a9b3af9129
   spriteAnimation:
     m_rAnimationClips: []
     m_iStartClipIndex: 0
@@ -3654,7 +3654,7 @@ MonoBehaviour:
     meshCollidersList: []
     meshColliderComponentsList: []
   isPhysicsDirty: 0
-  atlasGenerationID: 1d887257-e6f3-41ac-9e2c-4e55e5611a38
+  atlasGenerationID: c4ebbc32-a580-4061-a196-cf1374b7360a
   m_oTextureImportGUID: 
   spriteAnimation:
     m_rAnimationClips: []

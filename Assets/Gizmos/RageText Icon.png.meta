@@ -1,5 +1,7 @@
 fileFormatVersion: 2
 guid: 43de912bb6dd16744bc4a4d244544c87
+labels:
+- Uni2D_SourceTexture
 TextureImporter:
   serializedVersion: 2
   mipmaps:
@@ -20,8 +22,8 @@ TextureImporter:
   grayScaleToAlpha: 0
   generateCubemap: 0
   seamlessCubemap: 0
-  textureFormat: -2
-  maxTextureSize: 32
+  textureFormat: -3
+  maxTextureSize: 4096
   textureSettings:
     filterMode: 0
     aniso: 1
@@ -37,7 +39,7 @@ TextureImporter:
   spritePivot: {x: .5, y: .5}
   spritePixelsToUnits: 100
   alphaIsTransparency: 1
-  textureType: 2
+  textureType: 5
   buildTargetSettings: []
   spriteSheet:
     sprites: []

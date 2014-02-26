@@ -10,7 +10,7 @@ PlayerSettings:
   targetGlesGraphics: 1
   targetResolution: 0
   accelerometerFrequency: 60
-  companyName: Brad Gearon
+  companyName: We Develop Software LLC
   productName: PFUDOR
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
@@ -159,9 +159,9 @@ PlayerSettings:
   metroPackageVersion: 1.0.0.0
   metroCertificatePath: Assets/MetroTestCertificate.pfx
   metroCertificatePassword: "E@\x19\x1F\x10\x18\x19\x05Y"
-  metroCertificateSubject: Brad Gearon
-  metroCertificateIssuer: Brad Gearon
-  metroCertificateNotAfter: 003a401a9f3bd001
+  metroCertificateSubject: We Develop Software LLC
+  metroCertificateIssuer: We Develop Software LLC
+  metroCertificateNotAfter: 807da0c2c642d001
   metroApplicationDescription: PFUDOR
   metroTileLogo: Assets/fluffle/150x150fluffle_0000_Body.png
   metroTileWideLogo: Assets/fluffle/310x150fluffle_0000_Body.png

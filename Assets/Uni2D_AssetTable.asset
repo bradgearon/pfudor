@@ -15,36 +15,28 @@ MonoBehaviour:
   - key: Assets/fluffle/fluffy-uni2d-atlas.prefab
     genericValue: b5080d19fda0867468f878b6dcd0f82d
   m_oClipPathGUIDEntries: []
-  m_oTextureImportGUIDEntries: []
-  m_oTextureGUIDAtlasEntries:
-  - key: e40ee2124481a3f4699e745b7e30392a
-    genericValue:
-    - b5080d19fda0867468f878b6dcd0f82d
-    - 217d718df67885d4fb1e8bafb0d427ef
+  m_oTextureImportGUIDEntries:
   - key: 3e68d64110da1114fb54b85f47b9a8d9
-    genericValue:
-    - b5080d19fda0867468f878b6dcd0f82d
-    - 217d718df67885d4fb1e8bafb0d427ef
+    genericValue: abbf0070-dabf-413a-8d72-8bdc5a3b6890
   - key: 040ee6b9bbe7b27488a727cddb51213e
-    genericValue:
-    - 217d718df67885d4fb1e8bafb0d427ef
-    - b5080d19fda0867468f878b6dcd0f82d
+    genericValue: be454ffc-cd84-43a6-bb66-796a95d59784
+  - key: 778666ca11a655e409215b3ee6a1adf9
+    genericValue: 9db97075-880c-411d-8c6e-e559ef063827
+  - key: 43de912bb6dd16744bc4a4d244544c87
+    genericValue: c18b0dba-abda-49d8-81e2-3eeea7fec729
+  - key: 7c10b24fae886b0408c773c69e424cd2
+    genericValue: d3f6fce3-78f0-4343-b95c-ab71e3af5e54
+  - key: e40ee2124481a3f4699e745b7e30392a
+    genericValue: 64247566-3ffc-421d-b858-14fffeb6a5da
+  - key: ee8cf7536a5347641899773281a4551a
+    genericValue: d176bae7-53aa-4095-b63d-8e4d907b7f0a
+  - key: 91579773d43a7e940a706163f72982dd
+    genericValue: cce253ef-6aaf-403a-9584-c65aeb3fde1d
+  - key: aca05dc6982af984ba799d949298d65a
+    genericValue: 3ecca73e-f3b8-4414-902b-2c9e240f0140
+  - key: db3aadcc2007d984da834fd81f082a9e
+    genericValue: 9b71505a-2149-4627-9658-6d375592c72b
+  m_oTextureGUIDAtlasEntries: []
   m_oTextureGUIDClipEntries: []
-  m_oTextureGUIDSpritePrefabEntries:
-  - key: e40ee2124481a3f4699e745b7e30392a
-    genericValue:
-    - bdeb7d725c7ec924dbb797d0fbcad5fb
-    - d68398ecc0c84fb4aa564c952edd1182
-  - key: 040ee6b9bbe7b27488a727cddb51213e
-    genericValue:
-    - bdeb7d725c7ec924dbb797d0fbcad5fb
-    - d68398ecc0c84fb4aa564c952edd1182
-  - key: 3e68d64110da1114fb54b85f47b9a8d9
-    genericValue:
-    - bdeb7d725c7ec924dbb797d0fbcad5fb
-    - d68398ecc0c84fb4aa564c952edd1182
-  m_oAtlasGUIDSpritePrefabEntries:
-  - key: b5080d19fda0867468f878b6dcd0f82d
-    genericValue:
-    - bdeb7d725c7ec924dbb797d0fbcad5fb
-    - d68398ecc0c84fb4aa564c952edd1182
+  m_oTextureGUIDSpritePrefabEntries: []
+  m_oAtlasGUIDSpritePrefabEntries: []
