@@ -17,14 +17,16 @@ public class ScoreManager : MonoBehaviour
 {
     public float scoreScale;
     public UILabel scoreLabel;
+    public UILabel jumpCountLabel;
     public UITable scoreTable;
     public long highScore;
+    public int fontSize = 256;
 
     private int score;
     private bool started;
     private int totalTime;
     private bool gameOver;
-
+    
     private GameObject sceneManager;
     private ILeaderboard leaderboard;
 
@@ -105,23 +107,25 @@ public class ScoreManager : MonoBehaviour
         var scoresOrdered = scores.OrderByDescending(s => s.Score).Take(10);
         scoreTable.children.Clear();
         var font = this.scoreLabel.bitmapFont;
-
         foreach (var s in scoresOrdered)
         {
             var nameLabel = NGUITools.AddWidget<UILabel>(scoreTable.gameObject);
             var scoreLabel = NGUITools.AddWidget<UILabel>(scoreTable.gameObject);
 
             nameLabel.bitmapFont = font;
+            nameLabel.fontSize = fontSize;
             nameLabel.width = 100;
             nameLabel.height = 50;
             nameLabel.text = s.Name;
 
             scoreLabel.bitmapFont = font;
+            scoreLabel.fontSize = fontSize;
             scoreLabel.width = 100;
             scoreLabel.height = 50;
             scoreLabel.text = s.Score + string.Empty;
         }
         scoreTable.Reposition();
+        
 
         using (var m = new MemoryStream())
         {

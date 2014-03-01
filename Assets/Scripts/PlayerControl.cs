@@ -23,11 +23,6 @@ public class PlayerControl : MonoBehaviour
     private bool isSM;
     private bool grounded;
 
-    void Start()
-    {
-
-    }
-
     void Awake()
     {
         foreach (var render in GetComponentsInChildren<Renderer>())
@@ -50,7 +45,6 @@ public class PlayerControl : MonoBehaviour
             Application.LoadLevel("title");
         }
 
-
         var screenMin = Camera.main.ScreenToWorldPoint(new Vector3(0, 0));
         transform.position = new Vector3(screenMin.x, transform.position.y);
     }
@@ -71,6 +65,7 @@ public class PlayerControl : MonoBehaviour
             if (jump)
             {
                 jumpLeft--;
+                scoreManager.jumpCountLabel.text = jumpLeft.ToString();
                 if (isSM)
                 {
                     anim.PlayQueued("Jump", QueueMode.PlayNow);
@@ -124,15 +119,11 @@ public class PlayerControl : MonoBehaviour
 
     void OnFingerDown(FingerDownEvent e)
     {
-        if (Time.timeScale > 0)
+        if (!(Time.timeScale > 0)) return;
+        if (e.Selection != null) return;
+        if (jumpLeft > 0)
         {
-            if (e.Selection == null)
-            {
-                if (jumpLeft > 0)
-                {
-                    jump = true;
-                }
-            }
+            jump = true;
         }
     }
 
@@ -142,6 +133,7 @@ public class PlayerControl : MonoBehaviour
         if (other.CompareTag("platform"))
         {
             jumpLeft = maxJump;
+            scoreManager.jumpCountLabel.text = jumpLeft.ToString();
         }
         else if (other.CompareTag("Dead"))
         {
