@@ -39,6 +39,7 @@ public class PlayerControl : MonoBehaviour
         if (Application.isEditor && Camera.main == null)
         {
             Application.LoadLevel("title");
+            return;
         }
 
         var screenMin = Camera.main.ScreenToWorldPoint(new Vector3(0, 0));
@@ -46,6 +47,7 @@ public class PlayerControl : MonoBehaviour
 
         defaultDown = FindObjectOfType<DefaultDown>();
         defaultDown.playerControl = gameObject;
+        scoreManager.ActivateAchievements();
     }
 
     void Update()

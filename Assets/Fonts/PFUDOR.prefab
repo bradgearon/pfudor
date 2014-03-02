@@ -67,18 +67,18 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 347
   - name: GooglePlusLogo
-    x: 503
-    y: 89
-    width: 60
-    height: 58
+    x: 241
+    y: 122
+    width: 80
+    height: 74
     borderLeft: 0
     borderRight: 0
     borderTop: 0
     borderBottom: 0
-    paddingLeft: 16
-    paddingRight: 12
-    paddingTop: 16
-    paddingBottom: 14
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
   - name: GooglePlusRed
     x: 0
     y: 13
@@ -92,9 +92,22 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
+  - name: Icon-Grey-Achievement
+    x: 726
+    y: 65
+    width: 66
+    height: 78
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 20
+    paddingRight: 18
+    paddingTop: 12
+    paddingBottom: 14
   - name: Icon-Grey-Close
-    x: 441
-    y: 85
+    x: 445
+    y: 11
     width: 62
     height: 62
     borderLeft: 0
@@ -107,7 +120,7 @@ MonoBehaviour:
     paddingBottom: 21
   - name: Icon-Grey-LeaderBoard
     x: 241
-    y: 132
+    y: 58
     width: 90
     height: 64
     borderLeft: 0
@@ -119,8 +132,8 @@ MonoBehaviour:
     paddingTop: 14
     paddingBottom: 26
   - name: Icon-Grey-Mute
-    x: 241
-    y: 57
+    x: 371
+    y: 72
     width: 74
     height: 75
     borderLeft: 0
@@ -132,8 +145,8 @@ MonoBehaviour:
     paddingTop: 16
     paddingBottom: 13
   - name: Icon-Grey-Next
-    x: 315
-    y: 66
+    x: 515
+    y: 81
     width: 56
     height: 66
     borderLeft: 0
@@ -146,7 +159,7 @@ MonoBehaviour:
     paddingBottom: 18
   - name: Icon-Grey-Pause
     x: 371
-    y: 3
+    y: 2
     width: 62
     height: 70
     borderLeft: 0
@@ -158,7 +171,7 @@ MonoBehaviour:
     paddingTop: 17
     paddingBottom: 17
   - name: Icon-Grey-Sound
-    x: 371
+    x: 445
     y: 73
     width: 70
     height: 74

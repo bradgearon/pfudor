@@ -1,15 +1,26 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using System.Linq;
+using GooglePlayGames.BasicApi;
+using UnityEngine;
 using System.Collections;
 
-public class SpriteCustomization : MonoBehaviour {
+public class SpriteCustomization : MonoBehaviour
+{
+    public Uni2DSprite ownerSprite;
+    public GameObject horn;
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    void activateHorn()
+    {
+        horn.SetActive(true);
+    }
+
+    void activateSunglasses()
+    {
+        var frame = ownerSprite.spriteAnimation.GetClipByIndex(0).frames[0];
+        ownerSprite.SetFrame(frame);
+    }
+
+
+
+
 }

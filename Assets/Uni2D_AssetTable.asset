@@ -14,32 +14,36 @@ MonoBehaviour:
   m_oAtlasPathGUIDEntries:
   - key: Assets/fluffle/fluffy-uni2d-atlas.prefab
     genericValue: b5080d19fda0867468f878b6dcd0f82d
-  m_oClipPathGUIDEntries: []
+  m_oClipPathGUIDEntries:
+  - key: Assets/AnimationClip_New.prefab
+    genericValue: a357cb26459826a409f695cd544c610b
   m_oTextureImportGUIDEntries:
   - key: 3e68d64110da1114fb54b85f47b9a8d9
-    genericValue: abbf0070-dabf-413a-8d72-8bdc5a3b6890
+    genericValue: f81952c4-b324-4f83-b3d3-2c8de5d9706f
   - key: 040ee6b9bbe7b27488a727cddb51213e
-    genericValue: a6e1d8f3-dbc7-4ff4-9563-92c9210422fa
+    genericValue: 6a27a1a2-0f7c-4396-8269-cf04ae33ac14
   - key: 778666ca11a655e409215b3ee6a1adf9
-    genericValue: 68d69455-7c5e-47cc-ab47-30102677a83c
+    genericValue: 14aeeed1-a77e-4fbd-bc3b-8a26541d74db
   - key: 43de912bb6dd16744bc4a4d244544c87
-    genericValue: 9f4fe5cc-74ca-4be4-9eaa-b0cda0ee8762
+    genericValue: 436db6dc-2c96-44d2-b6df-aabf06d7fed1
   - key: 7c10b24fae886b0408c773c69e424cd2
-    genericValue: d4178205-778b-40b1-9b12-15dbc1097032
+    genericValue: 372d70f0-1e36-4aa2-ad9b-7b552d422144
   - key: e40ee2124481a3f4699e745b7e30392a
     genericValue: ffec79ec-2c8f-47b8-9952-62118fd84b14
   - key: ee8cf7536a5347641899773281a4551a
-    genericValue: b4273916-e2c4-4d39-aaf0-19e512ec6b31
+    genericValue: c774ad95-c56a-4fc3-8b81-ca1ee424e0d6
   - key: 91579773d43a7e940a706163f72982dd
-    genericValue: cce253ef-6aaf-403a-9584-c65aeb3fde1d
+    genericValue: 13f3eb9f-4342-4297-8236-cb470fa82a85
   - key: aca05dc6982af984ba799d949298d65a
     genericValue: 3ecca73e-f3b8-4414-902b-2c9e240f0140
   - key: db3aadcc2007d984da834fd81f082a9e
-    genericValue: 0bcd45be-eaf4-40db-a454-cd468f409f6e
+    genericValue: 148edd64-73ca-4888-bc61-91dedf747e83
   - key: a65ca2646077e7a49940d30756afab37
-    genericValue: d9674e89-056a-4660-bf36-ae8f808b461f
+    genericValue: ef0219b0-ce2d-4fcf-95b5-e161ca282305
   - key: 9f49fb0d47fd53d4cbb7b527b53022e7
     genericValue: e4c1495f-277d-491a-8f29-323612a4c480
+  - key: 40f45d976acd2c8459eef75f63bf7b70
+    genericValue: e01d39ee-2239-4a6b-80bf-c7897b7c75ca
   m_oTextureGUIDAtlasEntries:
   - key: 3e68d64110da1114fb54b85f47b9a8d9
     genericValue:
@@ -56,7 +60,10 @@ MonoBehaviour:
   - key: 040ee6b9bbe7b27488a727cddb51213e
     genericValue:
     - b5080d19fda0867468f878b6dcd0f82d
-  m_oTextureGUIDClipEntries: []
+  m_oTextureGUIDClipEntries:
+  - key: a65ca2646077e7a49940d30756afab37
+    genericValue:
+    - a357cb26459826a409f695cd544c610b
   m_oTextureGUIDSpritePrefabEntries:
   - key: 91579773d43a7e940a706163f72982dd
     genericValue:

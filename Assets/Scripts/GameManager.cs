@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using GooglePlayGames.BasicApi;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using GooglePlayGames;
@@ -17,6 +18,7 @@ public class GameManager : GooglePlayGames.BasicApi.OnStateLoadedListener
 
     // cloud save callbacks
     private GooglePlayGames.BasicApi.OnStateLoadedListener mAppStateListener;
+    private GooglePlayGames.BasicApi.Achievement[] achievements;
 
     public static GameManager Instance
     {
@@ -53,7 +55,9 @@ public class GameManager : GooglePlayGames.BasicApi.OnStateLoadedListener
         PlayGamesPlatform.Activate();
 
         // Set the default leaderboard for the leaderboards UI
-        ((PlayGamesPlatform)Social.Active).SetDefaultLeaderboardForUI(leaderboardId);
+        var platform = ((PlayGamesPlatform)Social.Active);
+        
+        platform.SetDefaultLeaderboardForUI(leaderboardId);
 
         // Sign in to Google Play Games
         mAuthenticating = true;
@@ -63,6 +67,7 @@ public class GameManager : GooglePlayGames.BasicApi.OnStateLoadedListener
             if (success)
             {
                 PlayerPrefs.SetInt("autoAuth", 1);
+                achievements = platform.GetAchievements();
             }
             else
             {
@@ -78,6 +83,14 @@ public class GameManager : GooglePlayGames.BasicApi.OnStateLoadedListener
     }
 #endif
 
+    public Achievement[] GetAchievements()
+    {
+        if (achievements == null)
+        {
+            achievements = new Achievement[0];
+        }
+        return achievements;
+    }
  
     // Data was successfully loaded from the cloud
     public void OnStateLoaded(bool success, int slot, byte[] data)
@@ -128,6 +141,14 @@ public class GameManager : GooglePlayGames.BasicApi.OnStateLoadedListener
         }
     }
 
+    public void ShowAchievementsUI()
+    {
+        if (Authenticated)
+        {
+            Social.ShowAchievementsUI();
+        }
+    }
+
     public void PostToLeaderboard(int score)
     {
         if (Authenticated && score > mHighestPostedScore)
@@ -148,4 +169,6 @@ public class GameManager : GooglePlayGames.BasicApi.OnStateLoadedListener
     {
         throw new System.NotImplementedException();
     }
+
+
 }

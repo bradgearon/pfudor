@@ -3,8 +3,8 @@ using System.Collections;
 
 public class CloudSpawner : MonoBehaviour
 {
-    public Sprite[] prefabs;
-    public SpriteRenderer prefab;
+    public tk2dSprite prefab;
+    public Texture2D[] prefabs;
 
     public float minTimeBetweenSpawns;		// The shortest possible time between spawns.
     public float maxTimeBetweenSpawns;		// The longest possible time between spawns.
@@ -51,8 +51,9 @@ public class CloudSpawner : MonoBehaviour
         Vector3 spawnPos = new Vector3(posX, posY, transform.position.z);
 
         // Instantiate the prop at the desired position.
-        var propInstance = Instantiate(prefab, spawnPos, Quaternion.identity) as SpriteRenderer;
-        propInstance.sprite = prefabs[Random.Range(0, prefabs.Length)];
+        var propInstance = Instantiate(prefab, spawnPos, Quaternion.identity) as tk2dSprite;
+        var spriteName = prefabs[Random.Range(0, prefabs.Length)].name;
+        propInstance.SetSprite(spriteName);
         propInstance.transform.parent = transform;
 
         // Create a random speed.

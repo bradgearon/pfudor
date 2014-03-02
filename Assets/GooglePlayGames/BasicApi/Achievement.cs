@@ -17,7 +17,9 @@
 using System;
 
 namespace GooglePlayGames.BasicApi {
-    public class Achievement {
+    [Serializable]
+    public class Achievement
+    {
         public string Id = "";
         public bool IsIncremental = false;
         public bool IsRevealed = false;

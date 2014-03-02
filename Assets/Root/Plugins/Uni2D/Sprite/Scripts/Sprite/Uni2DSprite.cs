@@ -217,7 +217,7 @@ public class Uni2DSprite : MonoBehaviour
 	}
 	
 	// Set the frame draw by the sprite
-	private void SetSpriteFrame(Texture2DContainer a_rTextureContainer, Uni2DTextureAtlas a_rTextureAtlas, int a_iWidth, int a_iHeight)
+	public void SetSpriteFrame(Texture2DContainer a_rTextureContainer, Uni2DTextureAtlas a_rTextureAtlas, int a_iWidth, int a_iHeight)
 	{
 		bool a_bUpdateMesh = false;
 		if(m_iCurrentFrameTextureWidth != a_iWidth || m_iCurrentFrameTextureHeight != a_iHeight )

@@ -75,8 +75,8 @@ PlayerSettings:
     Others: 0
   iPhoneBundleIdentifier: bag.pink.fluffy
   productGUID: 3a8984573b6d44decadf1ac29eacc6ec
-  iPhoneBundleVersion: 1.11
-  AndroidBundleVersionCode: 3
+  iPhoneBundleVersion: 1.2
+  AndroidBundleVersionCode: 4
   AndroidMinSdkVersion: 10
   AndroidPreferredInstallLocation: 1
   aotOptions: 
@@ -110,7 +110,7 @@ PlayerSettings:
   m_BuildTargetIcons:
   - m_BuildTarget: 
     m_Icons:
-    - m_Icon: {fileID: 2800000, guid: c81544ed74e0aae4e877f12f5eb64151, type: 3}
+    - m_Icon: {fileID: 2800000, guid: dbeeda4bd7781df4caf8f3ea483f945a, type: 3}
       m_Size: 128
   m_BuildTargetBatching:
   - m_BuildTarget: Android

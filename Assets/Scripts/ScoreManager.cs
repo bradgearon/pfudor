@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using GooglePlayGames.BasicApi;
 #if UNITY_METRO
 // using System.Runtime.Serialization.Json;
 #else
@@ -10,18 +11,23 @@ using System.Runtime.Serialization.Formatters.Binary;
 #endif
 
 using UnityEngine;
-using UnityEngine.SocialPlatforms;
 
 
 public class ScoreManager : MonoBehaviour
 {
+    public AchievementMeta[] defaultAchievements;
     public float scoreScale;
     public UILabel scoreLabel;
     public UILabel jumpCountLabel;
     public UITable scoreTable;
     public UILabel scoreTableHeader;
+    public UITable achievementsTable;
+    public UILabel achievementsTableHeader;
+    public UIButton buttonPrefab;
+    public UISprite spritePrefab;
+
     public long highScore;
-    public int fontSize = 256;
+    public int fontSize = 32;
 
     private int score;
     private bool started;
@@ -29,22 +35,22 @@ public class ScoreManager : MonoBehaviour
     private bool gameOver;
 
     private GameObject sceneManager;
-    private ILeaderboard leaderboard;
 
 #if UNITY_METRO
     // DataContractJsonSerializer json = new DataContractJsonSerializer(typeof(List<Scores>));
 #else
     [NonSerialized]
-    BinaryFormatter bf = new BinaryFormatter();
-    private bool scoresLoaded;
-    private int highScoreRank;
-    private ICollection<Scores> scores;
+    readonly BinaryFormatter bf = new BinaryFormatter();
+    private List<Scores> scores = new List<Scores>();
+    private ILookup<string, AchievementMeta> achievements;
+    private List<SavedAchievement> savedAchievements = new List<SavedAchievement>();
 #endif
 
     // Use this for initialization
     void Start()
     {
         sceneManager = FindObjectOfType<SceneManager>().gameObject;
+        loadAchievements();
     }
 
     // Update is called once per frame
@@ -76,40 +82,144 @@ public class ScoreManager : MonoBehaviour
 
     void loadScores()
     {
-        var scoreText = PlayerPrefs.GetString("scores");
-        if (!string.IsNullOrEmpty(scoreText))
+        if (scores == null || scores.Count < 1)
         {
-            try
-            {
-                var mbytes = Convert.FromBase64String(scoreText);
+            scores = loadObject<List<Scores>>("scores");
+        }
+    }
 
-                using (var m = new MemoryStream(mbytes))
+    void loadAchievements()
+    {
+        if (achievements == null || achievements.Count == 0)
+        {
+            achievements = defaultAchievements.ToLookup(a => a.Id);
+        }
+
+        if (GameManager.Instance.Authenticated)
+        {
+            var loaded = GameManager.Instance.GetAchievements();
+            foreach (var achievement in loaded)
+            {
+                var localAchievement = achievements[achievement.Id].FirstOrDefault();
+                if (localAchievement != null)
                 {
-#if UNITY_METRO
-                // scores = json.ReadObject(m) as List<Scores>;
-                scores = new List<Scores>();
-#else
-                    scores = bf.Deserialize(m) as List<Scores>;
-#endif
+                    localAchievement.IsUnlocked = achievement.IsUnlocked;
+                    savedAchievements.Add(new SavedAchievement
+                    {
+                        Id = localAchievement.Id,
+                        IsUnlocked = localAchievement.IsUnlocked
+                    });
                 }
             }
-            catch (Exception ex)
-            {
-                scores = new List<Scores>();
-            }
+            saveObject("achievements", savedAchievements);
         }
         else
         {
-            scores = new List<Scores>();
+            savedAchievements = loadObject<List<SavedAchievement>>("achievements");
+            if (savedAchievements.Count == 0)
+            {
+                savedAchievements = (from achievement in defaultAchievements
+                                     select new SavedAchievement
+                                     {
+                                         Id = achievement.Id,
+                                         IsUnlocked = false
+                                     }).ToList();
+                saveObject("achievements", savedAchievements);
+            }
+
+            foreach (var achievement in savedAchievements)
+            {
+                var localAchievement = achievements[achievement.Id].FirstOrDefault();
+                if (localAchievement != null)
+                {
+                    localAchievement.IsUnlocked = achievement.IsUnlocked;
+                }
+            }
         }
     }
 
     void hideScores()
     {
-        scores.Clear();
-        scoreTable.children.Clear();
         scoreTable.gameObject.SetActive(false);
         scoreTableHeader.gameObject.SetActive(false);
+
+        achievementsTable.gameObject.SetActive(false);
+        achievementsTableHeader.gameObject.SetActive(false);
+    }
+
+    void displayAchievements()
+    {
+        achievementsTable.gameObject.SetActive(true);
+        achievementsTableHeader.gameObject.SetActive(true);
+
+        loadAchievements();
+
+        achievementsTable.columns = 4;
+        achievementsTable.children.Clear();
+        for (int i = 0; i < achievementsTable.gameObject.transform.childCount; i++)
+        {
+            Destroy(achievementsTable.gameObject.transform.GetChild(i).gameObject);
+        }
+
+        var font = scoreLabel.bitmapFont;
+        foreach (var achievementItem in achievements.AsEnumerable())
+        {
+            var nameLabel = NGUITools.AddWidget<UILabel>(achievementsTable.gameObject);
+            var descriptionLabel = NGUITools.AddWidget<UILabel>(achievementsTable.gameObject);
+            var unlockedLabel = NGUITools.AddWidget<UILabel>(achievementsTable.gameObject);
+            var achievement = achievementItem.FirstOrDefault();
+            var saved = savedAchievements.FirstOrDefault(a => string.Compare(a.Id, achievement.Id, true) == 0);
+
+
+            var rewardSprite = NGUITools.AddWidget<UISprite>(achievementsTable.gameObject);
+            if (achievement.IsUnlocked)
+            {
+                rewardSprite.color = saved.RewardEnabled ? buttonPrefab.disabledColor : buttonPrefab.defaultColor;
+            }
+            else
+            {
+                rewardSprite.enabled = false;
+            }
+
+            rewardSprite.width = 50;
+            rewardSprite.height = 50;
+            rewardSprite.name = "Label";
+            rewardSprite.atlas = spritePrefab.atlas;
+            rewardSprite.spriteName = spritePrefab.spriteName;
+
+            rewardSprite.gameObject.AddComponent<BoxCollider>();
+            rewardSprite.autoResizeBoxCollider = true;
+            rewardSprite.ResizeCollider();
+
+            UIEventListener.Get(rewardSprite.gameObject).onClick += go =>
+            {
+                Debug.Log("on click " + saved.RewardEnabled);
+                saved.RewardEnabled = !saved.RewardEnabled;
+                rewardSprite.color = saved.RewardEnabled ? buttonPrefab.disabledColor : buttonPrefab.defaultColor;
+                saveAchievements();
+            };
+
+
+            nameLabel.bitmapFont = font;
+            nameLabel.fontSize = fontSize;
+            nameLabel.width = 200;
+            nameLabel.height = 50;
+            nameLabel.text = achievement.Name;
+
+            descriptionLabel.bitmapFont = font;
+            descriptionLabel.fontSize = fontSize;
+            descriptionLabel.width = 400;
+            descriptionLabel.height = 100;
+            descriptionLabel.text = achievement.Description;
+
+            unlockedLabel.bitmapFont = font;
+            unlockedLabel.fontSize = fontSize;
+            unlockedLabel.width = 100;
+            unlockedLabel.height = 50;
+            unlockedLabel.text = achievement.IsUnlocked ? "Unlocked" : "Locked";
+        }
+
+        achievementsTable.Reposition();
     }
 
     void displayScores()
@@ -119,15 +229,22 @@ public class ScoreManager : MonoBehaviour
 
         loadScores();
         scoreTable.children.Clear();
+        scoreTable.columns = 2;
+
         for (int i = 0; i < scoreTable.gameObject.transform.childCount; i++)
         {
             Destroy(scoreTable.gameObject.transform.GetChild(i).gameObject);
         }
-        var scoresOrdered = scores.OrderByDescending(s => s.Score).Take(10);
+
+        Debug.Log("score count" + scores.Count);
+        var scoresOrdered = scores.OrderByDescending(s => s.Score).Take(10).ToArray();
+        Debug.Log("scores ordered count " + scoresOrdered.Count());
 
         var font = this.scoreLabel.bitmapFont;
         foreach (var s in scoresOrdered)
         {
+            Debug.Log("score " + s.Name + " " + s.Score);
+
             var nameLabel = NGUITools.AddWidget<UILabel>(scoreTable.gameObject);
             var scoreLabel = NGUITools.AddWidget<UILabel>(scoreTable.gameObject);
 
@@ -146,28 +263,104 @@ public class ScoreManager : MonoBehaviour
         scoreTable.Reposition();
     }
 
+    void saveAchievements()
+    {
+        saveObject("achievements", savedAchievements);
+    }
+
     void saveScores()
     {
-        var scoreText = string.Empty;
+        saveObject("scores", scores);
+    }
+
+    T loadObject<T>(string name) where T : new()
+    {
+        var objectText = PlayerPrefs.GetString(name);
+        var result = default(T);
+
+        if (!string.IsNullOrEmpty(objectText))
+        {
+            try
+            {
+                var mbytes = Convert.FromBase64String(objectText);
+
+                using (var m = new MemoryStream(mbytes))
+                {
+#if UNITY_METRO
+                // scores = json.ReadObject(m) as List<Scores>;
+                scores = new List<Scores>();
+#else
+                    result = (T)bf.Deserialize(m);
+#endif
+                }
+            }
+            catch (Exception ex)
+            {
+                result = new T();
+            }
+        }
+        else
+        {
+            result = new T();
+        }
+
+        return result;
+    }
+
+    void saveObject<T>(string name, T toSave)
+    {
+        var objectText = string.Empty;
         using (var m = new MemoryStream())
         {
 #if UNITY_METRO
             // json.WriteObject(m, scores);
 #else
-            bf.Serialize(m, scores);
-            scoreText = Convert.ToBase64String(m.GetBuffer());
+            bf.Serialize(m, toSave);
+            objectText = Convert.ToBase64String(m.GetBuffer());
 #endif
         }
-        PlayerPrefs.SetString("scores", scoreText);
+        PlayerPrefs.SetString(name, objectText);
         PlayerPrefs.Save();
     }
 
     void updateScores()
     {
+        Debug.Log("score loading");
         loadScores();
+        Debug.Log("score adding");
         scores.Add(new Scores { Name = "Player", Score = score });
+        Debug.Log("score displaying");
         displayScores();
+        Debug.Log("score saving");
         saveScores();
+
+        foreach (var achievementItem in achievements)
+        {
+            var achievement = achievementItem.FirstOrDefault();
+            if (!achievement.IsUnlocked && achievement.minScore < score)
+            {
+                achievement.IsUnlocked = true;
+
+                var saved = savedAchievements.FirstOrDefault(
+                    a => string.Compare(a.Id, achievement.Id, true) == 0);
+
+                if (saved != null)
+                {
+                    saved.IsUnlocked = true;
+                    saved.RewardEnabled = true;
+                }
+
+                if (Social.localUser.authenticated)
+                {
+                    Social.ReportProgress(achievement.Id, 100,
+                        b => Debug.Log("Achievement " + achievement.Id + " unlocked"));
+                }
+
+
+            }
+        }
+
+        saveAchievements();
 
         if (Social.localUser.authenticated)
         {
@@ -177,4 +370,22 @@ public class ScoreManager : MonoBehaviour
         sceneManager.SendMessage("GameOver");
     }
 
+    public void ActivateAchievements()
+    {
+        var customization = FindObjectOfType<SpriteCustomization>();
+        if (customization == null) return;
+        foreach (var localAchievement in achievements)
+        {
+            var achievement = localAchievement.FirstOrDefault();
+            var savedAchievement = savedAchievements.FirstOrDefault(a => string.Compare(a.Id, achievement.Id, true) == 0);
+            if (achievement.IsUnlocked && savedAchievement.RewardEnabled)
+            {
+                customization.SendMessage(achievement.activateMessage);
+            }
+
+
+        }
+
+
+    }
 }

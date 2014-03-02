@@ -27,6 +27,7 @@ public class SceneManager : MonoBehaviour
     private int autoAuth = 0;
     private ScoreManager scoreManager;
     private bool viewLeaders;
+    private bool tweening;
 
     void Awake()
     {
@@ -36,7 +37,8 @@ public class SceneManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        if (Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
+        if (Application.platform == RuntimePlatform.Android || 
+            Application.platform == RuntimePlatform.IPhonePlayer)
         {
             autoAuth = PlayerPrefs.GetInt("autoAuth", 0);
 
@@ -47,9 +49,22 @@ public class SceneManager : MonoBehaviour
         }
         else
         {
-            signedIn.gameObject.SetActive(true);
             signin.gameObject.SetActive(false);
+            setOnSigninClick();
         }
+    }
+
+    private void setOnSigninClick()
+    {
+        signedIn.gameObject.SetActive(true);
+        var button = signin.transform.parent.GetComponent<UIButton>();
+        button.onClick.Clear();
+        button.onClick.Add(new EventDelegate(ShowLeaders));
+    }
+
+    public void Quit()
+    {
+        Application.Quit();
     }
 
     public void SignIn()
@@ -57,7 +72,7 @@ public class SceneManager : MonoBehaviour
         GameManager.Instance.Authenticate();
     }
 
-    void OnStartDown()
+    public void OnStartDown()
     {
         if (!starting)
         {
@@ -68,15 +83,7 @@ public class SceneManager : MonoBehaviour
     public void HideLeaders()
     {
         scoreManager.SendMessage("hideScores");
-        foreach (var so in playObjects)
-        {
-            so.gameObject.SetActive(false);
-        }
-
-        foreach (var so in titleObjects)
-        {
-            so.gameObject.SetActive(true);
-        }
+        SetSceneObjects(true, false, false);
     }
 
     void OnDefaultDown()
@@ -101,12 +108,21 @@ public class SceneManager : MonoBehaviour
         }
         else
         {
-            foreach (var so in titleObjects)
-            {
-                so.gameObject.SetActive(false);
-            }
-            viewLeaders = true;
+            SetSceneObjects(false, false, false);
             scoreManager.SendMessage("displayScores");
+        }
+    }
+
+    public void ShowAchievments()
+    {
+        if (GameManager.Instance.Authenticated)
+        {
+            GameManager.Instance.ShowAchievementsUI();
+        }
+        else
+        {
+            SetSceneObjects(false, false, false);
+            scoreManager.SendMessage("displayAchievements");
         }
     }
 
@@ -145,24 +161,30 @@ public class SceneManager : MonoBehaviour
             {
                 if (!signedIn.gameObject.activeSelf)
                 {
-                    signedIn.gameObject.SetActive(true);
+                    setOnSigninClick();
                 }
             }
         }
 
         if (starting)
         {
+            if (!tweening)
+            {
+                foreach (var titleObject in titleObjects)
+                {
+                    var tween = titleObject.gameObject.AddComponent<TweenAlpha>();
+                    tween.from = titleObject.alpha;
+                    tween.to = 0;
+                }
+                tweening = true;
+            }
+
             if (!loading)
             {
                 if (transition < transitionAmount)
                 {
                     transition += Time.deltaTime;
                     var totalDelta = transition / transitionAmount;
-
-                    foreach (var to in titleObjects)
-                    {
-                        to.alpha = (1 - totalDelta * 2);
-                    }
                     Camera.main.backgroundColor = Color.Lerp(startColor, mainSceneBackground, totalDelta);
                 }
                 else
@@ -173,35 +195,35 @@ public class SceneManager : MonoBehaviour
 
             if (!loaded && loading)
             {
-                foreach (var so in playObjects)
-                {
-                    so.gameObject.SetActive(true);
-                }
-
-                foreach (var to in titleObjects)
-                {
-                    to.gameObject.SetActive(false);
-                }
-
+                SetSceneObjects(false, true, false);
                 Application.LoadLevelAdditive(mainScene);
                 loaded = true;
-                signin.gameObject.SetActive(false);
             }
         }
 
         if (gameOver)
         {
-            foreach (var so in playObjects)
-            {
-                so.gameObject.SetActive(false);
-            }
-
-            foreach (var go in gameOverObjects)
-            {
-                go.gameObject.SetActive(true);
-            }
+            SetSceneObjects(false, false, true);
         }
 
+    }
+
+    void SetSceneObjects(bool title, bool play, bool gameOver)
+    {
+        foreach (var so in titleObjects)
+        {
+            so.gameObject.SetActive(title);
+        }
+
+        foreach (var so in playObjects)
+        {
+            so.gameObject.SetActive(play);
+        }
+
+        foreach (var go in gameOverObjects)
+        {
+            go.gameObject.SetActive(gameOver);
+        }
     }
 
 

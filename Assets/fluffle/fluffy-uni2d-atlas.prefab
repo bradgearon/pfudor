@@ -80,12 +80,12 @@ MonoBehaviour:
         serializedVersion: 2
         x: 0
         y: .912597656
-        width: .0268554688
-        height: .0791015625
-      isFlipped: 1
+        width: .0520019531
+        height: .06640625
+      isFlipped: 0
     - rect:
         serializedVersion: 2
-        x: .0270996094
+        x: .0522460938
         y: .912597656
         width: .0498046875
         height: .0483398438
@@ -97,7 +97,7 @@ MonoBehaviour:
         width: .361083984
         height: .768066406
       isFlipped: 1
-  generationId: 1db6ed1e-5d26-43f6-a885-e9e52c5a72da
+  generationId: 14981a5e-10ec-405c-9b6c-4b9dda83f7e9
   m_rTextureContainers:
   - m_oTextureGUID: 3e68d64110da1114fb54b85f47b9a8d9
     m_rTexture: {fileID: 0}
