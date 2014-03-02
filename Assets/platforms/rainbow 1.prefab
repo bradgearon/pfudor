@@ -175,7 +175,7 @@ MonoBehaviour:
     meshCollidersList: []
     meshColliderComponentsList: []
   isPhysicsDirty: 0
-  atlasGenerationID: 2799d4db-122d-46ea-9263-229c814c2ad1
+  atlasGenerationID: 1db6ed1e-5d26-43f6-a885-e9e52c5a72da
   m_oTextureImportGUID: cce253ef-6aaf-403a-9584-c65aeb3fde1d
   spriteAnimation:
     m_rAnimationClips: []

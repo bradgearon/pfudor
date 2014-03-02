@@ -25,8 +25,8 @@ TextureImporter:
   textureFormat: -3
   maxTextureSize: 4096
   textureSettings:
-    filterMode: -1
-    aniso: -1
+    filterMode: 1
+    aniso: 1
     mipBias: -1
     wrapMode: 1
   nPOTScale: 0
@@ -43,7 +43,7 @@ TextureImporter:
   buildTargetSettings:
   - buildTarget: iPhone
     maxTextureSize: 1024
-    textureFormat: -2
+    textureFormat: 13
     compressionQuality: 50
   spriteSheet:
     sprites: []

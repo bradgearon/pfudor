@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-using SmoothMoves;
+
 public class PlayerControl : MonoBehaviour
 {
     [HideInInspector]
@@ -8,7 +8,7 @@ public class PlayerControl : MonoBehaviour
     public int maxJump;
 
     private Animator mecanim;
-    private BoneAnimation anim;
+
     private Uni2DAnimationPlayer ap;
     private CharacterController2D controller;
 
@@ -31,12 +31,7 @@ public class PlayerControl : MonoBehaviour
         {
             render.sortingLayerName = "Character";
         }
-        anim = GetComponentInChildren<BoneAnimation>();
-        isSM = anim != null;
-        if (!isSM)
-        {
-            mecanim = GetComponentInChildren<Animator>();
-        }
+        mecanim = GetComponentInChildren<Animator>();
 
         controller = GetComponent<CharacterController2D>();
         scoreManager = FindObjectOfType<ScoreManager>();
@@ -70,14 +65,6 @@ public class PlayerControl : MonoBehaviour
             {
                 jumpLeft--;
                 scoreManager.jumpCountLabel.text = jumpLeft.ToString();
-                if (isSM)
-                {
-                    anim.PlayQueued("Jump", QueueMode.PlayNow);
-                }
-                else
-                {
-                    Debug.Log("jumpup");
-                }
                 jumpForceRemain = jumpForce;
                 inJump = true;
             }

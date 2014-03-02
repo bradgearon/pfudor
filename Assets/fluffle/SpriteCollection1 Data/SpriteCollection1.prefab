@@ -63,7 +63,7 @@ MonoBehaviour:
     - {x: .00390820298, y: .587888658}
     - {x: .384763658, y: .587888658}
     indices: 000000000300000001000000020000000300000000000000
-    material: {fileID: 2100000, guid: 7cfbfd81e16773240af4c5306a40144a, type: 2}
+    material: {fileID: 2100000, guid: 2dde31a9cf2512646ac1fa3da43cb635, type: 2}
     materialId: 0
     sourceTextureGUID: b6536c80ccdce4241b12fa61eef117be
     extractRegion: 0
@@ -104,7 +104,7 @@ MonoBehaviour:
     - {x: .00390820298, y: .898435533}
     - {x: .00781054702, y: .898435533}
     indices: 000000000300000001000000020000000300000000000000
-    material: {fileID: 2100000, guid: 7cfbfd81e16773240af4c5306a40144a, type: 2}
+    material: {fileID: 2100000, guid: 2dde31a9cf2512646ac1fa3da43cb635, type: 2}
     materialId: 0
     sourceTextureGUID: 
     extractRegion: 0
@@ -145,7 +145,7 @@ MonoBehaviour:
     - {x: .00390820298, y: .898435533}
     - {x: .00781054702, y: .898435533}
     indices: 000000000300000001000000020000000300000000000000
-    material: {fileID: 2100000, guid: 7cfbfd81e16773240af4c5306a40144a, type: 2}
+    material: {fileID: 2100000, guid: 2dde31a9cf2512646ac1fa3da43cb635, type: 2}
     materialId: 0
     sourceTextureGUID: 
     extractRegion: 0
@@ -186,7 +186,7 @@ MonoBehaviour:
     - {x: .00390820298, y: .898435533}
     - {x: .00781054702, y: .898435533}
     indices: 000000000300000001000000020000000300000000000000
-    material: {fileID: 2100000, guid: 7cfbfd81e16773240af4c5306a40144a, type: 2}
+    material: {fileID: 2100000, guid: 2dde31a9cf2512646ac1fa3da43cb635, type: 2}
     materialId: 0
     sourceTextureGUID: 
     extractRegion: 0
@@ -227,7 +227,7 @@ MonoBehaviour:
     - {x: .00390820298, y: .898435533}
     - {x: .00781054702, y: .898435533}
     indices: 000000000300000001000000020000000300000000000000
-    material: {fileID: 2100000, guid: 7cfbfd81e16773240af4c5306a40144a, type: 2}
+    material: {fileID: 2100000, guid: 2dde31a9cf2512646ac1fa3da43cb635, type: 2}
     materialId: 0
     sourceTextureGUID: 
     extractRegion: 0
@@ -268,7 +268,7 @@ MonoBehaviour:
     - {x: .499998033, y: .595705092}
     - {x: .499998033, y: .886716783}
     indices: 000000000300000001000000020000000300000000000000
-    material: {fileID: 2100000, guid: 7cfbfd81e16773240af4c5306a40144a, type: 2}
+    material: {fileID: 2100000, guid: 2dde31a9cf2512646ac1fa3da43cb635, type: 2}
     materialId: 0
     sourceTextureGUID: 68fe02066140bad47a3be3644ab19bc4
     extractRegion: 0
@@ -291,22 +291,22 @@ MonoBehaviour:
   premultipliedAlpha: 0
   material: {fileID: 0}
   materials:
-  - {fileID: 2100000, guid: 7cfbfd81e16773240af4c5306a40144a, type: 2}
+  - {fileID: 2100000, guid: 2dde31a9cf2512646ac1fa3da43cb635, type: 2}
   textures:
-  - {fileID: 2800000, guid: 9bdb2a7583f78304f93ca468609906e6, type: 3}
+  - {fileID: 2800000, guid: 6826112f785b0474d9682dd19c6e615a, type: 3}
   pngTextures: []
   materialPngTextureId: 00000000
   textureFilterMode: 1
   textureMipMaps: 0
   allowMultipleAtlases: 0
-  spriteCollectionGUID: a156adab621dc5b4da70295e73a13169
+  spriteCollectionGUID: 5e31021b3db9a564081eeaad6ddb3b3e
   spriteCollectionName: SpriteCollection1
   assetName: 
   loadable: 0
   invOrthoSize: 2
   halfTargetHeight: 50
-  buildKey: 1310954341
-  dataGuid: 4deba4cf59edf6f45b41ec63bced084f
+  buildKey: 1184672796
+  dataGuid: 6594e5fe72835db478172f9852505660
   managedSpriteCollection: 0
   hasPlatformData: 0
   spriteCollectionPlatforms: []

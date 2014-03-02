@@ -2,7 +2,6 @@ fileFormatVersion: 2
 guid: aca05dc6982af984ba799d949298d65a
 labels:
 - Uni2D_TextureAtlas
-- Uni2D_SourceTexture
 TextureImporter:
   serializedVersion: 2
   mipmaps:
@@ -19,11 +18,11 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: .25
     normalMapFilter: 0
-  isReadable: 1
+  isReadable: 0
   grayScaleToAlpha: 0
   generateCubemap: 0
   seamlessCubemap: 0
-  textureFormat: 5
+  textureFormat: -3
   maxTextureSize: 4096
   textureSettings:
     filterMode: -1
@@ -44,7 +43,7 @@ TextureImporter:
   buildTargetSettings:
   - buildTarget: iPhone
     maxTextureSize: 1024
-    textureFormat: -2
+    textureFormat: 13
     compressionQuality: 50
   spriteSheet:
     sprites: []
