@@ -50,7 +50,7 @@ MonoBehaviour:
     mBase: 182
     mWidth: 1024
     mHeight: 1024
-    mSpriteName: g_0
+    mSpriteName: 
     mSaved:
     - index: 32
       x: 138

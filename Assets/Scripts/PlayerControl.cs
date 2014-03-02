@@ -22,6 +22,8 @@ public class PlayerControl : MonoBehaviour
     private ScoreManager scoreManager;
     private bool isSM;
     private bool grounded;
+    private SceneManager sceneManager;
+    private DefaultDown defaultDown;
 
     void Awake()
     {
@@ -35,9 +37,8 @@ public class PlayerControl : MonoBehaviour
         {
             mecanim = GetComponentInChildren<Animator>();
         }
+
         controller = GetComponent<CharacterController2D>();
-        var fingerDownDetector = gameObject.AddComponent<FingerDownDetector>();
-        fingerDownDetector.MessageTarget = gameObject;
         scoreManager = FindObjectOfType<ScoreManager>();
 
         if (Application.isEditor && Camera.main == null)
@@ -47,6 +48,9 @@ public class PlayerControl : MonoBehaviour
 
         var screenMin = Camera.main.ScreenToWorldPoint(new Vector3(0, 0));
         transform.position = new Vector3(screenMin.x, transform.position.y);
+
+        defaultDown = FindObjectOfType<DefaultDown>();
+        defaultDown.playerControl = gameObject;
     }
 
     void Update()
@@ -114,13 +118,12 @@ public class PlayerControl : MonoBehaviour
 
         mecanim.SetBool("grounded", controller.collisionState.below);
         jump = false;
-
     }
 
-    void OnFingerDown(FingerDownEvent e)
+    public void OnDefaultDown()
     {
+        Debug.Log("default down");
         if (!(Time.timeScale > 0)) return;
-        if (e.Selection != null) return;
         if (jumpLeft > 0)
         {
             jump = true;
@@ -137,6 +140,7 @@ public class PlayerControl : MonoBehaviour
         }
         else if (other.CompareTag("Dead"))
         {
+            defaultDown.SendMessage("GameOver");
             scoreManager.SendMessage("GameOver");
         }
     }

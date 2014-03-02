@@ -47,6 +47,8 @@ MonoBehaviour:
     m_rTexture: {fileID: 0}
   - m_oTextureGUID: 91579773d43a7e940a706163f72982dd
     m_rTexture: {fileID: 0}
+  - m_oTextureGUID: a65ca2646077e7a49940d30756afab37
+    m_rTexture: {fileID: 0}
   padding: 1
   maximumAtlasSize: 2048
   materialOverride: {fileID: 0}
@@ -54,10 +56,43 @@ MonoBehaviour:
   - m_rAtlasTexture: {fileID: 2800000, guid: aca05dc6982af984ba799d949298d65a, type: 3}
     m_rAtlasMaterial: {fileID: 2100000, guid: 577786d379abb374da8e98dbd3264d7d, type: 2}
     m_rAtlasedTextureGUIDs:
-    - e40ee2124481a3f4699e745b7e30392a
+    - a65ca2646077e7a49940d30756afab37
     - 040ee6b9bbe7b27488a727cddb51213e
-    - 91579773d43a7e940a706163f72982dd
     - 3e68d64110da1114fb54b85f47b9a8d9
+    - 91579773d43a7e940a706163f72982dd
+    m_rUVs:
+    - rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: .776855469
+        height: .73046875
+      isFlipped: 0
+    - rect:
+        serializedVersion: 2
+        x: .77734375
+        y: 0
+        width: .134765625
+        height: .109375
+      isFlipped: 0
+    - rect:
+        serializedVersion: 2
+        x: .912597656
+        y: 0
+        width: .0791015625
+        height: .0537109375
+      isFlipped: 0
+    - rect:
+        serializedVersion: 2
+        x: .912597656
+        y: .0541992188
+        width: .0483398438
+        height: .099609375
+      isFlipped: 0
+  - m_rAtlasTexture: {fileID: 2800000, guid: 49b3aa695cb6a2647bb56669f0eb3cc2, type: 3}
+    m_rAtlasMaterial: {fileID: 2100000, guid: 81394648045a07a4b8fc28c792068713, type: 2}
+    m_rAtlasedTextureGUIDs:
+    - e40ee2124481a3f4699e745b7e30392a
     m_rUVs:
     - rect:
         serializedVersion: 2
@@ -66,28 +101,7 @@ MonoBehaviour:
         width: .758789062
         height: .73046875
       isFlipped: 0
-    - rect:
-        serializedVersion: 2
-        x: .759277344
-        y: 0
-        width: .134765625
-        height: .109375
-      isFlipped: 0
-    - rect:
-        serializedVersion: 2
-        x: .89453125
-        y: 0
-        width: .099609375
-        height: .0483398438
-      isFlipped: 1
-    - rect:
-        serializedVersion: 2
-        x: .89453125
-        y: .048828125
-        width: .0791015625
-        height: .0537109375
-      isFlipped: 0
-  generationId: c4ebbc32-a580-4061-a196-cf1374b7360a
+  generationId: 2799d4db-122d-46ea-9263-229c814c2ad1
   m_rTextureContainers:
   - m_oTextureGUID: e40ee2124481a3f4699e745b7e30392a
     m_rTexture: {fileID: 0}
@@ -96,6 +110,8 @@ MonoBehaviour:
   - m_oTextureGUID: 040ee6b9bbe7b27488a727cddb51213e
     m_rTexture: {fileID: 0}
   - m_oTextureGUID: 91579773d43a7e940a706163f72982dd
+    m_rTexture: {fileID: 0}
+  - m_oTextureGUID: a65ca2646077e7a49940d30756afab37
     m_rTexture: {fileID: 0}
   m_iPadding: 1
   m_eMaximumAtlasSize: 2048

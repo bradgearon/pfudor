@@ -40,6 +40,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   material: {fileID: 2100000, guid: 809926b2368c7b74db4c9279952cf592, type: 2}
   mSprites:
+  - name: circle
+    x: 571
+    y: 38
+    width: 154
+    height: 154
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
   - name: g_0
     x: 0
     y: 347
@@ -54,7 +67,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 347
   - name: GooglePlusLogo
-    x: 0
+    x: 503
     y: 89
     width: 60
     height: 58
@@ -68,7 +81,7 @@ MonoBehaviour:
     paddingBottom: 14
   - name: GooglePlusRed
     x: 0
-    y: 57
+    y: 13
     width: 32
     height: 32
     borderLeft: 0
@@ -79,8 +92,125 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
-  - name: spin
+  - name: Icon-Grey-Close
+    x: 441
+    y: 85
+    width: 62
+    height: 62
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 21
+    paddingRight: 21
+    paddingTop: 22
+    paddingBottom: 21
+  - name: Icon-Grey-LeaderBoard
+    x: 241
+    y: 132
+    width: 90
+    height: 64
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 6
+    paddingRight: 8
+    paddingTop: 14
+    paddingBottom: 26
+  - name: Icon-Grey-Mute
+    x: 241
+    y: 57
+    width: 74
+    height: 75
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 16
+    paddingRight: 14
+    paddingTop: 16
+    paddingBottom: 13
+  - name: Icon-Grey-Next
+    x: 315
+    y: 66
+    width: 56
+    height: 66
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 19
+    paddingRight: 19
+    paddingTop: 18
+    paddingBottom: 18
+  - name: Icon-Grey-Pause
+    x: 371
+    y: 3
+    width: 62
+    height: 70
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 21
+    paddingRight: 21
+    paddingTop: 17
+    paddingBottom: 17
+  - name: Icon-Grey-Sound
+    x: 371
+    y: 73
+    width: 70
+    height: 74
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 17
+    paddingRight: 17
+    paddingTop: 15
+    paddingBottom: 15
+  - name: oval
     x: 0
+    y: 45
+    width: 241
+    height: 151
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 1
+    paddingRight: 3
+    paddingTop: 1
+    paddingBottom: 3
+  - name: rainbow
+    x: 726
+    y: 143
+    width: 99
+    height: 204
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: rect
+    x: 0
+    y: 196
+    width: 371
+    height: 151
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 1
+    paddingRight: 3
+    paddingTop: 1
+    paddingBottom: 3
+  - name: spin
+    x: 371
     y: 147
     width: 200
     height: 200
@@ -88,6 +218,19 @@ MonoBehaviour:
     borderRight: 0
     borderTop: 0
     borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: square
+    x: 571
+    y: 192
+    width: 155
+    height: 155
+    borderLeft: 40
+    borderRight: 40
+    borderTop: 56
+    borderBottom: 56
     paddingLeft: 0
     paddingRight: 0
     paddingTop: 0

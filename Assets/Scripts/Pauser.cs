@@ -5,16 +5,19 @@ public class Pauser : MonoBehaviour
 {
     private bool paused = false;
     private bool pauseDown;
+    public GameObject pausePanel;
 
-
-    void OnFingerDown(FingerDownEvent e)
+    void OnFingerDown(FingerEvent e)
     {
-        Debug.Log(e.Selection);
+        if (e.Selection == null || e.Selection.gameObject != gameObject)  return;
+        pauseDown = true;
+    }
 
-        if (e.Selection != null && e.Selection.GetInstanceID() == this.gameObject.GetInstanceID())
-        {
-            pauseDown = true;
-        }
+    void OnTogglePause()
+    {
+        paused = !paused;
+        pausePanel.SetActive(paused);
+        AudioListener.pause = paused;
     }
 
     // Update is called once per frame
@@ -22,8 +25,7 @@ public class Pauser : MonoBehaviour
     {
         if (pauseDown)
         {
-            paused = !paused;
-            AudioListener.pause = paused;
+            OnTogglePause();
         }
 
         Time.timeScale = paused ? 0 : 1;

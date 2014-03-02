@@ -19,6 +19,7 @@ public class ScoreManager : MonoBehaviour
     public UILabel scoreLabel;
     public UILabel jumpCountLabel;
     public UITable scoreTable;
+    public UILabel scoreTableHeader;
     public long highScore;
     public int fontSize = 256;
 
@@ -26,7 +27,7 @@ public class ScoreManager : MonoBehaviour
     private bool started;
     private int totalTime;
     private bool gameOver;
-    
+
     private GameObject sceneManager;
     private ILeaderboard leaderboard;
 
@@ -37,12 +38,13 @@ public class ScoreManager : MonoBehaviour
     BinaryFormatter bf = new BinaryFormatter();
     private bool scoresLoaded;
     private int highScoreRank;
+    private ICollection<Scores> scores;
 #endif
 
     // Use this for initialization
     void Start()
     {
-        sceneManager = FindObjectOfType<TitleScreen>().gameObject;
+        sceneManager = FindObjectOfType<SceneManager>().gameObject;
     }
 
     // Update is called once per frame
@@ -72,10 +74,8 @@ public class ScoreManager : MonoBehaviour
         }
     }
 
-    void updateScores()
+    void loadScores()
     {
-        List<Scores> scores;
-
         var scoreText = PlayerPrefs.GetString("scores");
         if (!string.IsNullOrEmpty(scoreText))
         {
@@ -102,10 +102,29 @@ public class ScoreManager : MonoBehaviour
         {
             scores = new List<Scores>();
         }
+    }
 
-        scores.Add(new Scores { Name = "Player", Score = score });
-        var scoresOrdered = scores.OrderByDescending(s => s.Score).Take(10);
+    void hideScores()
+    {
+        scores.Clear();
         scoreTable.children.Clear();
+        scoreTable.gameObject.SetActive(false);
+        scoreTableHeader.gameObject.SetActive(false);
+    }
+
+    void displayScores()
+    {
+        scoreTable.gameObject.SetActive(true);
+        scoreTableHeader.gameObject.SetActive(true);
+
+        loadScores();
+        scoreTable.children.Clear();
+        for (int i = 0; i < scoreTable.gameObject.transform.childCount; i++)
+        {
+            Destroy(scoreTable.gameObject.transform.GetChild(i).gameObject);
+        }
+        var scoresOrdered = scores.OrderByDescending(s => s.Score).Take(10);
+
         var font = this.scoreLabel.bitmapFont;
         foreach (var s in scoresOrdered)
         {
@@ -125,8 +144,11 @@ public class ScoreManager : MonoBehaviour
             scoreLabel.text = s.Score + string.Empty;
         }
         scoreTable.Reposition();
-        
+    }
 
+    void saveScores()
+    {
+        var scoreText = string.Empty;
         using (var m = new MemoryStream())
         {
 #if UNITY_METRO
@@ -136,10 +158,16 @@ public class ScoreManager : MonoBehaviour
             scoreText = Convert.ToBase64String(m.GetBuffer());
 #endif
         }
-
         PlayerPrefs.SetString("scores", scoreText);
         PlayerPrefs.Save();
+    }
 
+    void updateScores()
+    {
+        loadScores();
+        scores.Add(new Scores { Name = "Player", Score = score });
+        displayScores();
+        saveScores();
 
         if (Social.localUser.authenticated)
         {

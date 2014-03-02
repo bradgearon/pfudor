@@ -19,24 +19,49 @@ MonoBehaviour:
   - key: 3e68d64110da1114fb54b85f47b9a8d9
     genericValue: abbf0070-dabf-413a-8d72-8bdc5a3b6890
   - key: 040ee6b9bbe7b27488a727cddb51213e
-    genericValue: be454ffc-cd84-43a6-bb66-796a95d59784
+    genericValue: a6e1d8f3-dbc7-4ff4-9563-92c9210422fa
   - key: 778666ca11a655e409215b3ee6a1adf9
-    genericValue: 9db97075-880c-411d-8c6e-e559ef063827
+    genericValue: 68d69455-7c5e-47cc-ab47-30102677a83c
   - key: 43de912bb6dd16744bc4a4d244544c87
-    genericValue: c18b0dba-abda-49d8-81e2-3eeea7fec729
+    genericValue: 9f4fe5cc-74ca-4be4-9eaa-b0cda0ee8762
   - key: 7c10b24fae886b0408c773c69e424cd2
-    genericValue: d3f6fce3-78f0-4343-b95c-ab71e3af5e54
+    genericValue: d252780d-bb33-4bac-b18c-0d86fe2a5035
   - key: e40ee2124481a3f4699e745b7e30392a
-    genericValue: 64247566-3ffc-421d-b858-14fffeb6a5da
+    genericValue: ffec79ec-2c8f-47b8-9952-62118fd84b14
   - key: ee8cf7536a5347641899773281a4551a
-    genericValue: d176bae7-53aa-4095-b63d-8e4d907b7f0a
+    genericValue: b4273916-e2c4-4d39-aaf0-19e512ec6b31
   - key: 91579773d43a7e940a706163f72982dd
     genericValue: cce253ef-6aaf-403a-9584-c65aeb3fde1d
   - key: aca05dc6982af984ba799d949298d65a
     genericValue: 3ecca73e-f3b8-4414-902b-2c9e240f0140
   - key: db3aadcc2007d984da834fd81f082a9e
-    genericValue: 9b71505a-2149-4627-9658-6d375592c72b
-  m_oTextureGUIDAtlasEntries: []
+    genericValue: 0bcd45be-eaf4-40db-a454-cd468f409f6e
+  - key: a65ca2646077e7a49940d30756afab37
+    genericValue: d2c4b126-1fb8-4333-8a12-631d3bdc3360
+  - key: 9f49fb0d47fd53d4cbb7b527b53022e7
+    genericValue: e4c1495f-277d-491a-8f29-323612a4c480
+  m_oTextureGUIDAtlasEntries:
+  - key: a65ca2646077e7a49940d30756afab37
+    genericValue:
+    - b5080d19fda0867468f878b6dcd0f82d
+  - key: 91579773d43a7e940a706163f72982dd
+    genericValue:
+    - b5080d19fda0867468f878b6dcd0f82d
+  - key: 040ee6b9bbe7b27488a727cddb51213e
+    genericValue:
+    - b5080d19fda0867468f878b6dcd0f82d
+  - key: 3e68d64110da1114fb54b85f47b9a8d9
+    genericValue:
+    - b5080d19fda0867468f878b6dcd0f82d
+  - key: e40ee2124481a3f4699e745b7e30392a
+    genericValue:
+    - b5080d19fda0867468f878b6dcd0f82d
   m_oTextureGUIDClipEntries: []
-  m_oTextureGUIDSpritePrefabEntries: []
-  m_oAtlasGUIDSpritePrefabEntries: []
+  m_oTextureGUIDSpritePrefabEntries:
+  - key: 91579773d43a7e940a706163f72982dd
+    genericValue:
+    - 99deae22b424fe84cb8a3406ec712524
+  m_oAtlasGUIDSpritePrefabEntries:
+  - key: b5080d19fda0867468f878b6dcd0f82d
+    genericValue:
+    - 99deae22b424fe84cb8a3406ec712524
