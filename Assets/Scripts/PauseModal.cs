@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
 
 public class PauseModal : MonoBehaviour
@@ -16,6 +17,21 @@ public class PauseModal : MonoBehaviour
     {
         pauser = FindObjectOfType<Pauser>();
         playTween = playButton.transform.parent.GetComponent<TweenHeight>();
+        UIEventListener.Get(playButton).onClick = OnPauseClick;
+        UIEventListener.Get(quitButton).onClick = OnQuitClick;
+    }
+
+    private void OnQuitClick(GameObject go)
+    {
+        Application.Quit();
+    }
+
+    private void OnPauseClick(GameObject go)
+    {
+        playTween.onFinished.Clear();
+        playTween.onFinished.Add(new EventDelegate(TweenReveresed));
+        enableChildren(false);
+        playTween.Play(false);
     }
 
     void OnEnable()
@@ -41,26 +57,6 @@ public class PauseModal : MonoBehaviour
         playButton.SetActive(enable);
         soundButton.SetActive(enable);
         quitButton.SetActive(enable);
-    }
-
-    // Update is called once per frame
-    void OnFingerDown(FingerEvent e)
-    {
-        Debug.Log(e.Selection);
-
-        if (e.Selection == null) return;
-        if (e.Selection == playButton)
-        {
-            playTween.onFinished.Clear();
-            playTween.onFinished.Add(new EventDelegate(TweenReveresed));
-            enableChildren(false);
-            playTween.Play(false);
-        }
-
-        if (e.Selection == quitButton)
-        {
-            Application.Quit();
-        }
     }
 
 

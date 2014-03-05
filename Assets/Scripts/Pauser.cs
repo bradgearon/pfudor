@@ -7,9 +7,8 @@ public class Pauser : MonoBehaviour
     private bool pauseDown;
     public GameObject pausePanel;
 
-    void OnFingerDown(FingerEvent e)
+    void OnClick()
     {
-        if (e.Selection == null || e.Selection.gameObject != gameObject)  return;
         pauseDown = true;
     }
 

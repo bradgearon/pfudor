@@ -156,15 +156,18 @@ PlayerSettings:
   ps3TrialMode: 0
   flashStrippingLevel: 2
   spritePackerPolicy: DefaultPackerPolicy
-  scriptingDefineSymbols: {}
+  scriptingDefineSymbols:
+    2: 
+    14: 
+    16: 
   metroPackageName: PFUDOR
   metroPackageLogo: Assets/fluffle/50x50fluffle_0000_Body.png
-  metroPackageVersion: 1.0.0.0
-  metroCertificatePath: Assets/MetroTestCertificate.pfx
-  metroCertificatePassword: "E@\x19\x1F\x10\x18\x19\x05Y"
-  metroCertificateSubject: We Develop Software LLC
-  metroCertificateIssuer: We Develop Software LLC
-  metroCertificateNotAfter: 807da0c2c642d001
+  metroPackageVersion: 1.1.0.5
+  metroCertificatePath: S:/unity-pufdor/builds/store/PFUDOR_StoreKey.pfx
+  metroCertificatePassword: 
+  metroCertificateSubject: 291E11B0-1B99-453B-9C7B-B1E88CD0E040
+  metroCertificateIssuer: 291E11B0-1B99-453B-9C7B-B1E88CD0E040
+  metroCertificateNotAfter: 00c377d02656d001
   metroApplicationDescription: PFUDOR
   metroTileLogo: Assets/fluffle/150x150fluffle_0000_Body.png
   metroTileWideLogo: Assets/fluffle/310x150fluffle_0000_Body.png
@@ -174,7 +177,7 @@ PlayerSettings:
   metroTileShowName: 1
   metroTileForegroundText: 1
   metroTileBackgroundColor: {r: 0, g: 0, b: 0, a: 1}
-  metroSplashScreenImage: 
+  metroSplashScreenImage: Assets/fluffle/win-splash.png
   metroSplashScreenBackgroundColor: {r: 0, g: 0, b: 0, a: 1}
   metroSplashScreenUseBackgroundColor: 0
   metroCapabilities:

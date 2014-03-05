@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using GooglePlayGames.BasicApi;
+using Newtonsoft.Json;
+
 #if UNITY_METRO
 // using System.Runtime.Serialization.Json;
 #else
@@ -36,15 +38,10 @@ public class ScoreManager : MonoBehaviour
 
     private GameObject sceneManager;
 
-#if UNITY_METRO
-    // DataContractJsonSerializer json = new DataContractJsonSerializer(typeof(List<Scores>));
-#else
-    [NonSerialized]
-    readonly BinaryFormatter bf = new BinaryFormatter();
     private List<Scores> scores = new List<Scores>();
-    private ILookup<string, AchievementMeta> achievements;
     private List<SavedAchievement> savedAchievements = new List<SavedAchievement>();
-#endif
+
+    private ILookup<string, AchievementMeta> achievements;
 
     // Use this for initialization
     void Start()
@@ -168,7 +165,8 @@ public class ScoreManager : MonoBehaviour
             var descriptionLabel = NGUITools.AddWidget<UILabel>(achievementsTable.gameObject);
             var unlockedLabel = NGUITools.AddWidget<UILabel>(achievementsTable.gameObject);
             var achievement = achievementItem.FirstOrDefault();
-            var saved = savedAchievements.FirstOrDefault(a => string.Compare(a.Id, achievement.Id, true) == 0);
+
+            var saved = savedAchievements.FirstOrDefault(a => string.Compare(a.Id, achievement.Id, StringComparison.OrdinalIgnoreCase) == 0);
 
 
             var rewardSprite = NGUITools.AddWidget<UISprite>(achievementsTable.gameObject);
@@ -237,16 +235,22 @@ public class ScoreManager : MonoBehaviour
         }
 
         Debug.Log("score count" + scores.Count);
-        var scoresOrdered = scores.OrderByDescending(s => s.Score).Take(10).ToArray();
+        var scoresOrdered = scores.OrderByDescending(s => s.Score).Take(10).ToList();
         Debug.Log("scores ordered count " + scoresOrdered.Count());
 
-        var font = this.scoreLabel.bitmapFont;
+        if (scoresOrdered.Count == 0)
+        {
+            scoresOrdered.Add(new Scores() { Name = "None" });
+        }
+
+        var font = scoreLabel.bitmapFont;
+
         foreach (var s in scoresOrdered)
         {
             Debug.Log("score " + s.Name + " " + s.Score);
 
             var nameLabel = NGUITools.AddWidget<UILabel>(scoreTable.gameObject);
-            var scoreLabel = NGUITools.AddWidget<UILabel>(scoreTable.gameObject);
+            var valueLabel = NGUITools.AddWidget<UILabel>(scoreTable.gameObject);
 
             nameLabel.bitmapFont = font;
             nameLabel.fontSize = fontSize;
@@ -254,14 +258,19 @@ public class ScoreManager : MonoBehaviour
             nameLabel.height = 50;
             nameLabel.text = s.Name;
 
-            scoreLabel.bitmapFont = font;
-            scoreLabel.fontSize = fontSize;
-            scoreLabel.width = 100;
-            scoreLabel.height = 50;
-            scoreLabel.text = s.Score + string.Empty;
+            valueLabel.bitmapFont = font;
+            valueLabel.fontSize = fontSize;
+            valueLabel.width = 100;
+            valueLabel.height = 50;
+            if (s.Score > 0)
+            {
+                valueLabel.text = s.Score + string.Empty;
+            }
         }
+
         scoreTable.Reposition();
     }
+
 
     void saveAchievements()
     {
@@ -282,17 +291,7 @@ public class ScoreManager : MonoBehaviour
         {
             try
             {
-                var mbytes = Convert.FromBase64String(objectText);
-
-                using (var m = new MemoryStream(mbytes))
-                {
-#if UNITY_METRO
-                // scores = json.ReadObject(m) as List<Scores>;
-                scores = new List<Scores>();
-#else
-                    result = (T)bf.Deserialize(m);
-#endif
-                }
+                result = JsonConvert.DeserializeObject<T>(objectText);
             }
             catch (Exception ex)
             {
@@ -310,15 +309,15 @@ public class ScoreManager : MonoBehaviour
     void saveObject<T>(string name, T toSave)
     {
         var objectText = string.Empty;
-        using (var m = new MemoryStream())
+        try
         {
-#if UNITY_METRO
-            // json.WriteObject(m, scores);
-#else
-            bf.Serialize(m, toSave);
-            objectText = Convert.ToBase64String(m.GetBuffer());
-#endif
+            objectText = JsonConvert.SerializeObject(toSave);
         }
+        catch (Exception e)
+        {
+            Debug.Log("Error serializing: " + e.ToString());
+        }
+
         PlayerPrefs.SetString(name, objectText);
         PlayerPrefs.Save();
     }
@@ -328,7 +327,14 @@ public class ScoreManager : MonoBehaviour
         Debug.Log("score loading");
         loadScores();
         Debug.Log("score adding");
-        scores.Add(new Scores { Name = "Player", Score = score });
+        var name = "Player";
+
+        if (GameManager.Instance.Authenticated)
+        {
+            name = Social.localUser.userName;
+        }
+
+        scores.Add(new Scores { Name = name, Score = score });
         Debug.Log("score displaying");
         displayScores();
         Debug.Log("score saving");
@@ -342,7 +348,7 @@ public class ScoreManager : MonoBehaviour
                 achievement.IsUnlocked = true;
 
                 var saved = savedAchievements.FirstOrDefault(
-                    a => string.Compare(a.Id, achievement.Id, true) == 0);
+                    a => string.Compare(a.Id, achievement.Id, StringComparison.OrdinalIgnoreCase) == 0);
 
                 if (saved != null)
                 {
@@ -377,7 +383,7 @@ public class ScoreManager : MonoBehaviour
         foreach (var localAchievement in achievements)
         {
             var achievement = localAchievement.FirstOrDefault();
-            var savedAchievement = savedAchievements.FirstOrDefault(a => string.Compare(a.Id, achievement.Id, true) == 0);
+            var savedAchievement = savedAchievements.FirstOrDefault(a => string.Compare(a.Id, achievement.Id, StringComparison.OrdinalIgnoreCase) == 0);
             if (achievement.IsUnlocked && savedAchievement.RewardEnabled)
             {
                 customization.SendMessage(achievement.activateMessage);

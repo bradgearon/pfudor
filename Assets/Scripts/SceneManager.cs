@@ -28,10 +28,24 @@ public class SceneManager : MonoBehaviour
     private ScoreManager scoreManager;
     private bool viewLeaders;
     private bool tweening;
+    private bool showLeaders
+;
 
     void Awake()
     {
         scoreManager = FindObjectOfType<ScoreManager>();
+
+        if (SystemInfo.supportsImageEffects)
+        {
+            Debug.Log("system supports image effects");
+            var glowEffect = Camera.main.GetComponent<Glow11.Glow11>();
+            if (glowEffect != null)
+            {
+                Debug.Log("glow effect found");
+                glowEffect.enabled = true;
+            }
+        }
+
     }
 
     // Use this for initialization
@@ -92,6 +106,11 @@ public class SceneManager : MonoBehaviour
         {
             Application.LoadLevel("title");
         }
+        if (!loaded)
+        {
+            HideLeaders();
+        }
+
     }
 
     void OnLoadMain()
@@ -108,6 +127,7 @@ public class SceneManager : MonoBehaviour
         }
         else
         {
+            showLeaders = true;
             SetSceneObjects(false, false, false);
             scoreManager.SendMessage("displayScores");
         }

@@ -6,10 +6,30 @@ public class DefaultDown : MonoBehaviour
     public GameObject playerControl;
     private bool gameOver;
     private SceneManager sceneManager;
+    public ScreenRaycaster raycaster;
 
     void Awake()
     {
         sceneManager = FindObjectOfType<SceneManager>();
+        /*
+        var fingerDown = gameObject.AddComponent<FingerDownDetector>();
+        fingerDown.MessageTarget = gameObject;
+        fingerDown.OnFingerDown += OnFingerDown;
+        fingerDown.Raycaster = raycaster;
+         */
+    }
+
+    public void OnClick()
+    {
+        Debug.Log("OnDefaultDown - OnClick");
+        if (playerControl != null && !gameOver)
+        {
+            playerControl.SendMessage("OnDefaultDown");
+        }
+        else
+        {
+            sceneManager.SendMessage("OnDefaultDown");
+        }
     }
 
     void GameOver()

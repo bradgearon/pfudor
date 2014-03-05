@@ -7,10 +7,10 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: glowMaterial
-  m_Shader: {fileID: 4800000, guid: 8912568cc364544c684c9fc88c4e5286, type: 3}
+  m_Shader: {fileID: 4800000, guid: 32a344a4cded24f1f9c2c683fd927ecc, type: 3}
   m_ShaderKeywords:
-  - GLOW11_MULTIPLY_OFF
   - GLOW11_GLOW_MAINTEX
+  - GLOW11_MULTIPLY_GLOWCOLOR
   m_CustomRenderQueue: -1
   m_SavedProperties:
     serializedVersion: 2
@@ -19,14 +19,14 @@ Material:
         first:
           name: _MainTex
         second:
-          m_Texture: {fileID: 2800000, guid: aca05dc6982af984ba799d949298d65a, type: 3}
+          m_Texture: {fileID: 2800000, guid: 6826112f785b0474d9682dd19c6e615a, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
         first:
           name: _GlowTex
         second:
-          m_Texture: {fileID: 0}
+          m_Texture: {fileID: 2800000, guid: d02face3e8da6aa45a072c02cdaba825, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
     m_Floats:

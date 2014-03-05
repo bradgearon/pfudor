@@ -706,7 +706,6 @@ GameObject:
   - 4: {fileID: 236774370}
   - 20: {fileID: 236774372}
   - 114: {fileID: 236774371}
-  - 114: {fileID: 236774373}
   m_Layer: 8
   m_Name: Camera
   m_TagString: Untagged
@@ -795,25 +794,6 @@ Camera:
   m_TargetTexture: {fileID: 0}
   m_HDR: 0
   m_OcclusionCulling: 1
---- !u!114 &236774373
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 236774369}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf945d278a7402a4cb9cd26aec5c0fe7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Cameras:
-  - {fileID: 236774372}
-  IgnoreLayerMask:
-    serializedVersion: 2
-    m_Bits: 0
-  RayThickness: 1
-  VisualizeRaycasts: 1
-  UsePhysics2D: 1
 --- !u!1 &333066444
 GameObject:
   m_ObjectHideFlags: 0
@@ -1513,7 +1493,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 767882379}
   - 65: {fileID: 767882380}
-  - 114: {fileID: 767882381}
   - 114: {fileID: 767882382}
   m_Layer: 8
   m_Name: Default Collider
@@ -1545,23 +1524,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2000, y: 2000, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &767882381
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 767882378}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06c71470e58dece45a990c1eaafbd474, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  FingerIndexFilter: -1
-  Raycaster: {fileID: 236774373}
-  UseSendMessage: 1
-  SendMessageToSelection: 0
-  MessageTarget: {fileID: 767882378}
-  MessageName: OnFingerDown
 --- !u!114 &767882382
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1574,6 +1536,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerControl: {fileID: 0}
+  raycaster: {fileID: 0}
 --- !u!1 &800619821
 GameObject:
   m_ObjectHideFlags: 0
@@ -1583,8 +1546,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 800619822}
   - 114: {fileID: 800619823}
-  - 114: {fileID: 800619824}
-  - 65: {fileID: 800619825}
   m_Layer: 8
   m_Name: HighScoreTable
   m_TagString: Untagged
@@ -1620,40 +1581,6 @@ MonoBehaviour:
   hideInactive: 1
   keepWithinPanel: 1
   padding: {x: 0, y: 0}
---- !u!114 &800619824
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 800619821}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e862f287df53bb64db191162f851a296, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onHoverOver: []
-  onHoverOut: []
-  onPress: []
-  onRelease: []
-  onSelect: []
-  onDeselect: []
-  onClick:
-  - mTarget: {fileID: 1415362760}
-    mMethodName: HideLeaders
-    oneShot: 0
-  onDoubleClick: []
---- !u!65 &800619825
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 800619821}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 2000, y: 2000, z: 0}
-  m_Center: {x: 0, y: -100, z: 0}
 --- !u!1 &813486454
 GameObject:
   m_ObjectHideFlags: 0
@@ -1830,46 +1757,6 @@ Transform:
   m_Children:
   - {fileID: 236774370}
   m_Father: {fileID: 0}
---- !u!1001 &946770553
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 400000, guid: ad6fdd6c3751993499aef52903582a27, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: ad6fdd6c3751993499aef52903582a27, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: ad6fdd6c3751993499aef52903582a27, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: ad6fdd6c3751993499aef52903582a27, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: ad6fdd6c3751993499aef52903582a27, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: ad6fdd6c3751993499aef52903582a27, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: ad6fdd6c3751993499aef52903582a27, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: ad6fdd6c3751993499aef52903582a27, type: 2}
-  m_RootGameObject: {fileID: 1665706902}
-  m_IsPrefabParent: 0
-  m_IsExploded: 1
 --- !u!1 &962168876
 GameObject:
   m_ObjectHideFlags: 0
@@ -2286,7 +2173,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1324182481}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 576, y: 346, z: 0}
+  m_LocalPosition: {x: 461.000031, y: 346, z: 0}
   m_LocalScale: {x: 1.00007999, y: 1.00007999, z: 1.00007999}
   m_Children:
   - {fileID: 2065071702}
@@ -3244,51 +3131,6 @@ MonoBehaviour:
   rightType: 0
   bottomType: 1
   topType: 1
---- !u!1 &1665706902
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 100000, guid: ad6fdd6c3751993499aef52903582a27, type: 2}
-  m_PrefabInternal: {fileID: 946770553}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1665706905}
-  - 114: {fileID: 1665706904}
-  m_Layer: 0
-  m_Name: FingerGestures
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1665706904
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11400000, guid: ad6fdd6c3751993499aef52903582a27,
-    type: 2}
-  m_PrefabInternal: {fileID: 946770553}
-  m_GameObject: {fileID: 1665706902}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c49ed014673f07847be2bb1995e31a70, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  makePersistent: 1
-  detectUnityRemote: 1
-  mouseInputProviderPrefab: {fileID: 11400000, guid: 2fc6e1e218b70c94285691a647d862aa,
-    type: 2}
-  touchInputProviderPrefab: {fileID: 11400000, guid: 7e371fba69d7cea42a0d86fb48257c47,
-    type: 2}
---- !u!4 &1665706905
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 400000, guid: ad6fdd6c3751993499aef52903582a27, type: 2}
-  m_PrefabInternal: {fileID: 946770553}
-  m_GameObject: {fileID: 1665706902}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
 --- !u!1 &1682942173
 GameObject:
   m_ObjectHideFlags: 0
@@ -3314,7 +3156,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1682942173}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -600, y: 288, z: 0}
+  m_LocalPosition: {x: -480, y: 288, z: 0}
   m_LocalScale: {x: 1.00007999, y: 1.00007999, z: 1.00007999}
   m_Children:
   - {fileID: 658054978}
@@ -4154,7 +3996,6 @@ GameObject:
   - 114: {fileID: 2065071703}
   - 65: {fileID: 2065071704}
   - 114: {fileID: 2065071706}
-  - 114: {fileID: 2065071705}
   m_Layer: 8
   m_Name: Pause
   m_TagString: Untagged
@@ -4234,23 +4075,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 98.101265, y: 97.4683533, z: 0}
   m_Center: {x: -50.3164558, y: -50, z: 0}
---- !u!114 &2065071705
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2065071701}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06c71470e58dece45a990c1eaafbd474, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  FingerIndexFilter: -1
-  Raycaster: {fileID: 236774373}
-  UseSendMessage: 1
-  SendMessageToSelection: 0
-  MessageTarget: {fileID: 2065071701}
-  MessageName: OnFingerDown
 --- !u!114 &2065071706
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4363,7 +4187,6 @@ GameObject:
   - 114: {fileID: 2123062094}
   - 114: {fileID: 2123062097}
   - 114: {fileID: 2123062098}
-  - 114: {fileID: 2123062099}
   m_Layer: 8
   m_Name: Pause Panel
   m_TagString: Untagged
@@ -4494,23 +4317,6 @@ MonoBehaviour:
   playButton: {fileID: 44737206}
   quitButton: {fileID: 1730900147}
   soundButton: {fileID: 1860406256}
---- !u!114 &2123062099
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2123062092}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06c71470e58dece45a990c1eaafbd474, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  FingerIndexFilter: -1
-  Raycaster: {fileID: 236774373}
-  UseSendMessage: 1
-  SendMessageToSelection: 1
-  MessageTarget: {fileID: 2123062092}
-  MessageName: OnFingerDown
 --- !u!1 &2144219498
 GameObject:
   m_ObjectHideFlags: 0
