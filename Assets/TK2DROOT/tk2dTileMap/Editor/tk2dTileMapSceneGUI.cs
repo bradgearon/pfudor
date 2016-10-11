@@ -48,7 +48,7 @@ public class tk2dTileMapSceneGUI
 		if (tileMap.SpriteCollectionInst && this.editorData)
 		{
 			this.editorData.InitBrushes(tileMap.SpriteCollectionInst);
-			EditorUtility.SetDirty(this.editorData);
+			tk2dUtil.SetDirty(this.editorData);
 		}
 
 		scratchpadGUI = new tk2dScratchpadGUI(this, BrushRenderer, WorkingBrush);
@@ -1150,7 +1150,7 @@ public class tk2dTileMapSceneGUI
 		brush.UpdateBrushHash();
 		
 		// Make the inspector update
-		EditorUtility.SetDirty(tileMap);
+		tk2dUtil.SetDirty(tileMap);
 	}
 
 	void PaintColorBrush(float x, float y) {

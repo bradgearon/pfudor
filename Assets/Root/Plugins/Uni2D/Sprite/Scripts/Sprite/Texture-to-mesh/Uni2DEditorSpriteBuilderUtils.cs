@@ -331,7 +331,7 @@ public static class Uni2DEditorSpriteBuilderUtils
 		
 		// Init. rendering component
 		// Add it if not created
-		Renderer rSpriteMeshRendererComponent = a_rSprite.renderer;// a_rSprite.GetComponent<MeshRenderer>( );
+		Renderer rSpriteMeshRendererComponent = a_rSprite.GetComponent<Renderer>();// a_rSprite.GetComponent<MeshRenderer>( );
 
 		if( rSpriteMeshRendererComponent == null )
 		{
@@ -989,7 +989,7 @@ public static class Uni2DEditorSpriteBuilderUtils
 			rSpriteMesh.uv = Uni2DSpriteUtils.BuildUVs( rSpriteTextureContainer, rSpriteData.renderMeshUVs, rTextureAtlas );
 
 			// Update material
-			Renderer rRenderer = a_rSprite.renderer;
+			Renderer rRenderer = a_rSprite.GetComponent<Renderer>();
 			if( rRenderer != null )
 			{
 				rRenderer.sharedMaterial = rSpriteMaterial;

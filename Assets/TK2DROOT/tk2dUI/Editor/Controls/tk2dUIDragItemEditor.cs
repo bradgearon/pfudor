@@ -14,7 +14,7 @@ public class tk2dUIDragItemEditor : tk2dUIBaseItemControlEditor
 
         if (GUI.changed)
         {
-            EditorUtility.SetDirty(dragButton);
+            tk2dUtil.SetDirty(dragButton);
         }
     }
 

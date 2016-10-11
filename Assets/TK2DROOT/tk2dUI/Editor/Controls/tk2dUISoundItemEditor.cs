@@ -17,7 +17,7 @@ public class tk2dUISoundItemEditor : tk2dUIBaseItemControlEditor
         soundBtn.releaseButtonSound = EditorGUILayout.ObjectField("Release Sound", soundBtn.releaseButtonSound, typeof(AudioClip), false, null) as AudioClip;
         if (GUI.changed)
         {
-            EditorUtility.SetDirty(soundBtn);
+            tk2dUtil.SetDirty(soundBtn);
         }
     }
 

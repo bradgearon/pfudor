@@ -3,6 +3,7 @@ using System.Collections;
 using System.Text;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 
 // Source: UIToolkit -- https://github.com/prime31/UIToolkit/blob/master/Assets/Plugins/MiniJSON.cs
 
@@ -43,19 +44,48 @@ public class NGUIJson
 	/// Parse the specified JSon file, loading sprite information for the specified atlas.
 	/// </summary>
 
-	public static void LoadSpriteData (UIAtlas atlas, TextAsset asset)
+	static public void LoadSpriteData (UIAtlas atlas, TextAsset asset)
 	{
 		if (asset == null || atlas == null) return;
 
 		string jsonString = asset.text;
+
 		Hashtable decodedHash = jsonDecode(jsonString) as Hashtable;
-		
+
 		if (decodedHash == null)
 		{
 			Debug.LogWarning("Unable to parse Json file: " + asset.name);
-			return;
 		}
+		else LoadSpriteData(atlas, decodedHash);
 
+		asset = null;
+		Resources.UnloadUnusedAssets();
+	}
+
+	/// <summary>
+	/// Parse the specified JSon file, loading sprite information for the specified atlas.
+	/// </summary>
+
+	static public void LoadSpriteData (UIAtlas atlas, string jsonData)
+	{
+		if (string.IsNullOrEmpty(jsonData) || atlas == null) return;
+
+		Hashtable decodedHash = jsonDecode(jsonData) as Hashtable;
+
+		if (decodedHash == null)
+		{
+			Debug.LogWarning("Unable to parse the provided Json string");
+		}
+		else LoadSpriteData(atlas, decodedHash);
+	}
+
+	/// <summary>
+	/// Parse the specified JSon file, loading sprite information for the specified atlas.
+	/// </summary>
+
+	static void LoadSpriteData (UIAtlas atlas, Hashtable decodedHash)
+	{
+		if (decodedHash == null || atlas == null) return;
 		List<UISpriteData> oldSprites = atlas.spriteList;
 		atlas.spriteList = new List<UISpriteData>();
 
@@ -150,10 +180,6 @@ public class NGUIJson
 		// Sort imported sprites alphabetically
 		atlas.spriteList.Sort(CompareSprites);
 		Debug.Log("Imported " + atlas.spriteList.Count + " sprites");
-
-		// Unload the asset
-		asset = null;
-		Resources.UnloadUnusedAssets();
 	}
 
 	/// <summary>
@@ -167,7 +193,7 @@ public class NGUIJson
 	/// </summary>
 	/// <param name="json">A JSON string.</param>
 	/// <returns>An ArrayList, a Hashtable, a double, a string, null, true, or false</returns>
-	public static object jsonDecode( string json )
+	static public object jsonDecode( string json )
 	{
 		// save the string for debug information
 		NGUIJson.lastDecode = json;
@@ -198,7 +224,7 @@ public class NGUIJson
 	/// </summary>
 	/// <param name="json">A Hashtable / ArrayList</param>
 	/// <returns>A JSON encoded string, or null if object 'json' is not serializable</returns>
-	public static string jsonEncode( object json )
+	static public string jsonEncode( object json )
 	{
 		var builder = new StringBuilder( BUILDER_CAPACITY );
 		var success = NGUIJson.serializeValue( json, builder );
@@ -211,7 +237,7 @@ public class NGUIJson
 	/// On decoding, this function returns the position at which the parse failed (-1 = no error).
 	/// </summary>
 	/// <returns></returns>
-	public static bool lastDecodeSuccessful()
+	static public bool lastDecodeSuccessful()
 	{
 		return ( NGUIJson.lastErrorIndex == -1 );
 	}
@@ -221,7 +247,7 @@ public class NGUIJson
 	/// On decoding, this function returns the position at which the parse failed (-1 = no error).
 	/// </summary>
 	/// <returns></returns>
-	public static int getLastErrorIndex()
+	static public int getLastErrorIndex()
 	{
 		return NGUIJson.lastErrorIndex;
 	}
@@ -232,7 +258,7 @@ public class NGUIJson
 	/// at which the error took place. To ease debugging.
 	/// </summary>
 	/// <returns></returns>
-	public static string getLastErrorSnippet()
+	static public string getLastErrorSnippet()
 	{
 		if( NGUIJson.lastErrorIndex == -1 )
 		{

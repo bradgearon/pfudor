@@ -27,7 +27,7 @@ public class tk2dUIToggleButtonEditor : tk2dUIBaseItemControlEditor
 
         if (GUI.changed)
         {
-            EditorUtility.SetDirty(target);
+            tk2dUtil.SetDirty(target);
         }
     }
 

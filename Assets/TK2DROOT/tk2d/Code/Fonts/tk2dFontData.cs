@@ -148,8 +148,9 @@ public class tk2dFontData : MonoBehaviour
 						break;
 					}
 				}
-				if (materialInst == null)
+				if (materialInst == null && !needMaterialInstance) {
 					Debug.LogError("Fatal error - font from sprite collection is has an invalid material");
+				}
 			}
 			else
 			{

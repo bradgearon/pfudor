@@ -275,7 +275,7 @@ public class tk2dSpriteAnimationEditorPopup : EditorWindow
 			anim.clips[i] = new tk2dSpriteAnimationClip();
 			anim.clips[i].CopyFrom(allClips[i]);
 		}
-		EditorUtility.SetDirty(anim);
+		tk2dUtil.SetDirty(anim);
 		AssetDatabase.SaveAssets();
 	}
 

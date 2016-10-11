@@ -31,7 +31,7 @@ public class tk2dUIUpDownHoverButtonEditor : tk2dUIBaseItemControlEditor
 
         if (GUI.changed)
         {
-            EditorUtility.SetDirty(upDownHoverButton);
+            tk2dUtil.SetDirty(upDownHoverButton);
         }
     }
 }

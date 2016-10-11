@@ -25,7 +25,7 @@ Shader "Hidden/tk2d/EditorUtility"
 
 			struct v2f_vct
 			{
-				float4 vertex : POSITION;
+				float4 vertex : SV_POSITION;
 				float2 texcoord : TEXCOORD0;
 				float2 w : TEXCOORD1;
 			};
@@ -39,7 +39,7 @@ Shader "Hidden/tk2d/EditorUtility"
 				return o;
 			}
 
-			fixed4 frag_mult(v2f_vct i) : COLOR
+			fixed4 frag_mult(v2f_vct i) : SV_Target
 			{
 				fixed4 col = tex2D(_MainTex, i.texcoord) * _Tint;
 				if (i.w.x < _Clip.x || i.w.x > _Clip.z || i.w.y < _Clip.y || i.w.y > _Clip.w) col.a = 0;

@@ -6,9 +6,10 @@ using System.Collections.Generic;
 [CustomEditor(typeof(tk2dFont))]
 public class tk2dFontEditor : Editor 
 {
-	public Shader GetShader(bool gradient)
+	public Shader GetShader(bool gradient, bool packed)
 	{
-		if (gradient) return Shader.Find("tk2d/Blend2TexVertexColor");
+		if (packed) return Shader.Find("tk2d/Goodies/PackedTextMesh");
+		else if (gradient) return Shader.Find("tk2d/Blend2TexVertexColor");
 		else return Shader.Find("tk2d/BlendVertexColor");
 	}
 	
@@ -79,7 +80,7 @@ public class tk2dFontEditor : Editor
 			
 			if (gen.material == null)
 			{
-				gen.material = new Material(GetShader(gen.gradientTexture != null));
+				gen.material = new Material(GetShader(gen.gradientTexture != null, gen.data != null && gen.data.isPacked));
 				string materialPath = AssetDatabase.GetAssetPath(gen).Replace(".prefab", "material.mat");
 				AssetDatabase.CreateAsset(gen.material, materialPath);
 			}
@@ -105,21 +106,21 @@ public class tk2dFontEditor : Editor
 
 			if (gen.manageMaterial)
 			{
-				Shader s = GetShader(gen.gradientTexture != null);
+				Shader s = GetShader(gen.gradientTexture != null, gen.data != null && gen.data.isPacked);
 				if (gen.material.shader != s)
 				{
 					gen.material.shader = s;
-					EditorUtility.SetDirty(gen.material);
+					tk2dUtil.SetDirty(gen.material);
 				}
 				if (gen.material.mainTexture != gen.texture)
 				{
 					gen.material.mainTexture = gen.texture;
-					EditorUtility.SetDirty(gen.material);
+					tk2dUtil.SetDirty(gen.material);
 				}
 				if (gen.gradientTexture != null && gen.gradientTexture != gen.material.GetTexture("_GradientTex"))
 				{
 					gen.material.SetTexture("_GradientTex", gen.gradientTexture);
-					EditorUtility.SetDirty(gen.material);
+					tk2dUtil.SetDirty(gen.material);
 				}
 			}
 			
@@ -140,8 +141,8 @@ public class tk2dFontEditor : Editor
                 spr.Init(true);
             }
 			
-			EditorUtility.SetDirty(gen);
-			EditorUtility.SetDirty(gen.data);
+			tk2dUtil.SetDirty(gen);
+			tk2dUtil.SetDirty(gen.data);
 
 			// update index
 			tk2dEditorUtility.GetOrCreateIndex().AddOrUpdateFont(gen);

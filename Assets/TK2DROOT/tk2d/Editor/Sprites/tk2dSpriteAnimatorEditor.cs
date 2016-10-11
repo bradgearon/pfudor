@@ -156,7 +156,7 @@ public class tk2dSpriteAnimatorEditor : Editor
 			if (GUI.changed)
 			{
 				foreach (tk2dSpriteAnimator spr in targetAnimators) {
-					EditorUtility.SetDirty(spr);
+					tk2dUtil.SetDirty(spr);
 				}
 			}
 		}
@@ -190,7 +190,7 @@ public class tk2dSpriteAnimatorEditor : Editor
 		return anim != null && clipId != -1;
     }
 
-    [MenuItem("GameObject/Create Other/tk2d/Sprite With Animator", false, 12951)]
+    [MenuItem(tk2dMenu.createBase + "Sprite With Animator", false, 12951)]
     static void DoCreateSpriteObject()
     {
 		tk2dSpriteAnimation anim = null;

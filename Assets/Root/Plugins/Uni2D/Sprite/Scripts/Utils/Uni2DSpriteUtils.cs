@@ -73,7 +73,7 @@ public static class Uni2DSpriteUtils
 			oSpriteMaterial = a_rTextureAtlas.GetMaterial( a_rTextureContainer.GUID );
 		}
 		
-		Renderer rRenderer = a_rSpriteComponent.renderer;
+		Renderer rRenderer = a_rSpriteComponent.GetComponent<Renderer>();
 		if(rRenderer != null)
 		{
 			rRenderer.sharedMaterial = oSpriteMaterial;

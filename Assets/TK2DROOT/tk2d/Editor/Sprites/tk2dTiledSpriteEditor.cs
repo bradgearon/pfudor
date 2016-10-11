@@ -18,9 +18,9 @@ class tk2dTiledSpriteEditor : tk2dSpriteEditor
         tk2dTiledSprite sprite = (tk2dTiledSprite)target;
 		base.OnInspectorGUI();
 		
-		if (sprite.Collection == null)
+		if (sprite.Collection == null) {
 			return;
-
+		}
 		
 		EditorGUILayout.BeginVertical();
 		
@@ -78,7 +78,7 @@ class tk2dTiledSpriteEditor : tk2dSpriteEditor
 		{
 			foreach (tk2dTiledSprite spr in targetTiledSprites) {
 				spr.Build();
-				EditorUtility.SetDirty(spr);
+				tk2dUtil.SetDirty(spr);
 			}
 		}
 
@@ -86,7 +86,9 @@ class tk2dTiledSpriteEditor : tk2dSpriteEditor
     }
 
 	public new void OnSceneGUI() {
-		if (tk2dPreferences.inst.enableSpriteHandles == false) return;
+		if (tk2dPreferences.inst.enableSpriteHandles == false || !tk2dEditorUtility.IsEditable(target)) {
+			return;
+		}
 
 		tk2dTiledSprite spr = (tk2dTiledSprite)target;
 
@@ -117,7 +119,7 @@ class tk2dTiledSpriteEditor : tk2dSpriteEditor
 					tk2dUndo.RecordObjects (new Object[] {t, spr}, "Resize");
 					spr.ReshapeBounds(new Vector3(resizeRect.xMin, resizeRect.yMin) - new Vector3(rect0.xMin, rect0.yMin),
 						new Vector3(resizeRect.xMax, resizeRect.yMax) - new Vector3(rect0.xMax, rect0.yMax));
-					EditorUtility.SetDirty(spr);
+					tk2dUtil.SetDirty(spr);
 				}
 			}
 
@@ -144,11 +146,11 @@ class tk2dTiledSpriteEditor : tk2dSpriteEditor
 		}
 
     	if (GUI.changed) {
-    		EditorUtility.SetDirty(target);
+    		tk2dUtil.SetDirty(target);
     	}
 	}
 
-    [MenuItem("GameObject/Create Other/tk2d/Tiled Sprite", false, 12901)]
+    [MenuItem(tk2dMenu.createBase + "Tiled Sprite", false, 12901)]
     static void DoCreateSlicedSpriteObject()
     {
 		tk2dSpriteGuiUtility.GetSpriteCollectionAndCreate( (sprColl) => {

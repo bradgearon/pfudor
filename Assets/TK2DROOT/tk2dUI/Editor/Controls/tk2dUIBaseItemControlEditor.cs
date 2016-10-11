@@ -32,7 +32,7 @@ public class tk2dUIBaseItemControlEditor : Editor
 
         if (GUI.changed)
         {
-            EditorUtility.SetDirty(baseButtonControl);
+            tk2dUtil.SetDirty(baseButtonControl);
         }
     }
 
@@ -42,7 +42,7 @@ public class tk2dUIBaseItemControlEditor : Editor
         GameObject newSendMessageTarget = methodBindingUtil.BeginMessageGUI( baseButtonControl.SendMessageTarget );
         if (newSendMessageTarget != baseButtonControl.SendMessageTarget) {
             baseButtonControl.SendMessageTarget = newSendMessageTarget;
-            EditorUtility.SetDirty( baseButtonControl.uiItem );
+            tk2dUtil.SetDirty( baseButtonControl.uiItem );
         }
     }
 

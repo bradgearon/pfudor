@@ -39,7 +39,7 @@ Shader "Unlit/Text"
 
 				struct v2f
 				{
-					float4 vertex : POSITION;
+					float4 vertex : SV_POSITION;
 					half4 color : COLOR;
 					float2 texcoord : TEXCOORD0;
 				};
@@ -51,12 +51,12 @@ Shader "Unlit/Text"
 				{
 					v2f o;
 					o.vertex = mul(UNITY_MATRIX_MVP, v.vertex);
-					o.texcoord = TRANSFORM_TEX(v.texcoord, _MainTex);
+					o.texcoord = v.texcoord;
 					o.color = v.color;
 					return o;
 				}
 
-				half4 frag (v2f i) : COLOR
+				half4 frag (v2f i) : SV_Target
 				{
 					half4 col = i.color;
 					col.a *= tex2D(_MainTex, i.texcoord).a;

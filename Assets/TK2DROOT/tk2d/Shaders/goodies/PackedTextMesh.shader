@@ -37,7 +37,7 @@ Shader "tk2d/Goodies/PackedTextMesh"
 
 			struct v2f_vct
 			{
-				float4 vertex : POSITION;
+				float4 vertex : SV_POSITION;
 				fixed4 color : COLOR;
 				float2 texcoord : TEXCOORD0;
 			};
@@ -51,7 +51,7 @@ Shader "tk2d/Goodies/PackedTextMesh"
 				return o;
 			}
 
-			fixed4 frag_mult(v2f_vct i) : COLOR
+			fixed4 frag_mult(v2f_vct i) : SV_Target
 			{
 				fixed4 col = tex2D(_MainTex, i.texcoord) * i.color;
 				fixed f = dot(col, fixed4(1, 1, 1, 1));

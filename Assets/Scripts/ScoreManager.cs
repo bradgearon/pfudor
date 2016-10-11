@@ -27,6 +27,8 @@ public class ScoreManager : MonoBehaviour
     public UILabel achievementsTableHeader;
     public UIButton buttonPrefab;
     public UISprite spritePrefab;
+    public AdLauncher adLauncher;
+    private UnityEngine.Random random = new UnityEngine.Random();
 
     public long highScore;
     public int fontSize = 32;
@@ -85,7 +87,7 @@ public class ScoreManager : MonoBehaviour
         }
     }
 
-    void loadAchievements()
+    public void loadAchievements()
     {
         if (achievements == null || achievements.Count == 0)
         {
@@ -97,14 +99,16 @@ public class ScoreManager : MonoBehaviour
             var loaded = GameManager.Instance.GetAchievements();
             foreach (var achievement in loaded)
             {
-                var localAchievement = achievements[achievement.Id].FirstOrDefault();
+                var localAchievement = achievements[achievement.id].FirstOrDefault();
                 if (localAchievement != null)
                 {
-                    localAchievement.IsUnlocked = achievement.IsUnlocked;
+                    localAchievement.IsUnlocked = achievement.completed;
+
                     savedAchievements.Add(new SavedAchievement
                     {
                         Id = localAchievement.Id,
-                        IsUnlocked = localAchievement.IsUnlocked
+                        IsUnlocked = localAchievement.IsUnlocked,
+                        RewardEnabled = localAchievement.IsUnlocked
                     });
                 }
             }
@@ -152,7 +156,7 @@ public class ScoreManager : MonoBehaviour
         loadAchievements();
 
         achievementsTable.columns = 4;
-        achievementsTable.children.Clear();
+        achievementsTable.GetChildList().Clear();
         for (int i = 0; i < achievementsTable.gameObject.transform.childCount; i++)
         {
             Destroy(achievementsTable.gameObject.transform.GetChild(i).gameObject);
@@ -166,8 +170,12 @@ public class ScoreManager : MonoBehaviour
             var unlockedLabel = NGUITools.AddWidget<UILabel>(achievementsTable.gameObject);
             var achievement = achievementItem.FirstOrDefault();
 
-            var saved = savedAchievements.FirstOrDefault(a => string.Compare(a.Id, achievement.Id, StringComparison.OrdinalIgnoreCase) == 0);
+            if (!(achievement.IsRevealed || achievement.IsUnlocked))
+            {
+                continue;
+            }
 
+            var saved = savedAchievements.FirstOrDefault(a => string.Compare(a.Id, achievement.Id, StringComparison.OrdinalIgnoreCase) == 0);
 
             var rewardSprite = NGUITools.AddWidget<UISprite>(achievementsTable.gameObject);
             if (achievement.IsUnlocked)
@@ -226,7 +234,7 @@ public class ScoreManager : MonoBehaviour
         scoreTableHeader.gameObject.SetActive(true);
 
         loadScores();
-        scoreTable.children.Clear();
+        scoreTable.GetChildList().Clear();
         scoreTable.columns = 2;
 
         for (int i = 0; i < scoreTable.gameObject.transform.childCount; i++)
@@ -324,6 +332,12 @@ public class ScoreManager : MonoBehaviour
 
     void updateScores()
     {
+        var showAd = UnityEngine.Random.Range(0, 1);
+        if (showAd < .77)
+        {
+            adLauncher.ShowAdPlacement();
+        }
+
         Debug.Log("score loading");
         loadScores();
         Debug.Log("score adding");
@@ -345,6 +359,7 @@ public class ScoreManager : MonoBehaviour
             var achievement = achievementItem.FirstOrDefault();
             if (!achievement.IsUnlocked && achievement.minScore < score)
             {
+                achievement.IsRevealed = true;
                 achievement.IsUnlocked = true;
 
                 var saved = savedAchievements.FirstOrDefault(
@@ -361,12 +376,11 @@ public class ScoreManager : MonoBehaviour
                     Social.ReportProgress(achievement.Id, 100,
                         b => Debug.Log("Achievement " + achievement.Id + " unlocked"));
                 }
-
-
             }
         }
 
         saveAchievements();
+
 
         if (Social.localUser.authenticated)
         {
@@ -383,7 +397,13 @@ public class ScoreManager : MonoBehaviour
         foreach (var localAchievement in achievements)
         {
             var achievement = localAchievement.FirstOrDefault();
-            var savedAchievement = savedAchievements.FirstOrDefault(a => string.Compare(a.Id, achievement.Id, StringComparison.OrdinalIgnoreCase) == 0);
+            var savedAchievement = savedAchievements.FirstOrDefault(a => 
+                string.Compare(a.Id, achievement.Id, StringComparison.OrdinalIgnoreCase) == 0);
+            if(savedAchievement == null)
+            {
+                continue;
+            }
+            
             if (achievement.IsUnlocked && savedAchievement.RewardEnabled)
             {
                 customization.SendMessage(achievement.activateMessage);

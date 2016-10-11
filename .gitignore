@@ -8,11 +8,16 @@ Temp
 *.user
 *.pidb
 *.userprefs
+*.apk
 
 Library/cache/*
 Library/metadata/*
 Library/previews/*
 Library/ScriptAssemblies/*
+Library/ShaderCache/*
+Library/UnityAssemblies/*
+Library/ShaderCache.db
+Library/shadercompiler-*
 AnnotationManager
 assetDatabase3
 AssetImportState

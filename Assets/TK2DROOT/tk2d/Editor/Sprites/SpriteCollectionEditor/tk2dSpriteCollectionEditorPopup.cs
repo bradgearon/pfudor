@@ -426,7 +426,7 @@ public class tk2dSpriteCollectionEditorPopup : EditorWindow, IEditorHost
 			}
 		}
 		
-		if (GUILayout.Button("Revert", EditorStyles.toolbarButton) && spriteCollectionProxy != null)
+		if (GUILayout.Button("Revert", EditorStyles.toolbarButton) && spriteCollectionProxy != null && EditorUtility.DisplayDialog("Revert sprite collection", "Are you sure you want to revert changes made to this sprite collection?", "Yes", "Cancel"))
 		{
 			spriteCollectionProxy.CopyFromSource();
 			OnSpriteCollectionChanged(false);
@@ -655,10 +655,20 @@ public class tk2dSpriteCollectionEditorPopup : EditorWindow, IEditorHost
 		foreach (var v in DragAndDrop.objectReferences)
 		{
 			var type = v.GetType();
+
 			if (type == typeof(Texture2D))
+			{
 				return true;
-			else if (type == typeof(Object) && System.IO.Directory.Exists(DragAndDrop.paths[idx]))
+			}
+#if (UNITY_3_5 || UNITY_4_0 || UNITY_4_0_1 || UNITY_4_1 || UNITY_4_2 || UNITY_4_3 || UNITY_4_4 || UNITY_4_5 || UNITY_4_6 || UNITY_4_7)
+			else if (type == typeof(UnityEngine.Object) && System.IO.Directory.Exists(DragAndDrop.paths[idx]))
+#else
+			else if (type == typeof(UnityEditor.DefaultAsset) && System.IO.Directory.Exists(DragAndDrop.paths[idx]))
+#endif
+			{
 				return true;
+			}
+
 			++idx;
 		}
 		return false;
@@ -786,9 +796,17 @@ public class tk2dSpriteCollectionEditorPopup : EditorWindow, IEditorHost
 				{
 					var type = DragAndDrop.objectReferences[i].GetType();
 					if (type == typeof(Texture2D))
+					{
 						droppedObjectsList.Add(DragAndDrop.objectReferences[i]);
-					else if (type == typeof(Object) && System.IO.Directory.Exists(DragAndDrop.paths[i]))
+					}
+#if (UNITY_3_5 || UNITY_4_0 || UNITY_4_0_1 || UNITY_4_1 || UNITY_4_2 || UNITY_4_3 || UNITY_4_4 || UNITY_4_5 || UNITY_4_6 || UNITY_4_7 || UNITY_4_8 || UNITY_4_9)
+					else if (type == typeof(UnityEngine.Object) && System.IO.Directory.Exists(DragAndDrop.paths[i]))
+#else
+					else if (type == typeof(UnityEditor.DefaultAsset) && System.IO.Directory.Exists(DragAndDrop.paths[i]))
+#endif
+					{
 						droppedObjectsList.AddRange(AddTexturesInPath(DragAndDrop.paths[i]));
+					}
 				}
 				deferredDroppedObjects = droppedObjectsList.ToArray();
 				Repaint();

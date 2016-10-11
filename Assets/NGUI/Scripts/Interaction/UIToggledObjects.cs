@@ -1,17 +1,16 @@
 //----------------------------------------------
 //            NGUI: Next-Gen UI kit
-// Copyright © 2011-2014 Tasharen Entertainment
+// Copyright © 2011-2016 Tasharen Entertainment
 //----------------------------------------------
 
 using UnityEngine;
 using System.Collections.Generic;
 
 /// <summary>
-/// Example script showing how to activate or deactivate a game object when OnActivate event is received.
+/// Example script showing how to activate or deactivate a game object when a toggle's state changes.
 /// OnActivate event is sent out by the UIToggle script.
 /// </summary>
 
-[ExecuteInEditMode]
 [AddComponentMenu("NGUI/Interaction/Toggled Objects")]
 public class UIToggledObjects : MonoBehaviour
 {
@@ -34,7 +33,7 @@ public class UIToggledObjects : MonoBehaviour
 			else target = null;
 
 #if UNITY_EDITOR
-			UnityEditor.EditorUtility.SetDirty(this);
+			NGUITools.SetDirty(this);
 #endif
 		}
 

@@ -193,7 +193,7 @@ public class tk2dAnimatedSprite : tk2dSprite
 	}
 
 	public bool IsPlaying(string name) {
-		return Animator.Playing;
+		return Animator.IsPlaying(name);
 	}
 
 	public bool IsPlaying(tk2dSpriteAnimationClip clip) {

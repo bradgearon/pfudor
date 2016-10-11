@@ -48,16 +48,16 @@ public class tk2dCameraAnchorEditor : Editor
 				&& _target.gameObject.name == GetAnchorPointName(prevAnchorPoint)) {
 				UpdateAnchorName( _target );
 			}
-			EditorUtility.SetDirty(_target);
+			tk2dUtil.SetDirty(_target);
 		}
 	}
 
 
 	// Create tk2dCamera menu item
-    [MenuItem("GameObject/Create Other/tk2d/Camera Anchor", false, 14906)]
+    [MenuItem(tk2dMenu.createBase + "Camera Anchor", false, 14906)]
     static void DoCreateCameraAnchorObject()
 	{
-		if (Selection.activeGameObject == null || Selection.activeGameObject.camera == null) {
+		if (Selection.activeGameObject == null || Selection.activeGameObject.GetComponent<Camera>() == null) {
 			EditorUtility.DisplayDialog(
 				"Camera Anchor Error", 
 				"You will need to select a camera before creating an anchor attached to it", 
@@ -70,7 +70,7 @@ public class tk2dCameraAnchorEditor : Editor
 			go.transform.localRotation = Quaternion.identity;
 			go.transform.localScale = Vector3.one;
 			tk2dCameraAnchor anchor = go.AddComponent<tk2dCameraAnchor>();
-			anchor.AnchorCamera = Selection.activeGameObject.camera;
+			anchor.AnchorCamera = Selection.activeGameObject.GetComponent<Camera>();
 			UpdateAnchorName(anchor);
 
 			EditorGUIUtility.PingObject( go );

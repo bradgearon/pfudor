@@ -12,6 +12,7 @@ namespace tk2dRuntime.TileMap
 			List<Vector3> meshVertices = new List<Vector3>();
 			List<Color> meshColors = new List<Color>();
 			List<Vector2> meshUvs = new List<Vector2>();
+			List<Vector2> meshUv2s = new List<Vector2>();
 			//List<int> meshIndices = new List<int>();
 			
 			int[] spriteIds = chunk.spriteIds;
@@ -20,6 +21,9 @@ namespace tk2dRuntime.TileMap
 			Object[] tilePrefabs = tileMap.data.tilePrefabs;
 			tk2dSpriteDefinition firstSprite = tileMap.SpriteCollectionInst.FirstValidDefinition;
 			bool buildNormals = (firstSprite != null && firstSprite.normals != null && firstSprite.normals.Length > 0);
+
+			bool generateUv2 = tileMap.data.generateUv2;
+			var colorMode = tileMap.data.colorMode;
 			
 			Color32 clearColor = (useColor && tileMap.ColorChannel != null)?tileMap.ColorChannel.clearColor:Color.white;
 					
@@ -68,27 +72,52 @@ namespace tk2dRuntime.TileMap
 					{
 						Vector3 flippedPos = BuilderUtil.ApplySpriteVertexTileFlags(tileMap, sprite, sprite.positions[v], flipH, flipV, rot90);
 
-						if (useColor)
+						if (useColor && colorChunk != null)
 						{
 							Color tileColorx0y0 = colorChunk.colors[y * colorChunkSize + x];
 							Color tileColorx1y0 = colorChunk.colors[y * colorChunkSize + x + 1];
 							Color tileColorx0y1 = colorChunk.colors[(y + 1) * colorChunkSize + x];
 							Color tileColorx1y1 = colorChunk.colors[(y + 1) * colorChunkSize + (x + 1)];
-							
-							Vector3 centeredSpriteVertex = flippedPos - sprite.untrimmedBoundsData[0];
-							Vector3 alignedSpriteVertex = centeredSpriteVertex + tileMap.data.tileSize * 0.5f;
-							float tileColorX = Mathf.Clamp01(alignedSpriteVertex.x / tileMap.data.tileSize.x);
-							float tileColorY = Mathf.Clamp01(alignedSpriteVertex.y / tileMap.data.tileSize.y);
-							
-							Color color = Color.Lerp(
-										  Color.Lerp(tileColorx0y0, tileColorx1y0, tileColorX),
-										  Color.Lerp(tileColorx0y1, tileColorx1y1, tileColorX),
-										  tileColorY);
-							meshColors.Add(color);
+
+							switch (colorMode)
+							{
+								case tk2dTileMapData.ColorMode.Interpolate:
+								{
+									Vector3 centeredSpriteVertex = flippedPos - sprite.untrimmedBoundsData[0];
+									Vector3 alignedSpriteVertex = centeredSpriteVertex + tileMap.data.tileSize * 0.5f;
+									float tileColorX = Mathf.Clamp01(alignedSpriteVertex.x / tileMap.data.tileSize.x);
+									float tileColorY = Mathf.Clamp01(alignedSpriteVertex.y / tileMap.data.tileSize.y);
+									
+									Color color = Color.Lerp(
+												  Color.Lerp(tileColorx0y0, tileColorx1y0, tileColorX),
+												  Color.Lerp(tileColorx0y1, tileColorx1y1, tileColorX),
+												  tileColorY);
+									meshColors.Add(color);
+									break;
+								}
+
+								case tk2dTileMapData.ColorMode.Solid:
+								{
+									meshColors.Add(tileColorx0y0);
+									break;
+								}
+							}
 						}
 						else
 						{
 							meshColors.Add(clearColor);
+						}
+
+						if (generateUv2)
+						{
+							if (sprite.normalizedUvs.Length == 0)
+							{
+								meshUv2s.Add(Vector2.zero);
+							}
+							else
+							{
+								meshUv2s.Add(sprite.normalizedUvs[v]);
+							}
 						}
 
 						meshVertices.Add(currentPos + flippedPos);
@@ -111,8 +140,14 @@ namespace tk2dRuntime.TileMap
 			if (chunk.mesh == null)
 				chunk.mesh = tk2dUtil.CreateMesh();
 
+			chunk.mesh.Clear();
+
 			chunk.mesh.vertices = meshVertices.ToArray();
 			chunk.mesh.uv = meshUvs.ToArray();
+			if (generateUv2)
+			{
+				chunk.mesh.uv2 = meshUv2s.ToArray();
+			}
 			chunk.mesh.colors = meshColors.ToArray();
 
 			List<Material> materials = new List<Material>();
@@ -130,7 +165,7 @@ namespace tk2dRuntime.TileMap
 			if (subMeshCount > 0)
 			{
 				chunk.mesh.subMeshCount = subMeshCount;
-				chunk.gameObject.renderer.materials = materials.ToArray();
+				chunk.gameObject.GetComponent<Renderer>().materials = materials.ToArray();
 				int subMeshId = 0;
 				foreach (var indices in meshIndices)
 				{
@@ -195,7 +230,7 @@ namespace tk2dRuntime.TileMap
 
 #if !(UNITY_3_5 || UNITY_4_0 || UNITY_4_0_1 || UNITY_4_1 || UNITY_4_2)
 							if (chunk.gameObject != null && useSortingLayer) {
-								Renderer r = chunk.gameObject.renderer;
+								Renderer r = chunk.gameObject.GetComponent<Renderer>();
 								if (r != null) {
 									r.sortingLayerName = layerData.sortingLayerName;
 									r.sortingOrder = layerData.sortingOrder;

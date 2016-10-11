@@ -72,7 +72,7 @@ public class tk2dUILayoutContainerEditor : tk2dUILayoutEditor {
 			} else {
 				GUI.color = Color.white;
 			}
-			if (GUILayout.Toggle(item == selItem, item.gameObj.name, tk2dEditorSkin.SC_ListBoxItem, GUILayout.ExpandWidth(true))) {
+			if (item != null && GUILayout.Toggle(item == selItem, item.gameObj.name, tk2dEditorSkin.SC_ListBoxItem, GUILayout.ExpandWidth(true))) {
 				if (selItem != item) {
 					EditorGUIUtility.PingObject( item.gameObj );
 					SceneView.RepaintAll();

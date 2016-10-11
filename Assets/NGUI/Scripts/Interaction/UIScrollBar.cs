@@ -1,6 +1,6 @@
 //----------------------------------------------
 //            NGUI: Next-Gen UI kit
-// Copyright © 2011-2014 Tasharen Entertainment
+// Copyright © 2011-2016 Tasharen Entertainment
 //----------------------------------------------
 
 using UnityEngine;
@@ -50,13 +50,20 @@ public class UIScrollBar : UISlider
 				mSize = val;
 				mIsDirty = true;
 
-				if (onChange != null)
+				if (NGUITools.GetActive(this))
 				{
-					current = this;
-					EventDelegate.Execute(onChange);
-					current = null;
+					if (current == null && onChange != null)
+					{
+						current = this;
+						EventDelegate.Execute(onChange);
+						current = null;
+					}
+					ForceUpdate();
+#if UNITY_EDITOR
+					if (!Application.isPlaying)
+						NGUITools.SetDirty(this);
+#endif
 				}
-				if (!Application.isPlaying) ForceUpdate();
 			}
 		}
 	}
@@ -81,7 +88,7 @@ public class UIScrollBar : UISlider
 			}
 			mDir = Direction.Upgraded;
 #if UNITY_EDITOR
-			UnityEditor.EditorUtility.SetDirty(this);
+			NGUITools.SetDirty(this);
 #endif
 		}
 	}
@@ -94,8 +101,15 @@ public class UIScrollBar : UISlider
 	{
 		base.OnStart();
 
-		if (mFG != null && mFG.collider != null && mFG.gameObject != gameObject)
+		if (mFG != null && mFG.gameObject != gameObject)
 		{
+#if UNITY_4_3 || UNITY_4_5 || UNITY_4_6 || UNITY_4_7
+			bool hasCollider = (mFG.collider != null) || (mFG.GetComponent<Collider2D>() != null);
+#else
+			bool hasCollider = (mFG.GetComponent<Collider>() != null) || (mFG.GetComponent<Collider2D>() != null);
+#endif
+			if (!hasCollider) return;
+
 			UIEventListener fgl = UIEventListener.Get(mFG.gameObject);
 			fgl.onPress += OnPressForeground;
 			fgl.onDrag += OnDragForeground;

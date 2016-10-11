@@ -82,12 +82,26 @@ public class tk2dTiledSprite : tk2dBaseSprite
 		}
 	}
 	
+#if UNITY_EDITOR
+	void OnValidate()
+	{
+		MeshFilter meshFilter = GetComponent<MeshFilter>();
+		if (meshFilter != null)
+		{
+			meshFilter.sharedMesh = mesh;
+		}
+	}
+#endif
+	
 	new void Awake()
 	{
 		base.Awake();
 		
 		// Create mesh, independently to everything else
 		mesh = new Mesh();
+#if !UNITY_3_5
+		mesh.MarkDynamic();
+#endif
 		mesh.hideFlags = HideFlags.DontSave;
 		GetComponent<MeshFilter>().mesh = mesh;
 		
@@ -178,6 +192,9 @@ public class tk2dTiledSprite : tk2dBaseSprite
 		if (mesh == null)
 		{
 			mesh = new Mesh();
+#if !UNITY_3_5
+			mesh.MarkDynamic();
+#endif
 			mesh.hideFlags = HideFlags.DontSave;
 		}
 		else
@@ -244,7 +261,11 @@ public class tk2dTiledSprite : tk2dBaseSprite
 #if !(UNITY_3_5 || UNITY_4_0 || UNITY_4_0_1 || UNITY_4_1 || UNITY_4_2)
 				if (boxCollider2D != null) {
 					boxCollider2D.size = 2 * boundsExtents;
+#if (UNITY_3_5 || UNITY_4_0 || UNITY_4_1 || UNITY_4_2 || UNITY_4_3 || UNITY_4_4 || UNITY_4_5 || UNITY_4_6 || UNITY_4_7 || UNITY_4_8 || UNITY_4_9)
 					boxCollider2D.center = boundsCenter;
+#else
+					boxCollider2D.offset = boundsCenter;
+#endif
 				}
 #endif
 			}
@@ -281,6 +302,7 @@ public class tk2dTiledSprite : tk2dBaseSprite
 	
 	protected override void UpdateMaterial()
 	{
+		Renderer renderer = GetComponent<Renderer>();
 		if (renderer.sharedMaterial != collectionInst.spriteDefinitions[spriteId].materialInst)
 			renderer.material = collectionInst.spriteDefinitions[spriteId].materialInst;
 	}
@@ -294,9 +316,12 @@ public class tk2dTiledSprite : tk2dBaseSprite
 		return 16;
 	}
 
-	public override void ReshapeBounds(Vector3 dMin, Vector3 dMax) {
+	public override void ReshapeBounds(Vector3 dMin, Vector3 dMax) { // Identical to tk2dSlicedSprite.ReshapeBounds
+		float minSizeClampTexelScale = 0.1f; // Can't shrink sprite smaller than this many texels
+		// Irrespective of transform
 		var sprite = CurrentSprite;
-		Vector3 oldSize = new Vector3(_dimensions.x * sprite.texelSize.x * _scale.x, _dimensions.y * sprite.texelSize.y * _scale.y);
+		Vector2 boundsSize = new Vector2(_dimensions.x * sprite.texelSize.x, _dimensions.y * sprite.texelSize.y);
+		Vector3 oldSize = new Vector3(boundsSize.x * _scale.x, boundsSize.y * _scale.y);
 		Vector3 oldMin = Vector3.zero;
 		switch (_anchor) {
 			case Anchor.LowerLeft: oldMin.Set(0,0,0); break;
@@ -310,14 +335,25 @@ public class tk2dTiledSprite : tk2dBaseSprite
 			case Anchor.UpperRight: oldMin.Set(1,1,0); break;
 		}
 		oldMin = Vector3.Scale(oldMin, oldSize) * -1;
-		Vector3 newDimensions = oldSize + dMax - dMin;
-		newDimensions.x /= sprite.texelSize.x * _scale.x;
-		newDimensions.y /= sprite.texelSize.y * _scale.y;
-		Vector3 scaledMin = new Vector3(Mathf.Approximately(_dimensions.x, 0) ? 0 : (oldMin.x * newDimensions.x / _dimensions.x),
-			Mathf.Approximately(_dimensions.y, 0) ? 0 : (oldMin.y * newDimensions.y / _dimensions.y));
-		Vector3 offset = oldMin + dMin - scaledMin;
+		Vector3 newScale = oldSize + dMax - dMin;
+		newScale.x /= boundsSize.x;
+		newScale.y /= boundsSize.y;
+		// Clamp the minimum size to avoid having the pivot move when we scale from near-zero
+		if (Mathf.Abs(boundsSize.x * newScale.x) < sprite.texelSize.x * minSizeClampTexelScale && Mathf.Abs(newScale.x) < Mathf.Abs(_scale.x)) {
+			dMin.x = 0;
+			newScale.x = _scale.x;
+		}
+		if (Mathf.Abs(boundsSize.y * newScale.y) < sprite.texelSize.y * minSizeClampTexelScale && Mathf.Abs(newScale.y) < Mathf.Abs(_scale.y)) {
+			dMin.y = 0;
+			newScale.y = _scale.y;
+		}
+		// Add our wanted local dMin offset, while negating the positional offset caused by scaling
+		Vector2 scaleFactor = new Vector3(Mathf.Approximately(_scale.x, 0) ? 0 : (newScale.x / _scale.x),
+			Mathf.Approximately(_scale.y, 0) ? 0 : (newScale.y / _scale.y));
+		Vector3 scaledMin = new Vector3(oldMin.x * scaleFactor.x, oldMin.y * scaleFactor.y);
+		Vector3 offset = dMin + oldMin - scaledMin;
 		offset.z = 0;
 		transform.position = transform.TransformPoint(offset);
-		dimensions = new Vector2(newDimensions.x, newDimensions.y);
+		dimensions = new Vector2(_dimensions.x * scaleFactor.x, _dimensions.y * scaleFactor.y);
 	}
 }

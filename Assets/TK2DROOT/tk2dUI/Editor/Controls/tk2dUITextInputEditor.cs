@@ -21,7 +21,7 @@ public class tk2dUITextInputEditor : Editor
 
         if (GUI.changed)
         {
-            EditorUtility.SetDirty(textInput);
+            tk2dUtil.SetDirty(textInput);
         }
     }
 
@@ -44,7 +44,7 @@ public class tk2dUITextInputEditor : Editor
 
         if (wasChange)
         {
-            EditorUtility.SetDirty(textInput);
+            tk2dUtil.SetDirty(textInput);
         }
     }
 

@@ -134,7 +134,7 @@ public class tk2dUIScrollbar : MonoBehaviour
                 barUIItem.sendMessageTarget = value;
             
                 #if UNITY_EDITOR
-                    UnityEditor.EditorUtility.SetDirty(barUIItem);
+                    tk2dUtil.SetDirty(barUIItem);
                 #endif
             }
         }

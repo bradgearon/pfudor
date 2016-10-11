@@ -58,14 +58,22 @@ public class tk2dTileMapData : ScriptableObject
 		Rectangular,
 		Isometric,		// isometric tiles, offset in horizontal axis
 	}
+
+	public enum ColorMode
+	{
+		Interpolate, 	// Interpolates the color across the 4 verts of a tile
+		Solid,			// Each tile has a harsh / solid color
+	}
 	
 	public Vector3 tileSize;
 	public Vector3 tileOrigin;
 	
 	public TileType tileType = TileType.Rectangular;
+	public ColorMode colorMode = ColorMode.Interpolate;
 
 	public SortMethod sortMethod = SortMethod.BottomLeft;
 
+	public bool generateUv2 = false;
 	public bool layersFixedZ = false;
 	public bool useSortingLayers = false;
 	

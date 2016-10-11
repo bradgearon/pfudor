@@ -1,6 +1,6 @@
 //----------------------------------------------
 //            NGUI: Next-Gen UI kit
-// Copyright © 2011-2014 Tasharen Entertainment
+// Copyright © 2011-2016 Tasharen Entertainment
 //----------------------------------------------
 
 using UnityEditor;
@@ -48,9 +48,13 @@ public class ComponentSelector : ScriptableWizard
 			if (Selection.activeObject != mb.gameObject && GUILayout.Button("Edit", GUILayout.Width(40f)))
 				Selection.activeObject = mb.gameObject;
 		}
+		else if (o != null && GUILayout.Button("X", GUILayout.Width(20f)))
+		{
+			o = null;
+		}
 		GUILayout.EndHorizontal();
 		if (show) Show<T>(cb);
-		else if (o != obj) cb(o);
+		else cb(o);
 	}
 
 	/// <summary>
@@ -123,7 +127,7 @@ public class ComponentSelector : ScriptableWizard
 		{
 			string[] paths = AssetDatabase.GetAllAssetPaths();
 			bool isComponent = mType.IsSubclassOf(typeof(Component));
-			BetterList<Object> list = new BetterList<Object>();
+			List<Object> list = new List<Object>();
 
 			for (int i = 0; i < mObjects.Length; ++i)
 				if (mObjects[i] != null)
@@ -153,13 +157,13 @@ public class ComponentSelector : ScriptableWizard
 				if (!isComponent)
 				{
 					System.Type t = obj.GetType();
-					if (t == mType || t.IsSubclassOf(mType))
+					if (t == mType || t.IsSubclassOf(mType) && !list.Contains(obj))
 						list.Add(obj);
 				}
 				else if (PrefabUtility.GetPrefabType(obj) == PrefabType.Prefab)
 				{
 					Object t = (obj as GameObject).GetComponent(mType);
-					if (t != null) list.Add(t);
+					if (t != null && !list.Contains(t)) list.Add(t);
 				}
 			}
 			list.Sort(delegate(Object a, Object b) { return a.name.CompareTo(b.name); });
@@ -192,7 +196,7 @@ public class ComponentSelector : ScriptableWizard
 			{
 				if (GUILayout.Button("Open the Font Maker", GUILayout.Width(150f)))
 				{
-					EditorWindow.GetWindow<UIFontMaker>(false, "Font Maker", true);
+					EditorWindow.GetWindow<UIFontMaker>(false, "Font Maker", true).Show();
 					isDone = true;
 				}
 			}
@@ -200,7 +204,7 @@ public class ComponentSelector : ScriptableWizard
 			{
 				if (GUILayout.Button("Open the Atlas Maker", GUILayout.Width(150f)))
 				{
-					EditorWindow.GetWindow<UIAtlasMaker>(false, "Atlas Maker", true);
+					EditorWindow.GetWindow<UIAtlasMaker>(false, "Atlas Maker", true).Show();
 					isDone = true;
 				}
 			}

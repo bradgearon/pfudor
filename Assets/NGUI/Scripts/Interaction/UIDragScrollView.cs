@@ -1,6 +1,6 @@
 //----------------------------------------------
 //            NGUI: Next-Gen UI kit
-// Copyright © 2011-2014 Tasharen Entertainment
+// Copyright © 2011-2016 Tasharen Entertainment
 //----------------------------------------------
 
 using UnityEngine;
@@ -25,6 +25,7 @@ public class UIDragScrollView : MonoBehaviour
 	Transform mTrans;
 	UIScrollView mScroll;
 	bool mAutoFind = false;
+	bool mStarted = false;
 
 	/// <summary>
 	/// Automatically find the scroll view if possible.
@@ -41,7 +42,18 @@ public class UIDragScrollView : MonoBehaviour
 			draggablePanel = null;
 		}
 
-		if (mAutoFind || mScroll == null) FindScrollView();
+		if (mStarted && (mAutoFind || mScroll == null))
+			FindScrollView();
+	}
+
+	/// <summary>
+	/// Find the scroll view.
+	/// </summary>
+
+	void Start ()
+	{
+		mStarted = true;
+		FindScrollView();
 	}
 
 	/// <summary>
@@ -53,7 +65,7 @@ public class UIDragScrollView : MonoBehaviour
 		// If the scroll view is on a parent, don't try to remember it (as we want it to be dynamic in case of re-parenting)
 		UIScrollView sv = NGUITools.FindInParents<UIScrollView>(mTrans);
 
-		if (scrollView == null)
+		if (scrollView == null || (mAutoFind && sv != scrollView))
 		{
 			scrollView = sv;
 			mAutoFind = true;
@@ -65,11 +77,20 @@ public class UIDragScrollView : MonoBehaviour
 		mScroll = scrollView;
 	}
 
+	[System.NonSerialized] bool mPressed = false;
+
 	/// <summary>
-	/// Ensure we have a scroll view to work with.
+	/// Stop the active dragging operation.
 	/// </summary>
 
-	void Start () { FindScrollView(); }
+	void OnDisable ()
+	{
+		if (mPressed && mScroll != null && mScroll.GetComponentInChildren<UIWrapContent>() == null)
+		{
+			mScroll.Press(false);
+			mScroll = null;
+		}
+	}
 
 	/// <summary>
 	/// Create a plane on which we will be performing the dragging.
@@ -77,6 +98,8 @@ public class UIDragScrollView : MonoBehaviour
 
 	void OnPress (bool pressed)
 	{
+		mPressed = pressed;
+
 		// If the scroll view has been set manually, don't try to find it again
 		if (mAutoFind && mScroll != scrollView)
 		{
@@ -114,5 +137,15 @@ public class UIDragScrollView : MonoBehaviour
 	{
 		if (scrollView && NGUITools.GetActive(this))
 			scrollView.Scroll(delta);
+	}
+
+	/// <summary>
+	/// Pan the scroll view.
+	/// </summary>
+
+	public void OnPan (Vector2 delta)
+	{
+		if (scrollView && NGUITools.GetActive(this))
+			scrollView.OnPan(delta);
 	}
 }

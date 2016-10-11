@@ -29,7 +29,7 @@ public class tk2dSystemUtility
 				}
 			}
 
-			EditorUtility.SetDirty(tk2dSystem.inst);
+			tk2dUtil.SetDirty(tk2dSystem.inst);
 
 			// Already loadable
 			return true;
@@ -51,7 +51,7 @@ public class tk2dSystemUtility
 		toc.Add(tocEntry);
 		tk2dSystem.inst.Editor__Toc = toc.ToArray();
 
-		EditorUtility.SetDirty(tk2dSystem.inst);
+		tk2dUtil.SetDirty(tk2dSystem.inst);
 		AssetDatabase.SaveAssets();
 
 		return true;
@@ -85,7 +85,7 @@ public class tk2dSystemUtility
 		else
 		{
 			tk2dSystem.inst.Editor__Toc = toc.ToArray();
-			EditorUtility.SetDirty(tk2dSystem.inst);
+			tk2dUtil.SetDirty(tk2dSystem.inst);
 			AssetDatabase.SaveAssets();
 			
 			return true;
@@ -240,7 +240,7 @@ public class tk2dSystemUtility
 					AssetDatabase.DeleteAsset(path);
 			}
 			sys.Editor__Toc = new tk2dResourceTocEntry[0]; // clear index
-			EditorUtility.SetDirty(sys);
+			tk2dUtil.SetDirty(sys);
 			AssetDatabase.SaveAssets();
 		}
 

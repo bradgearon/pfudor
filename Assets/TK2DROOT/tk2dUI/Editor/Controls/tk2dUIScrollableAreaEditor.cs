@@ -23,7 +23,7 @@ public class tk2dUIScrollableAreaEditor : Editor
             b.Encapsulate(Vector3.zero);
             float contentSize = (scrollableArea.scrollAxes == tk2dUIScrollableArea.Axes.XAxis) ? b.size.x : b.size.y;
             scrollableArea.ContentLength = contentSize * 1.02f; // 5% more
-            EditorUtility.SetDirty(scrollableArea);
+            tk2dUtil.SetDirty(scrollableArea);
         }
 
         tk2dUIMethodBindingHelper methodBindingUtil = new tk2dUIMethodBindingHelper();
@@ -33,7 +33,7 @@ public class tk2dUIScrollableAreaEditor : Editor
 
         if (GUI.changed)
         {
-            EditorUtility.SetDirty(scrollableArea);
+            tk2dUtil.SetDirty(scrollableArea);
         }
     }
 
@@ -48,7 +48,7 @@ public class tk2dUIScrollableAreaEditor : Editor
         Vector3 up = m.MultiplyVector(Vector3.up);
         Vector3 right = m.MultiplyVector(Vector3.right);
 
-        float newVisibleAreaLength = tk2dUIControlsHelperEditor.DrawLengthHandles("Visible Area Length", scrollableArea.VisibleAreaLength,scrollableArea.contentContainer.transform.position, isYAxis? -up:right, Color.red,isYAxis?.2f:-.2f, 0, .05f);
+        float newVisibleAreaLength = tk2dUIControlsHelperEditor.DrawLengthHandles("Visible Area Length", scrollableArea.VisibleAreaLength,scrollableArea.contentContainer.transform.position, isYAxis? -up:right, Color.red,isYAxis ? 0.2f : -0.2f, 0, 0.05f);
         if (newVisibleAreaLength != scrollableArea.VisibleAreaLength)
         {
             tk2dUndo.RecordObject(scrollableArea, "Visible area changed");
@@ -56,7 +56,7 @@ public class tk2dUIScrollableAreaEditor : Editor
             wasChange = true;
         }
 
-        float newContentLength = tk2dUIControlsHelperEditor.DrawLengthHandles("Content Length", scrollableArea.ContentLength, scrollableArea.contentContainer.transform.position, isYAxis ? -up : right, Color.blue, isYAxis ? .2f : -.2f, isYAxis?.4f:-.4f, .1f);
+        float newContentLength = tk2dUIControlsHelperEditor.DrawLengthHandles("Content Length", scrollableArea.ContentLength, scrollableArea.contentContainer.transform.position, isYAxis ? -up : right, Color.blue, isYAxis ? 0.2f : -0.2f, isYAxis ? 0.4f : -0.4f, 0.1f);
         if (newContentLength != scrollableArea.ContentLength)
         {
             tk2dUndo.RecordObject(scrollableArea, "Content length changed");
@@ -66,7 +66,7 @@ public class tk2dUIScrollableAreaEditor : Editor
 
         if (wasChange)
         {
-            EditorUtility.SetDirty(scrollableArea);
+            tk2dUtil.SetDirty(scrollableArea);
         }
     }
 

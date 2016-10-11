@@ -128,12 +128,12 @@ public class tk2dTileMapEditor : Editor, ITileMapEditorHost
 		
 		if (editorData)
 		{
-			EditorUtility.SetDirty(editorData);
+			tk2dUtil.SetDirty(editorData);
 		}
 		
 		if (tileMap && tileMap.data)
 		{
-			EditorUtility.SetDirty(tileMap.data);
+			tk2dUtil.SetDirty(tileMap.data);
 		}
 	}
 	
@@ -494,7 +494,7 @@ public class tk2dTileMapEditor : Editor, ITileMapEditorHost
 			newSpriteCollection.InitMaterialIds();
 			LoadTileMapData();
 			
-			EditorUtility.SetDirty(tileMap);
+			tk2dUtil.SetDirty(tileMap);
 			
 			if (Ready)
 			{
@@ -542,7 +542,7 @@ public class tk2dTileMapEditor : Editor, ITileMapEditorHost
 					tk2dTileMapData tileMapData = ScriptableObject.CreateInstance<tk2dTileMapData>();
 					AssetDatabase.CreateAsset(tileMapData, assetPath);
 					tileMap.data = tileMapData;
-					EditorUtility.SetDirty(tileMap);
+					tk2dUtil.SetDirty(tileMap);
 					
 					Init(tileMapData);
 					LoadTileMapData();
@@ -563,7 +563,7 @@ public class tk2dTileMapEditor : Editor, ITileMapEditorHost
 			if (assetPath.Length > 0)
 			{
 				tileMap.editorDataGUID = AssetDatabase.AssetPathToGUID(assetPath);
-				EditorUtility.SetDirty(tileMap);
+				tk2dUtil.SetDirty(tileMap);
 				LoadTileMapData();
 			}
 		}
@@ -586,7 +586,7 @@ public class tk2dTileMapEditor : Editor, ITileMapEditorHost
 					tk2dTileMapEditorData tileMapEditorData = ScriptableObject.CreateInstance<tk2dTileMapEditorData>();
 					AssetDatabase.CreateAsset(tileMapEditorData, assetPath);
 					tileMap.editorDataGUID = AssetDatabase.AssetPathToGUID(assetPath);
-					EditorUtility.SetDirty(tileMap);
+					tk2dUtil.SetDirty(tileMap);
 					LoadTileMapData();
 				}
 			}
@@ -693,6 +693,9 @@ public class tk2dTileMapEditor : Editor, ITileMapEditorHost
 			}
 
 			tileMap.data.sortMethod = (tk2dTileMapData.SortMethod)EditorGUILayout.EnumPopup("Sort Method", tileMap.data.sortMethod);
+
+			tileMap.data.colorMode = (tk2dTileMapData.ColorMode)EditorGUILayout.EnumPopup("Color Mode", tileMap.data.colorMode);
+			tileMap.data.generateUv2 = EditorGUILayout.Toggle("Generate UV2", tileMap.data.generateUv2);
 			
 			if (tk2dGuiUtility.EndChangeCheck())
 			{
@@ -1101,7 +1104,7 @@ public class tk2dTileMapEditor : Editor, ITileMapEditorHost
 	void GetEditorData() {
 		// Don't guess, load editor data every frame		
 		string editorDataPath = AssetDatabase.GUIDToAssetPath(tileMap.editorDataGUID);
-		editorData = Resources.LoadAssetAtPath(editorDataPath, typeof(tk2dTileMapEditorData)) as tk2dTileMapEditorData;
+		editorData = AssetDatabase.LoadAssetAtPath(editorDataPath, typeof(tk2dTileMapEditorData)) as tk2dTileMapEditorData;
 	}
 	
 	public override void OnInspectorGUI()
@@ -1208,7 +1211,7 @@ public class tk2dTileMapEditor : Editor, ITileMapEditorHost
 			tk2dTileMapEditorData.EditMode newEditMode = (tk2dTileMapEditorData.EditMode)GUILayout.Toolbar((int)editorData.editMode, toolBarButtonNames );
 			if (newEditMode != editorData.editMode) {
 				// Force updating the scene view when mode changes
-				EditorUtility.SetDirty(target);
+				tk2dUtil.SetDirty(target);
 				editorData.editMode = newEditMode;
 			}
 			switch (editorData.editMode)
@@ -1228,7 +1231,7 @@ public class tk2dTileMapEditor : Editor, ITileMapEditorHost
 			return;
 		}
 
-		if (sceneGUI != null)
+		if (sceneGUI != null && tk2dEditorUtility.IsEditable(target))
 		{
 			sceneGUI.OnSceneGUI();
 		}
@@ -1243,7 +1246,7 @@ public class tk2dTileMapEditor : Editor, ITileMapEditorHost
 		}
 	}
 	
-    [MenuItem("GameObject/Create Other/tk2d/TileMap", false, 13850)]
+    [MenuItem(tk2dMenu.createBase + "TileMap", false, 13850)]
 	static void Create()
 	{
 		tk2dSpriteCollectionData sprColl = null;

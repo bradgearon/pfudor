@@ -1,23 +1,18 @@
 //----------------------------------------------
 //            NGUI: Next-Gen UI kit
-// Copyright © 2011-2014 Tasharen Entertainment
+// Copyright © 2011-2016 Tasharen Entertainment
 //----------------------------------------------
 
-using UnityEngine;
 using UnityEditor;
-using System.Collections.Generic;
+using UnityEngine;
 
 /// <summary>
 /// Inspector class used to edit UISprites.
 /// </summary>
 
 [CanEditMultipleObjects]
-#if UNITY_3_5
-[CustomEditor(typeof(UISprite))]
-#else
 [CustomEditor(typeof(UISprite), true)]
-#endif
-public class UISpriteInspector : UIWidgetInspector
+public class UISpriteInspector : UIBasicSpriteEditor
 {
 	/// <summary>
 	/// Atlas selection callback.
@@ -29,6 +24,7 @@ public class UISpriteInspector : UIWidgetInspector
 		SerializedProperty sp = serializedObject.FindProperty("mAtlas");
 		sp.objectReferenceValue = obj;
 		serializedObject.ApplyModifiedProperties();
+		NGUITools.SetDirty(serializedObject.targetObject);
 		NGUISettings.atlas = obj as UIAtlas;
 	}
 
@@ -42,6 +38,7 @@ public class UISpriteInspector : UIWidgetInspector
 		SerializedProperty sp = serializedObject.FindProperty("mSpriteName");
 		sp.stringValue = spriteName;
 		serializedObject.ApplyModifiedProperties();
+		NGUITools.SetDirty(serializedObject.targetObject);
 		NGUISettings.selectedSprite = spriteName;
 	}
 
@@ -62,7 +59,7 @@ public class UISpriteInspector : UIWidgetInspector
 			{
 				UIAtlas atl = atlas.objectReferenceValue as UIAtlas;
 				NGUISettings.atlas = atl;
-				NGUIEditorTools.Select(atl.gameObject);
+				if (atl != null) NGUIEditorTools.Select(atl.gameObject);
 			}
 		}
 		GUILayout.EndHorizontal();
@@ -73,66 +70,13 @@ public class UISpriteInspector : UIWidgetInspector
 	}
 
 	/// <summary>
-	/// Sprites's custom properties based on the type.
-	/// </summary>
-
-	protected override void DrawCustomProperties ()
-	{
-		GUILayout.Space(6f);
-
-		SerializedProperty sp = NGUIEditorTools.DrawProperty("Sprite Type", serializedObject, "mType", GUILayout.MinWidth(20f));
-
-		EditorGUI.BeginDisabledGroup(sp.hasMultipleDifferentValues);
-		{
-			if ((UISprite.Type)sp.intValue == UISprite.Type.Sliced)
-			{
-				sp = serializedObject.FindProperty("centerType");
-				bool val = (sp.intValue != (int)UISprite.AdvancedType.Invisible);
-
-				if (val != EditorGUILayout.Toggle("Fill Center", val))
-				{
-					sp.intValue = val ? (int)UISprite.AdvancedType.Invisible : (int)UISprite.AdvancedType.Sliced;
-				}
-			}
-			else if ((UISprite.Type)sp.intValue == UISprite.Type.Filled)
-			{
-				NGUIEditorTools.DrawProperty("Fill Dir", serializedObject, "mFillDirection", GUILayout.MinWidth(20f));
-				GUILayout.BeginHorizontal();
-				GUILayout.Space(4f);
-				NGUIEditorTools.DrawProperty("Fill Amount", serializedObject, "mFillAmount", GUILayout.MinWidth(20f));
-				GUILayout.Space(4f);
-				GUILayout.EndHorizontal();
-				NGUIEditorTools.DrawProperty("Invert Fill", serializedObject, "mInvert", GUILayout.MinWidth(20f));
-			}
-			else if ((UISprite.Type)sp.intValue == UISprite.Type.Advanced)
-			{
-				NGUIEditorTools.DrawProperty("  - Left", serializedObject, "leftType");
-				NGUIEditorTools.DrawProperty("  - Right", serializedObject, "rightType");
-				NGUIEditorTools.DrawProperty("  - Top", serializedObject, "topType");
-				NGUIEditorTools.DrawProperty("  - Bottom", serializedObject, "bottomType");
-				NGUIEditorTools.DrawProperty("  - Center", serializedObject, "centerType");
-			}
-		}
-		EditorGUI.EndDisabledGroup();
-
-		//GUI.changed = false;
-		//Vector4 draw = EditorGUILayout.Vector4Field("Draw Region", mWidget.drawRegion);
-
-		//if (GUI.changed)
-		//{
-		//    NGUIEditorTools.RegisterUndo("Draw Region", mWidget);
-		//    mWidget.drawRegion = draw;
-		//}
-
-		GUILayout.Space(4f);
-		base.DrawCustomProperties();
-	}
-
-	/// <summary>
 	/// All widgets have a preview.
 	/// </summary>
 
-	public override bool HasPreviewGUI () { return !serializedObject.isEditingMultipleObjects; }
+	public override bool HasPreviewGUI ()
+	{
+		return (Selection.activeGameObject == null || Selection.gameObjects.Length == 1);
+	}
 
 	/// <summary>
 	/// Draw the sprite preview.

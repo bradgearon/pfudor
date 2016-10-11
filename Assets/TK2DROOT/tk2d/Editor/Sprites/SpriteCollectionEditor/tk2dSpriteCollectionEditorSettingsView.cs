@@ -80,7 +80,7 @@ namespace tk2dEditor.SpriteCollectionEditor
 					if (SpriteCollection.platforms.Count > 1)
 					{
 						SpriteCollection.platforms[0].spriteCollection.altMaterials = SpriteCollection.altMaterials;
-						EditorUtility.SetDirty(SpriteCollection.platforms[0].spriteCollection);
+						tk2dUtil.SetDirty(SpriteCollection.platforms[0].spriteCollection);
 
 						for (int j = 1; j < SpriteCollection.platforms.Count; ++j)
 						{
@@ -88,7 +88,7 @@ namespace tk2dEditor.SpriteCollectionEditor
 							tk2dSpriteCollection data = SpriteCollection.platforms[j].spriteCollection;
 							System.Array.Resize(ref data.altMaterials, SpriteCollection.altMaterials.Length);
 							data.altMaterials[i] = DuplicateMaterial(data.altMaterials[sourceIndex]);
-							EditorUtility.SetDirty(data);
+							tk2dUtil.SetDirty(data);
 						}
 					}
 
@@ -191,7 +191,7 @@ namespace tk2dEditor.SpriteCollectionEditor
 									}
 								}
 								
-								EditorUtility.SetDirty(data);
+								tk2dUtil.SetDirty(data);
 							}
 							
 							host.Commit();
@@ -280,6 +280,56 @@ namespace tk2dEditor.SpriteCollectionEditor
 			EndHeader();
 		}
 
+		string linkedCollectionName = "";
+
+		void DrawLinked() {
+			BeginHeader("Linked Collections");
+
+			if (!SpriteCollection.disableTrimming) {
+				EditorGUILayout.HelpBox("Linked collections are only supported when trimming is disabled.", SpriteCollection.linkedSpriteCollections.Count == 0 ? MessageType.Info : MessageType.Error);
+				return;
+			}
+
+			GUILayout.BeginHorizontal();
+			linkedCollectionName = EditorGUILayout.TextField(linkedCollectionName, GUILayout.ExpandWidth(true));
+			GUI.enabled = linkedCollectionName.Trim().Length > 0;
+			if (GUILayout.Button("Add")) {
+				bool allowAdd = true;
+				foreach (var v in SpriteCollection.linkedSpriteCollections) {
+					if (v.name == linkedCollectionName) {
+						allowAdd = false;
+						break;
+					}
+				}
+				if (!allowAdd) {
+					EditorUtility.DisplayDialog("Add Linked Collection", "Unable to add linked collection", "Ok");
+				}
+				else {
+					tk2dLinkedSpriteCollection s = new tk2dLinkedSpriteCollection();
+					s.name = linkedCollectionName;
+					linkedCollectionName = "";
+					SpriteCollection.linkedSpriteCollections.Add(s);
+				}
+			}
+			GUI.enabled = true;
+			GUILayout.EndHorizontal();
+
+			int toDelete = -1;
+			for (int i = 0; i < SpriteCollection.linkedSpriteCollections.Count; ++i) {
+				tk2dLinkedSpriteCollection lsc = SpriteCollection.linkedSpriteCollections[i];
+				GUILayout.BeginHorizontal();
+				GUILayout.Label(lsc.name);
+				GUILayout.FlexibleSpace();
+				if (GUILayout.Button("X", EditorStyles.miniButton)) {
+					toDelete = i;
+				}
+				GUILayout.EndHorizontal();
+			}
+
+			if (toDelete != -1) {
+				SpriteCollection.linkedSpriteCollections.RemoveAt(toDelete);
+			}
+		}		
 
 		void DrawPlatforms()
 		{
@@ -364,6 +414,7 @@ namespace tk2dEditor.SpriteCollectionEditor
 			else if (SpriteCollection.atlasFormat == tk2dSpriteCollection.AtlasFormat.Png) {
 				tk2dGuiUtility.InfoBox("Png atlases will decrease on disk game asset sizes, at the expense of increased load times.",
 					tk2dGuiUtility.WarningLevel.Warning);
+				SpriteCollection.textureCompression = (tk2dSpriteCollection.TextureCompression)EditorGUILayout.EnumPopup("Compression", SpriteCollection.textureCompression);
 				SpriteCollection.filterMode = (FilterMode)EditorGUILayout.EnumPopup("Filter Mode", SpriteCollection.filterMode);
 				SpriteCollection.mipmapEnabled = EditorGUILayout.Toggle("Mip Maps", SpriteCollection.mipmapEnabled);
 			}
@@ -431,7 +482,11 @@ namespace tk2dEditor.SpriteCollectionEditor
 		{
 			BeginHeader("Atlas Settings");
 
+#if (UNITY_3_5 || UNITY_4_0 || UNITY_4_1 || UNITY_4_2 || UNITY_4_3 || UNITY_4_4 || UNITY_4_5 || UNITY_4_6 || UNITY_4_7 || UNITY_4_8 || UNITY_4_9)
 			int[] allowedAtlasSizes = { 64, 128, 256, 512, 1024, 2048, 4096 };
+#else
+			int[] allowedAtlasSizes = { 64, 128, 256, 512, 1024, 2048, 4096, 8192 };
+#endif
 			string[] allowedAtlasSizesString = new string[allowedAtlasSizes.Length];
 			for (int i = 0; i < allowedAtlasSizes.Length; ++i)
 				allowedAtlasSizesString[i] = allowedAtlasSizes[i].ToString();
@@ -562,6 +617,8 @@ namespace tk2dEditor.SpriteCollectionEditor
 			DrawAtlasSettings();
 
 			DrawSystemSettings();
+
+			DrawLinked();
 
 			DrawPlatforms();
 			

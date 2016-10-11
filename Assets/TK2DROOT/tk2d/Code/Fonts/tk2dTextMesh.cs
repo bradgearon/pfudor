@@ -363,7 +363,7 @@ public class tk2dTextMesh : MonoBehaviour, tk2dRuntime.ISpriteCollectionForceBui
 				data.renderLayer = value; // for awake
 				CachedRenderer.sortingOrder = value;
 #if UNITY_EDITOR
-				UnityEditor.EditorUtility.SetDirty(CachedRenderer);
+				tk2dUtil.SetDirty(CachedRenderer);
 #endif
 			}
 #endif
@@ -372,15 +372,30 @@ public class tk2dTextMesh : MonoBehaviour, tk2dRuntime.ISpriteCollectionForceBui
 
 	void InitInstance()
 	{
-		if (_fontInst == null && data.font != null)
+		if (data != null && data.font != null) {
 			_fontInst = data.font.inst;
+			_fontInst.InitDictionary();
+		}
 	}
+
+
+#if UNITY_EDITOR
+	void OnValidate()
+	{
+		MeshFilter meshFilter = GetComponent<MeshFilter>();
+		if (meshFilter != null)
+		{
+			meshFilter.sharedMesh = mesh;
+		}
+	}
+#endif
+	
 
 	Renderer _cachedRenderer = null;
 	Renderer CachedRenderer {
 		get {
 			if (_cachedRenderer == null) {
-				_cachedRenderer = renderer;
+				_cachedRenderer = GetComponent<Renderer>();
 			}
 			return _cachedRenderer;
 		}
@@ -406,6 +421,14 @@ public class tk2dTextMesh : MonoBehaviour, tk2dRuntime.ISpriteCollectionForceBui
 		// Sensibly reset, so tk2dUpdateManager can deal with this properly
 		updateFlags = UpdateFlags.UpdateNone;
 	}
+
+#if UNITY_EDITOR
+	private void OnEnable() {
+		if (GetComponent<Renderer>() != null && data != null && data.font != null && data.font.inst != null && GetComponent<Renderer>().sharedMaterial == null && data.font.inst.needMaterialInstance) {
+			ForceBuild();
+		}
+	}
+#endif
 
 	protected void OnDestroy()
 	{
@@ -460,6 +483,7 @@ public class tk2dTextMesh : MonoBehaviour, tk2dRuntime.ISpriteCollectionForceBui
 			if (_fontInst.useDictionary)
 			{
 				if (!_fontInst.charDict.ContainsKey(idx)) idx = 0;
+
 			}
 			else
 			{
@@ -576,6 +600,9 @@ public class tk2dTextMesh : MonoBehaviour, tk2dRuntime.ISpriteCollectionForceBui
 					meshFilter = GetComponent<MeshFilter>();
 				
 				mesh = new Mesh();
+#if !UNITY_3_5
+				mesh.MarkDynamic();
+#endif
 				mesh.hideFlags = HideFlags.DontSave;
 				meshFilter.mesh = mesh;
 			}
@@ -704,7 +731,7 @@ public class tk2dTextMesh : MonoBehaviour, tk2dRuntime.ISpriteCollectionForceBui
 		}
 		else if (Camera.main)
 		{
-			if (Camera.main.isOrthoGraphic)
+			if (Camera.main.orthographic)
 			{
 				s = Camera.main.orthographicSize;
 			}
@@ -730,8 +757,8 @@ public class tk2dTextMesh : MonoBehaviour, tk2dRuntime.ISpriteCollectionForceBui
 	
 	void UpdateMaterial()
 	{
-		if (renderer.sharedMaterial != _fontInst.materialInst)
-			renderer.material = _fontInst.materialInst;
+		if (GetComponent<Renderer>().sharedMaterial != _fontInst.materialInst)
+			GetComponent<Renderer>().material = _fontInst.materialInst;
 	}
 	
 	public void ForceBuild()

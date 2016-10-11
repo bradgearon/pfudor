@@ -9,14 +9,14 @@ public class Muter : MonoBehaviour
     public void Awake()
     {
         var mute = PlayerPrefs.GetInt("mute", 0) != 0;
-        Camera.main.audio.mute = mute;
+        Camera.main.GetComponent<AudioSource>().mute = mute;
         updateMute(mute);
     }
 
     public void OnClick()
     {
         Debug.Log("mute clicked");
-        var mute = Camera.main.audio.mute = !Camera.main.audio.mute;
+        var mute = Camera.main.GetComponent<AudioSource>().mute = !Camera.main.GetComponent<AudioSource>().mute;
         PlayerPrefs.SetInt("mute", mute ? 1 : 0);
         PlayerPrefs.Save();
         updateMute(mute);

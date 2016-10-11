@@ -89,7 +89,7 @@ public class tk2dUILayoutContainerSizerEditor : tk2dUILayoutContainerEditor {
 			sizer.Refresh();
 			Object[] objs = EditorUtility.CollectDeepHierarchy( new Object[] { target } );
 			foreach (Object obj in objs) {
-				EditorUtility.SetDirty( obj );
+				tk2dUtil.SetDirty( obj );
 			}
 		}
 	}

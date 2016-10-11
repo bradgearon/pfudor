@@ -32,7 +32,7 @@ public class tk2dUIToggleButtonGroupEditor : Editor
 
         if (GUI.changed)
         {
-            EditorUtility.SetDirty(toggleBtnGroup);
+            tk2dUtil.SetDirty(toggleBtnGroup);
         }
     }
 

@@ -67,7 +67,7 @@ class tk2dAnimatedSpriteEditor : tk2dSpriteEditor
 					Undo.DestroyObjectImmediate(animSprite);
 #endif
 	
-					EditorUtility.SetDirty(animSpriteGameObject);
+					tk2dUtil.SetDirty(animSpriteGameObject);
 				}
 			}
 

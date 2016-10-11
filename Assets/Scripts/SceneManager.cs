@@ -34,18 +34,6 @@ public class SceneManager : MonoBehaviour
     void Awake()
     {
         scoreManager = FindObjectOfType<ScoreManager>();
-
-        if (SystemInfo.supportsImageEffects)
-        {
-            Debug.Log("system supports image effects");
-            var glowEffect = Camera.main.GetComponent<Glow11.Glow11>();
-            if (glowEffect != null)
-            {
-                Debug.Log("glow effect found");
-                glowEffect.enabled = true;
-            }
-        }
-
     }
 
     // Use this for initialization

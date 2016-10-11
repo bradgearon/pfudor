@@ -43,7 +43,7 @@ public static class Uni2DEditorResourceCopyUtils
 			a_rSprite.SpriteData.renderMeshMaterial = a_rSprite.SpriteData.generatedMaterial;
 			
 			// Update the renderer material
-			a_rSprite.renderer.sharedMaterial = a_rSprite.SpriteData.generatedMaterial;
+			a_rSprite.GetComponent<Renderer>().sharedMaterial = a_rSprite.SpriteData.generatedMaterial;
 		}
 		
 		// Mesh collider(s)

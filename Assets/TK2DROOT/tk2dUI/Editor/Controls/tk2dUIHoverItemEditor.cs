@@ -20,7 +20,7 @@ public class tk2dUIHoverItemEditor : tk2dUIBaseItemControlEditor
 
         if (GUI.changed)
         {
-            EditorUtility.SetDirty(hoverBtn);
+            tk2dUtil.SetDirty(hoverBtn);
         }
     }
 

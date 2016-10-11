@@ -24,7 +24,7 @@ public class tk2dUIDropDownMenuEditor : Editor
         methodBindingUtil.EndMessageGUI();
 
 		if (GUI.changed) {
-			EditorUtility.SetDirty(target);
+			tk2dUtil.SetDirty(target);
 		}
     }
 
@@ -56,7 +56,7 @@ public class tk2dUIDropDownMenuEditor : Editor
 			if (dropdownItemTemplate.transform.localPosition.y != yPosDropdownItemTemplate)
 			{
 				dropdownItemTemplate.transform.localPosition = new Vector3(dropdownItemTemplate.transform.localPosition.x, yPosDropdownItemTemplate, dropdownItemTemplate.transform.localPosition.z);
-				EditorUtility.SetDirty(dropdownItemTemplate.transform);
+				tk2dUtil.SetDirty(dropdownItemTemplate.transform);
 			}
 
 			if (dropdownMenu.TemplateLayoutItem == null) {
@@ -65,14 +65,14 @@ public class tk2dUIDropDownMenuEditor : Editor
 				{
 					tk2dUndo.RecordObject(dropdownItemTemplate, "Dropdown Template Height Changed");
 					dropdownItemTemplate.height = newDropDownItemTemplateHeight;
-					EditorUtility.SetDirty(dropdownItemTemplate);
+					tk2dUtil.SetDirty(dropdownItemTemplate);
 				}
 			}
         }
 
         if (wasChange)
         {
-            EditorUtility.SetDirty(dropdownMenu);
+            tk2dUtil.SetDirty(dropdownMenu);
         }
     }
 

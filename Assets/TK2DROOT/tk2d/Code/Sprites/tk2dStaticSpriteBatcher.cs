@@ -187,10 +187,27 @@ public class tk2dStaticSpriteBatcher : MonoBehaviour, tk2dRuntime.ISpriteCollect
 		Build();
 	}
 	
+#if UNITY_EDITOR
+	private void OnEnable() {
+		if (GetComponent<Renderer>() != null && batchedSprites != null) {
+			bool needBuild = false;
+			foreach (Material m in GetComponent<Renderer>().sharedMaterials) {
+				if (m == null) {
+					needBuild = true;
+					break;
+				}
+			}
+			if (needBuild) {
+				ForceBuild();
+			}
+		}
+	}
+#endif
+
 	// Sanitize data, returns true if needs rebuild
 	bool UpgradeData()
 	{
-		if (version == CURRENT_VERSION) {
+		if (version == CURRENT_VERSION ) {
 			return false;
 		}
 		
@@ -235,7 +252,7 @@ public class tk2dStaticSpriteBatcher : MonoBehaviour, tk2dRuntime.ISpriteCollect
 		version = CURRENT_VERSION;
 
 #if UNITY_EDITOR
-		UnityEditor.EditorUtility.SetDirty(this);
+		tk2dUtil.SetDirty(this);
 #endif
 		
 		return true;
@@ -643,7 +660,7 @@ public class tk2dStaticSpriteBatcher : MonoBehaviour, tk2dRuntime.ISpriteCollect
 			mesh.RecalculateBounds();
 		}
 		
-		renderer.sharedMaterials = materials.ToArray();
+		GetComponent<Renderer>().sharedMaterials = materials.ToArray();
 	}
 
 	void BuildPhysicsMesh()
@@ -653,7 +670,7 @@ public class tk2dStaticSpriteBatcher : MonoBehaviour, tk2dRuntime.ISpriteCollect
 		MeshCollider meshCollider = GetComponent<MeshCollider>();
 		if (meshCollider != null)
 		{
-			if (collider != meshCollider) {
+			if (GetComponent<Collider>() != meshCollider) {
 				// Already has a collider
 				return;
 			}

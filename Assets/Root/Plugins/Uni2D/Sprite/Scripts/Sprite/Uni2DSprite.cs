@@ -202,9 +202,9 @@ public class Uni2DSprite : MonoBehaviour
 
 		// When resetting animation, reset sprite material and delete
 		// the cloned material (runtime data)
-		if( renderer.sharedMaterial == m_rSpriteRuntimeData.animationMaterial )
+		if( GetComponent<Renderer>().sharedMaterial == m_rSpriteRuntimeData.animationMaterial )
 		{
-			renderer.sharedMaterial = m_rSpriteData.renderMeshMaterial;
+			GetComponent<Renderer>().sharedMaterial = m_rSpriteData.renderMeshMaterial;
 		}
 		Material.Destroy( m_rSpriteRuntimeData.animationMaterial );
 
@@ -363,7 +363,7 @@ public class Uni2DSprite : MonoBehaviour
 
 	private void CheckIfMaterialChange( )
 	{
-		Material rCurrentMaterial = renderer != null ? renderer.sharedMaterial : null;
+		Material rCurrentMaterial = GetComponent<Renderer>() != null ? GetComponent<Renderer>().sharedMaterial : null;
 		Texture2D rCurrentTexture = ( rCurrentMaterial != null ? rCurrentMaterial.mainTexture : null ) as Texture2D;
 
 		Texture2D rSpriteTexture = m_rSpriteSettings.textureContainer;
@@ -405,7 +405,7 @@ public class Uni2DSprite : MonoBehaviour
 	// Sets the sprite settings according to the new material (assuming it's new)
 	private void OnMaterialChange( )
 	{
-		Material rNewMaterial = renderer.sharedMaterial;
+		Material rNewMaterial = GetComponent<Renderer>().sharedMaterial;
 
 		if( rNewMaterial != null )
 		{
@@ -559,7 +559,7 @@ public class Uni2DSprite : MonoBehaviour
 			m_rSpriteSettings.atlas );
 
 		// Update material
-		Renderer rSpriteRender = this.renderer;
+		Renderer rSpriteRender = this.GetComponent<Renderer>();
 		if( rSpriteRender != null )
 		{
 			rSpriteRender.sharedMaterial = rSpriteMaterial;
@@ -1008,7 +1008,7 @@ public class Uni2DSprite : MonoBehaviour
 	
 	void OnDrawGizmos( )
 	{
-		Bounds rBounds = this.renderer.bounds;
+		Bounds rBounds = this.GetComponent<Renderer>().bounds;
 		float fLimit = 0.01f * Vector3.Distance( rBounds.min, rBounds.max );
 
 		if( Selection.activeTransform != this.transform )

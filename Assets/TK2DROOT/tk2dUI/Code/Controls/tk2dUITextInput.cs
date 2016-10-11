@@ -121,7 +121,7 @@ public class tk2dUITextInput : MonoBehaviour
                 selectionBtn.sendMessageTarget = value;
             
                 #if UNITY_EDITOR
-                    UnityEditor.EditorUtility.SetDirty(selectionBtn);
+                    tk2dUtil.SetDirty(selectionBtn);
                 #endif
             }
         }
@@ -252,11 +252,14 @@ public class tk2dUITextInput : MonoBehaviour
         inputLabel.text = modifiedText;
         inputLabel.Commit();
 
-        while (inputLabel.renderer.bounds.extents.x * 2 > fieldLength)
+		float actualLabelWidth = inputLabel.GetComponent<Renderer>().bounds.size.x / inputLabel.transform.lossyScale.x;
+        while (actualLabelWidth > fieldLength)
         {
             modifiedText=modifiedText.Substring(1, modifiedText.Length - 1);
             inputLabel.text = modifiedText;
             inputLabel.Commit();
+
+			actualLabelWidth = inputLabel.GetComponent<Renderer>().bounds.size.x / inputLabel.transform.lossyScale.x;
         }
 
         if (modifiedText.Length==0 && !listenForKeyboardText)
@@ -299,6 +302,13 @@ public class tk2dUITextInput : MonoBehaviour
             }
         }
 
+#if UNITY_IOS && !UNITY_EDITOR
+        inputStr = keyboard.text;
+        if(!inputStr.Equals(text)) {
+            newText = inputStr;
+            change = true;
+        }
+#endif
         if (change)
         {
             Text = newText;
@@ -327,7 +337,6 @@ public class tk2dUITextInput : MonoBehaviour
         SetState();
         SetCursorPosition();
 
-
 #if TOUCH_SCREEN_KEYBOARD
         if (Application.platform != RuntimePlatform.WindowsEditor &&
             Application.platform != RuntimePlatform.OSXEditor) {
@@ -336,7 +345,7 @@ public class tk2dUITextInput : MonoBehaviour
 #else
             TouchScreenKeyboard.hideInput = true;
 #endif
-            keyboard = TouchScreenKeyboard.Open(text, TouchScreenKeyboardType.Default, false, false, false, false);
+			keyboard = TouchScreenKeyboard.Open(text, TouchScreenKeyboardType.Default, false, false, isPasswordField, false);
             StartCoroutine(TouchScreenKeyboardLoop());
         }
 #endif
@@ -417,18 +426,20 @@ public class tk2dUITextInput : MonoBehaviour
         if (text.EndsWith(" "))
         {
             tk2dFontChar chr;
-            if (inputLabel.font.useDictionary)
+            if (inputLabel.font.inst.useDictionary)
             {
-                chr = inputLabel.font.charDict[' '];
+                chr = inputLabel.font.inst.charDict[' '];
             }
             else
             {
-                chr = inputLabel.font.chars[' '];
+                chr = inputLabel.font.inst.chars[' '];
             }
 
             cursorOffset += chr.advance * inputLabel.scale.x/2;
         }
-        cursor.transform.localPosition = new Vector3(inputLabel.transform.localPosition.x + (inputLabel.renderer.bounds.extents.x + cursorOffset) * multiplier, cursor.transform.localPosition.y, cursor.transform.localPosition.z);
+
+		float renderBoundsRight = inputLabel.GetComponent<Renderer>().bounds.extents.x / gameObject.transform.lossyScale.x;
+		cursor.transform.localPosition = new Vector3(inputLabel.transform.localPosition.x + (renderBoundsRight + cursorOffset) * multiplier, cursor.transform.localPosition.y, cursor.transform.localPosition.z);
     }
 
     private void ShowDisplayText()

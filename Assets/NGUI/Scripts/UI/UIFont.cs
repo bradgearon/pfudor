@@ -1,12 +1,12 @@
 //----------------------------------------------
 //            NGUI: Next-Gen UI kit
-// Copyright © 2011-2014 Tasharen Entertainment
+// Copyright © 2011-2016 Tasharen Entertainment
 //----------------------------------------------
 
 // Dynamic font support contributed by the NGUI community members:
 // Unisip, zh4ox, Mudwiz, Nicki, DarkMagicCK.
 
-#if !UNITY_3_5 && !UNITY_FLASH
+#if !UNITY_3_5
 #define DYNAMIC_FONT
 #endif
 
@@ -19,7 +19,7 @@ using System.Text;
 /// </summary>
 
 [ExecuteInEditMode]
-[AddComponentMenu("NGUI/UI/Font")]
+[AddComponentMenu("NGUI/UI/NGUI Font")]
 public class UIFont : MonoBehaviour
 {
 	[HideInInspector][SerializeField] Material mMat;
@@ -27,7 +27,6 @@ public class UIFont : MonoBehaviour
 	[HideInInspector][SerializeField] BMFont mFont = new BMFont();
 	[HideInInspector][SerializeField] UIAtlas mAtlas;
 	[HideInInspector][SerializeField] UIFont mReplacement;
-	[HideInInspector][SerializeField] float mPixelSize = 1f;
 
 	// List of symbols, such as emoticons like ":)", ":(", etc
 	[HideInInspector][SerializeField] List<BMSymbol> mSymbols = new List<BMSymbol>();
@@ -38,33 +37,67 @@ public class UIFont : MonoBehaviour
 	[HideInInspector][SerializeField] FontStyle mDynamicFontStyle = FontStyle.Normal;
 
 	// Cached value
+	[System.NonSerialized]
 	UISpriteData mSprite = null;
 	int mPMA = -1;
-	bool mSpriteSet = false;
+	int mPacked = -1;
 
 	/// <summary>
 	/// Access to the BMFont class directly.
 	/// </summary>
 
-	public BMFont bmFont { get { return (mReplacement != null) ? mReplacement.bmFont : mFont; } }
+	public BMFont bmFont
+	{
+		get
+		{
+			return (mReplacement != null) ? mReplacement.bmFont : mFont;
+		}
+		set
+		{
+			if (mReplacement != null) mReplacement.bmFont = value;
+			else mFont = value;
+		}
+	}
 
 	/// <summary>
 	/// Original width of the font's texture in pixels.
 	/// </summary>
 
-	public int texWidth { get { return (mReplacement != null) ? mReplacement.texWidth : ((mFont != null) ? mFont.texWidth : 1); } }
+	public int texWidth
+	{
+		get
+		{
+			return (mReplacement != null) ? mReplacement.texWidth : ((mFont != null) ? mFont.texWidth : 1);
+		}
+		set
+		{
+			if (mReplacement != null) mReplacement.texWidth = value;
+			else if (mFont != null) mFont.texWidth = value;
+		}
+	}
 
 	/// <summary>
 	/// Original height of the font's texture in pixels.
 	/// </summary>
 
-	public int texHeight { get { return (mReplacement != null) ? mReplacement.texHeight : ((mFont != null) ? mFont.texHeight : 1); } }
+	public int texHeight
+	{
+		get
+		{
+			return (mReplacement != null) ? mReplacement.texHeight : ((mFont != null) ? mFont.texHeight : 1);
+		}
+		set
+		{
+			if (mReplacement != null) mReplacement.texHeight = value;
+			else if (mFont != null) mFont.texHeight = value;
+		}
+	}
 
 	/// <summary>
 	/// Whether the font has any symbols defined.
 	/// </summary>
 
-	public bool hasSymbols { get { return (mReplacement != null) ? mReplacement.hasSymbols : mSymbols.Count != 0; } }
+	public bool hasSymbols { get { return (mReplacement != null) ? mReplacement.hasSymbols : (mSymbols != null && mSymbols.Count != 0); } }
 
 	/// <summary>
 	/// List of symbols within the font.
@@ -90,14 +123,14 @@ public class UIFont : MonoBehaviour
 			}
 			else if (mAtlas != value)
 			{
-				if (value == null)
-				{
-					if (mAtlas != null) mMat = mAtlas.spriteMaterial;
-					if (sprite != null) mUVRect = uvRect;
-				}
-
 				mPMA = -1;
 				mAtlas = value;
+
+				if (mAtlas != null)
+				{
+					mMat = mAtlas.spriteMaterial;
+					if (sprite != null) mUVRect = uvRect;
+				}
 				MarkAsChanged();
 			}
 		}
@@ -146,51 +179,21 @@ public class UIFont : MonoBehaviour
 	}
 
 	/// <summary>
-	/// Pixel size is a multiplier applied to label dimensions when performing MakePixelPerfect() pixel correction.
-	/// Most obvious use would be on retina screen displays. The resolution doubles, but with UIRoot staying the same
-	/// for layout purposes, you can still get extra sharpness by switching to an HD font that has pixel size set to 0.5.
+	/// Whether the font is using a premultiplied alpha material.
 	/// </summary>
 
-	public float pixelSize
-	{
-		get
-		{
-			if (mReplacement != null) return mReplacement.pixelSize;
-			if (mAtlas != null) return mAtlas.pixelSize;
-			return mPixelSize;
-		}
-		set
-		{
-			if (mReplacement != null)
-			{
-				mReplacement.pixelSize = value;
-			}
-			else if (mAtlas != null)
-			{
-				mAtlas.pixelSize = value;
-			}
-			else
-			{
-				float val = Mathf.Clamp(value, 0.25f, 4f);
-
-				if (mPixelSize != val)
-				{
-					mPixelSize = val;
-					MarkAsChanged();
-				}
-			}
-		}
-	}
+	[System.Obsolete("Use UIFont.premultipliedAlphaShader instead")]
+	public bool premultipliedAlpha { get { return premultipliedAlphaShader; } }
 
 	/// <summary>
 	/// Whether the font is using a premultiplied alpha material.
 	/// </summary>
 
-	public bool premultipliedAlpha
+	public bool premultipliedAlphaShader
 	{
 		get
 		{
-			if (mReplacement != null) return mReplacement.premultipliedAlpha;
+			if (mReplacement != null) return mReplacement.premultipliedAlphaShader;
 
 			if (mAtlas != null) return mAtlas.premultipliedAlpha;
 
@@ -200,6 +203,26 @@ public class UIFont : MonoBehaviour
 				mPMA = (mat != null && mat.shader != null && mat.shader.name.Contains("Premultiplied")) ? 1 : 0;
 			}
 			return (mPMA == 1);
+		}
+	}
+
+	/// <summary>
+	/// Whether the font is a packed font.
+	/// </summary>
+
+	public bool packedFontShader
+	{
+		get
+		{
+			if (mReplacement != null) return mReplacement.packedFontShader;
+			if (mAtlas != null) return false;
+
+			if (mPacked == -1)
+			{
+				Material mat = material;
+				mPacked = (mat != null && mat.shader != null && mat.shader.name.Contains("Packed")) ? 1 : 0;
+			}
+			return (mPacked == 1);
 		}
 	}
 
@@ -226,41 +249,7 @@ public class UIFont : MonoBehaviour
 		get
 		{
 			if (mReplacement != null) return mReplacement.uvRect;
-
-			if (mAtlas != null && (mSprite == null && sprite != null))
-			{
-				Texture tex = mAtlas.texture;
-
-				if (tex != null)
-				{
-					mUVRect = new Rect(
-						mSprite.x - mSprite.paddingLeft,
-						mSprite.y - mSprite.paddingTop,
-						mSprite.width + mSprite.paddingLeft + mSprite.paddingRight,
-						mSprite.height + mSprite.paddingTop + mSprite.paddingBottom);
-
-					mUVRect = NGUIMath.ConvertToTexCoords(mUVRect, tex.width, tex.height);
-#if UNITY_EDITOR
-					// The font should always use the original texture size
-					if (mFont != null)
-					{
-						float tw = (float)mFont.texWidth / tex.width;
-						float th = (float)mFont.texHeight / tex.height;
-
-						if (tw != mUVRect.width || th != mUVRect.height)
-						{
-							//Debug.LogWarning("Font sprite size doesn't match the expected font texture size.\n" +
-							//	"Did you use the 'inner padding' setting on the Texture Packer? It must remain at '0'.", this);
-							mUVRect.width = tw;
-							mUVRect.height = th;
-						}
-					}
-#endif
-					// Trimmed sprite? Trim the glyphs
-					if (mSprite.hasPadding) Trim();
-				}
-			}
-			return mUVRect;
+			return (mAtlas != null && sprite != null) ? mUVRect : new Rect(0f, 0f, 1f, 1f);
 		}
 		set
 		{
@@ -325,7 +314,9 @@ public class UIFont : MonoBehaviour
 	{
 		get
 		{
-			return (mReplacement != null) ? mReplacement.defaultSize : (isDynamic ? mDynamicFontSize : mFont.charSize);
+			if (mReplacement != null) return mReplacement.defaultSize;
+			if (isDynamic || mFont == null) return mDynamicFontSize;
+			return mFont.charSize;
 		}
 		set
 		{
@@ -344,20 +335,13 @@ public class UIFont : MonoBehaviour
 		{
 			if (mReplacement != null) return mReplacement.sprite;
 
-			if (!mSpriteSet) mSprite = null;
-
-			if (mSprite == null)
+			if (mSprite == null && mAtlas != null && !string.IsNullOrEmpty(mFont.spriteName))
 			{
-				if (mAtlas != null && !string.IsNullOrEmpty(mFont.spriteName))
-				{
-					mSprite = mAtlas.GetSprite(mFont.spriteName);
+				mSprite = mAtlas.GetSprite(mFont.spriteName);
 
-					if (mSprite == null) mSprite = mAtlas.GetSprite(name);
-
-					mSpriteSet = true;
-
-					if (mSprite == null) mFont.spriteName = null;
-				}
+				if (mSprite == null) mSprite = mAtlas.GetSprite(name);
+				if (mSprite == null) mFont.spriteName = null;
+				else UpdateUVRect();
 
 				for (int i = 0, imax = mSymbols.Count; i < imax; ++i)
 					symbols[i].MarkAsChanged();
@@ -388,6 +372,14 @@ public class UIFont : MonoBehaviour
 				if (rep != null && rep.replacement == this) rep.replacement = null;
 				if (mReplacement != null) MarkAsChanged();
 				mReplacement = rep;
+
+				if (rep != null)
+				{
+					mPMA = -1;
+					mMat = null;
+					mFont = null;
+					mDynamicFont = null;
+				}
 				MarkAsChanged();
 			}
 		}
@@ -488,7 +480,7 @@ public class UIFont : MonoBehaviour
 	static public bool CheckIfRelated (UIFont a, UIFont b)
 	{
 		if (a == null || b == null) return false;
-#if DYNAMIC_FONT
+#if DYNAMIC_FONT && !UNITY_FLASH
 		if (a.isDynamic && b.isDynamic && a.dynamicFont.fontNames[0] == b.dynamicFont.fontNames[0]) return true;
 #endif
 		return a == b || a.References(b) || b.References(a);
@@ -511,7 +503,7 @@ public class UIFont : MonoBehaviour
 	public void MarkAsChanged ()
 	{
 #if UNITY_EDITOR
-		UnityEditor.EditorUtility.SetDirty(gameObject);
+		NGUITools.SetDirty(gameObject);
 #endif
 		if (mReplacement != null) mReplacement.MarkAsChanged();
 
@@ -531,8 +523,47 @@ public class UIFont : MonoBehaviour
 		}
 
 		// Clear all symbols
-		for (int i = 0, imax = mSymbols.Count; i < imax; ++i)
+		for (int i = 0, imax = symbols.Count; i < imax; ++i)
 			symbols[i].MarkAsChanged();
+	}
+
+	/// <summary>
+	/// Forcefully update the font's sprite reference.
+	/// </summary>
+
+	public void UpdateUVRect ()
+	{
+		if (mAtlas == null) return;
+		Texture tex = mAtlas.texture;
+
+		if (tex != null)
+		{
+			mUVRect = new Rect(
+				mSprite.x - mSprite.paddingLeft,
+				mSprite.y - mSprite.paddingTop,
+				mSprite.width + mSprite.paddingLeft + mSprite.paddingRight,
+				mSprite.height + mSprite.paddingTop + mSprite.paddingBottom);
+
+			mUVRect = NGUIMath.ConvertToTexCoords(mUVRect, tex.width, tex.height);
+#if UNITY_EDITOR
+			// The font should always use the original texture size
+			if (mFont != null)
+			{
+				float tw = (float)mFont.texWidth / tex.width;
+				float th = (float)mFont.texHeight / tex.height;
+
+				if (tw != mUVRect.width || th != mUVRect.height)
+				{
+					//Debug.LogWarning("Font sprite size doesn't match the expected font texture size.\n" +
+					//	"Did you use the 'inner padding' setting on the Texture Packer? It must remain at '0'.", this);
+					mUVRect.width = tw;
+					mUVRect.height = th;
+				}
+			}
+#endif
+			// Trimmed sprite? Trim the glyphs
+			if (mSprite.hasPadding) Trim();
+		}
 	}
 
 	/// <summary>

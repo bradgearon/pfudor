@@ -17,7 +17,7 @@ namespace tk2dEditor.SpriteCollectionBuilder
 				{
 					plat.spriteCollection = tk2dSpriteCollectionEditor.CreateSpriteCollection(root, gen.name + "@" + plat.name);
 					plat.spriteCollection.managedSpriteCollection = true;
-					EditorUtility.SetDirty(gen.spriteCollection);
+					tk2dUtil.SetDirty(gen.spriteCollection);
 				}
 			}
 		}
@@ -110,6 +110,10 @@ namespace tk2dEditor.SpriteCollectionBuilder
 			proxy.maxTextureSize = (int)(proxy.maxTextureSize * scale);
 			proxy.forcedTextureWidth = (int)(proxy.forcedTextureWidth * scale);
 			proxy.forcedTextureHeight = (int)(proxy.forcedTextureHeight * scale);
+
+			if (proxy.padAmount > 0) {
+				proxy.padAmount = Mathf.Max((int)(proxy.padAmount * scale), 1); // min 1 pixel padding
+			}
 
 			proxy.globalScale = 1.0f / scale;
 
@@ -259,7 +263,7 @@ namespace tk2dEditor.SpriteCollectionBuilder
 					font.editorData.bmFont = font.bmFont;
 					font.editorData.texture = font.texture;
 					font.editorData.data = font.data;
-					EditorUtility.SetDirty(font.editorData);
+					tk2dUtil.SetDirty(font.editorData);
 				}
 			}
 

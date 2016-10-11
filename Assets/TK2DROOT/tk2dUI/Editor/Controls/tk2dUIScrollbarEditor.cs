@@ -22,7 +22,7 @@ public class tk2dUIScrollbarEditor : Editor
 
         if (GUI.changed)
         {
-            EditorUtility.SetDirty(scrollbar);
+            tk2dUtil.SetDirty(scrollbar);
         }
     }
 
@@ -68,7 +68,7 @@ public class tk2dUIScrollbarEditor : Editor
 
         if (wasChange)
         {
-            EditorUtility.SetDirty(scrollbar);
+            tk2dUtil.SetDirty(scrollbar);
         }
     }
 

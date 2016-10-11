@@ -65,7 +65,7 @@ public class tk2dUIProgressBarEditor : Editor
 
         if (markAsDirty || GUI.changed)
         {
-            EditorUtility.SetDirty(progressBar);
+            tk2dUtil.SetDirty(progressBar);
         }
     }
 

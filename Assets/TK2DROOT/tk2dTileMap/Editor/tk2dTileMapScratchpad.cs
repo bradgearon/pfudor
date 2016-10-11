@@ -212,7 +212,7 @@ public class tk2dScratchpadGUI {
 		GUIStyle centeredTextField = new GUIStyle(EditorStyles.textField);
 		centeredTextField.alignment = TextAnchor.MiddleCenter;
 
-		GUILayout.BeginVertical(GUILayout.Width(150.0f));
+		GUILayout.BeginVertical(tk2dEditorSkin.SC_ListBoxBG, GUILayout.Width(150.0f));
 
 		GUILayout.BeginHorizontal();
 		if (GUILayout.Button("New Scratchpad")) {

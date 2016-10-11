@@ -14,10 +14,29 @@ namespace tk2dEditor.SpriteCollectionEditor
 		public SpriteCollectionProxy(tk2dSpriteCollection obj)
 		{
 			this.obj = obj;
-			CopyFromSource();
+			CopyFromSource(true);
 		}
 		
-		public void CopyFromSource()
+		public SpriteCollectionProxy(tk2dSpriteCollection obj, bool copyBuilt)
+		{
+			this.obj = obj;
+			CopyFromSource(copyBuilt);
+		}
+
+		public void CopyBuiltFromSource(tk2dSpriteCollection source) {
+			SpriteCollectionProxy target = this;
+			target.spriteCollection = source.spriteCollection;
+			CopyArray(ref target.altMaterials, source.altMaterials);
+			CopyArray(ref target.atlasMaterials, source.atlasMaterials);
+			CopyArray(ref target.atlasTextures, source.atlasTextures);
+			CopyArray(ref target.atlasTextureFiles, source.atlasTextureFiles);
+		}
+		
+		public void CopyFromSource() {
+			CopyFromSource(true);
+		}
+
+		public void CopyFromSource(bool copyBuilt)
 		{
 			this.obj.Upgrade(); // make sure its up to date
 
@@ -111,14 +130,8 @@ namespace tk2dEditor.SpriteCollectionEditor
 			target.disableRotation = source.disableRotation;
 			target.removeDuplicates = source.removeDuplicates;
 			
-			target.spriteCollection = source.spriteCollection;
 			target.premultipliedAlpha = source.premultipliedAlpha;
-			
-			CopyArray(ref target.altMaterials, source.altMaterials);
-			CopyArray(ref target.atlasMaterials, source.atlasMaterials);
-			CopyArray(ref target.atlasTextures, source.atlasTextures);
-			CopyArray(ref target.atlasTextureFiles, source.atlasTextureFiles);
-			
+
 			target.sizeDef.CopyFrom( source.sizeDef );
 			target.globalScale = source.globalScale;
 			target.globalTextureRescale = source.globalTextureRescale;
@@ -136,6 +149,18 @@ namespace tk2dEditor.SpriteCollectionEditor
 			target.userDefinedTextureSettings = source.userDefinedTextureSettings;
 			target.mipmapEnabled = source.mipmapEnabled;
 			target.anisoLevel = source.anisoLevel;
+
+			target.linkedSpriteCollections.Clear();
+			for (int i = 0; i < source.linkedSpriteCollections.Count; ++i) {
+				tk2dLinkedSpriteCollection t = new tk2dLinkedSpriteCollection();
+				t.name = source.linkedSpriteCollections[i].name;
+				t.spriteCollection = source.linkedSpriteCollections[i].spriteCollection;
+				target.linkedSpriteCollections.Add(t);
+			}
+
+			if (copyBuilt) {
+				CopyBuiltFromSource(source);
+			}
 		}
 		
 		void CopyArray<T>(ref T[] dest, T[] source)
@@ -390,6 +415,14 @@ namespace tk2dEditor.SpriteCollectionEditor
 					target.attachPointTestSprites.Add(lut);
 				}
 			}
+
+			target.linkedSpriteCollections.Clear();
+			for (int i = 0; i < source.linkedSpriteCollections.Count; ++i) {
+				tk2dLinkedSpriteCollection t = new tk2dLinkedSpriteCollection();
+				t.name = source.linkedSpriteCollections[i].name;
+				t.spriteCollection = source.linkedSpriteCollections[i].spriteCollection;
+				target.linkedSpriteCollections.Add(t);
+			}
 		}
 		
 		public bool AllowAltMaterials
@@ -622,6 +655,9 @@ namespace tk2dEditor.SpriteCollectionEditor
 		public bool loadable;
 		public tk2dSpriteCollection.AtlasFormat atlasFormat;
 		
+		// Linked sprite collections
+		public List<tk2dLinkedSpriteCollection> linkedSpriteCollections = new List<tk2dLinkedSpriteCollection>();
+
 		public float editorDisplayScale;
 	}
 }

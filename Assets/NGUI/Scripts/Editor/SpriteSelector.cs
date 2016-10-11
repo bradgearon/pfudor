@@ -1,6 +1,6 @@
 //----------------------------------------------
 //            NGUI: Next-Gen UI kit
-// Copyright © 2011-2014 Tasharen Entertainment
+// Copyright © 2011-2016 Tasharen Entertainment
 //----------------------------------------------
 
 using UnityEditor;
@@ -52,7 +52,7 @@ public class SpriteSelector : ScriptableWizard
 
 			string before = NGUISettings.partialSprite;
 			string after = EditorGUILayout.TextField("", before, "SearchTextField");
-			NGUISettings.partialSprite = after;
+			if (before != after) NGUISettings.partialSprite = after;
 
 			if (GUILayout.Button("", "SearchCancelButton", GUILayout.Width(18f)))
 			{
@@ -74,7 +74,12 @@ public class SpriteSelector : ScriptableWizard
 			
 			float size = 80f;
 			float padded = size + 10f;
-			int columns = Mathf.FloorToInt(Screen.width / padded);
+#if UNITY_4_7
+			int screenWidth = Screen.width;
+#else
+			int screenWidth = (int)EditorGUIUtility.currentViewWidth;
+#endif
+			int columns = Mathf.FloorToInt(screenWidth / padded);
 			if (columns < 1) columns = 1;
 
 			int offset = 0;

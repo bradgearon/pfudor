@@ -32,20 +32,20 @@ class tk2dSpriteFromTextureEditor : Editor {
 		}
 	}
 
-    [MenuItem("GameObject/Create Other/tk2d/Sprite From Selected Texture", true, 12952)]
+    [MenuItem(tk2dMenu.createBase + "Sprite From Selected Texture", true, 12952)]
     static bool ValidateCreateSpriteObjectFromTexture()
     {
     	return Selection.activeObject != null && Selection.activeObject is Texture;
     }
 
-    [MenuItem("GameObject/Create Other/tk2d/Sprite From Texture", true, 12953)]
+    [MenuItem(tk2dMenu.createBase + "Sprite From Texture", true, 12953)]
     static bool ValidateCreateSpriteObject()
     {
     	return Selection.activeObject == null || !(Selection.activeObject is Texture);
     }
 
-    [MenuItem("GameObject/Create Other/tk2d/Sprite From Selected Texture", false, 12952)]
-    [MenuItem("GameObject/Create Other/tk2d/Sprite From Texture", false, 12953)]
+    [MenuItem(tk2dMenu.createBase + "Sprite From Selected Texture", false, 12952)]
+    [MenuItem(tk2dMenu.createBase + "Sprite From Texture", false, 12953)]
     static void DoCreateSpriteObjectFromTexture()
     {
     	Texture tex = Selection.activeObject as Texture;

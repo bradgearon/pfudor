@@ -92,9 +92,9 @@ public class RainbowSpawner : MonoBehaviour
 
         StartCoroutine(Spawn());
         // Set the prop's velocity to this speed in the x axis
-        if (propInstance.rigidbody2D != null)
+        if (propInstance.GetComponent<Rigidbody2D>() != null)
         {
-            propInstance.rigidbody2D.velocity = new Vector2(speed, 0);
+            propInstance.GetComponent<Rigidbody2D>().velocity = new Vector2(speed, 0);
 
             // While the prop exists...
             while (propInstance != null)

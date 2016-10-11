@@ -1,6 +1,7 @@
+
 //----------------------------------------------
 //            NGUI: Next-Gen UI kit
-// Copyright © 2011-2014 Tasharen Entertainment
+// Copyright © 2011-2016 Tasharen Entertainment
 //----------------------------------------------
 
 //#define SHOW_HIDDEN_OBJECTS
@@ -37,38 +38,28 @@ public class UIDrawCall : MonoBehaviour
 	public enum Clipping : int
 	{
 		None = 0,
-		AlphaClip = 2,				// Adjust the alpha, compatible with all devices
+		TextureMask = 1,			// Clipped using a texture rather than math
 		SoftClip = 3,				// Alpha-based clipping with a softened edge
 		ConstrainButDontClip = 4,	// No actual clipping, but does have an area
 	}
 
-	[HideInInspector]
-	[System.NonSerialized]
-	public int depthStart = int.MaxValue;
+	[HideInInspector][System.NonSerialized] public int widgetCount = 0;
+	[HideInInspector][System.NonSerialized] public int depthStart = int.MaxValue;
+	[HideInInspector][System.NonSerialized] public int depthEnd = int.MinValue;
+	[HideInInspector][System.NonSerialized] public UIPanel manager;
+	[HideInInspector][System.NonSerialized] public UIPanel panel;
+	[HideInInspector][System.NonSerialized] public Texture2D clipTexture;
+	[HideInInspector][System.NonSerialized] public bool alwaysOnScreen = false;
+	[HideInInspector][System.NonSerialized] public BetterList<Vector3> verts = new BetterList<Vector3>();
+	[HideInInspector][System.NonSerialized] public BetterList<Vector3> norms = new BetterList<Vector3>();
+	[HideInInspector][System.NonSerialized] public BetterList<Vector4> tans = new BetterList<Vector4>();
+	[HideInInspector][System.NonSerialized] public BetterList<Vector2> uvs = new BetterList<Vector2>();
+	[HideInInspector][System.NonSerialized] public BetterList<Color> cols = new BetterList<Color>();
 
-	[HideInInspector]
-	[System.NonSerialized]
-	public int depthEnd = int.MinValue;
-
-	[HideInInspector]
-	[System.NonSerialized]
-	public UIPanel manager;
-
-	[HideInInspector]
-	[System.NonSerialized]
-	public UIPanel panel;
-
-	[HideInInspector]
-	[System.NonSerialized]
-	public bool alwaysOnScreen = false;
-
-	Material		mMaterial;		// Material used by this screen
+	Material		mMaterial;		// Material used by this draw call
 	Texture			mTexture;		// Main texture used by the material
 	Shader			mShader;		// Shader used by the dynamically created material
-	Clipping		mClipping;		// Clipping mode
-	Vector4			mClipRange;		// Clipping, if used
-	Vector2			mClipSoft;		// Clipping softness
-
+	int				mClipCount = 0;	// Number of times the draw call's content is getting clipped
 	Transform		mTrans;			// Cached transform
 	Mesh			mMesh;			// First generated mesh
 	MeshFilter		mFilter;		// Mesh filter for this draw call
@@ -77,9 +68,8 @@ public class UIDrawCall : MonoBehaviour
 	int[]			mIndices;		// Cached indices
 
 	bool mRebuildMat = true;
-	bool mReset = true;
+	bool mLegacyShader = false;
 	int mRenderQueue = 3000;
-	Clipping mLastClip = Clipping.None;
 	int mTriangles = 0;
 
 	/// <summary>
@@ -88,6 +78,17 @@ public class UIDrawCall : MonoBehaviour
 
 	[System.NonSerialized]
 	public bool isDirty = false;
+
+	[System.NonSerialized]
+	bool mTextureClip = false;
+
+	public delegate void OnRenderCallback (Material mat);
+
+	/// <summary>
+	/// Callback that will be triggered at OnWillRenderObject() time.
+	/// </summary>
+
+	public OnRenderCallback onRender;
 
 	/// <summary>
 	/// Render queue used by the draw call.
@@ -115,6 +116,41 @@ public class UIDrawCall : MonoBehaviour
 			}
 		}
 	}
+
+	/// <summary>
+	/// Renderer's sorting order, to be used with Unity's 2D system.
+	/// </summary>
+
+	public int sortingOrder
+	{
+		get { return (mRenderer != null) ? mRenderer.sortingOrder : 0; }
+		set { if (mRenderer != null && mRenderer.sortingOrder != value) mRenderer.sortingOrder = value; }
+	}
+
+	/// <summary>
+	/// Renderer's sorting layer name, used with the Unity's 2D system.
+	/// </summary>
+
+	public string sortingLayerName
+	{
+		get
+		{
+			if (!string.IsNullOrEmpty(mSortingLayerName)) return mSortingLayerName;
+			if (mRenderer == null) return null;
+			mSortingLayerName = mRenderer.sortingLayerName;
+			return mSortingLayerName;
+		}
+		set
+		{
+			if (mRenderer != null && mSortingLayerName != value)
+			{
+				mSortingLayerName = value;
+				mRenderer.sortingLayerName = value;
+			}
+		}
+	}
+
+	[System.NonSerialized] string mSortingLayerName;
 
 	/// <summary>
 	/// Final render queue used to draw the draw call's geometry.
@@ -149,7 +185,7 @@ public class UIDrawCall : MonoBehaviour
 				if (mRenderer != null)
 				{
 					mRenderer.enabled = value;
-					UnityEditor.EditorUtility.SetDirty(gameObject);
+					NGUITools.SetDirty(gameObject);
 				}
 			}
 		}
@@ -236,25 +272,7 @@ public class UIDrawCall : MonoBehaviour
 	/// Whether the draw call is currently using a clipped shader.
 	/// </summary>
 
-	public bool isClipped { get { return mClipping != Clipping.None; } }
-
-	/// <summary>
-	/// Clipping used by the draw call
-	/// </summary>
-
-	public Clipping clipping { get { return mClipping; } set { if (mClipping != value) { mClipping = value; mReset = true; } } }
-
-	/// <summary>
-	/// Clip range set by the panel -- used with a shader that has the "_ClipRange" property.
-	/// </summary>
-
-	public Vector4 clipRange { get { return mClipRange; } set { mClipRange = value; } }
-
-	/// <summary>
-	/// Clipping softness factor, if soft clipping is used.
-	/// </summary>
-
-	public Vector2 clipSoftness { get { return mClipSoft; } set { mClipSoft = value; } }
+	public bool isClipped { get { return mClipCount != 0; } }
 
 	/// <summary>
 	/// Create an appropriate material for the draw call.
@@ -262,53 +280,83 @@ public class UIDrawCall : MonoBehaviour
 
 	void CreateMaterial ()
 	{
-		const string alpha = " (AlphaClip)";
-		const string soft = " (SoftClip)";
+		mTextureClip = false;
+		mLegacyShader = false;
+		mClipCount = (panel != null) ? panel.clipCount : 0;
+
 		string shaderName = (mShader != null) ? mShader.name :
 			((mMaterial != null) ? mMaterial.shader.name : "Unlit/Transparent Colored");
 
 		// Figure out the normal shader's name
 		shaderName = shaderName.Replace("GUI/Text Shader", "Unlit/Text");
-		shaderName = shaderName.Replace(alpha, "");
+
+		if (shaderName.Length > 2)
+		{
+			if (shaderName[shaderName.Length - 2] == ' ')
+			{
+				int index = shaderName[shaderName.Length - 1];
+				if (index > '0' && index <= '9') shaderName = shaderName.Substring(0, shaderName.Length - 2);
+			}
+		}
+
+		if (shaderName.StartsWith("Hidden/"))
+			shaderName = shaderName.Substring(7);
+
+		// Legacy functionality
+		const string soft = " (SoftClip)";
 		shaderName = shaderName.Replace(soft, "");
 
-		// Try to find the new shader
-		Shader shader;
+		const string textureClip = " (TextureClip)";
+		shaderName = shaderName.Replace(textureClip, "");
 
-		if (mClipping == Clipping.SoftClip)
+		if (panel != null && panel.clipping == Clipping.TextureMask)
 		{
-			shader = Shader.Find(shaderName + soft);
+			mTextureClip = true;
+			shader = Shader.Find("Hidden/" + shaderName + textureClip);
 		}
-		else if (mClipping == Clipping.AlphaClip)
+		else if (mClipCount != 0)
 		{
-			shader = Shader.Find(shaderName + alpha);
+			shader = Shader.Find("Hidden/" + shaderName + " " + mClipCount);
+			if (shader == null) shader = Shader.Find(shaderName + " " + mClipCount);
+
+			// Legacy functionality
+			if (shader == null && mClipCount == 1)
+			{
+				mLegacyShader = true;
+				shader = Shader.Find(shaderName + soft);
+			}
 		}
-		else // No clipping
-		{
-			shader = Shader.Find(shaderName);
-		}
+		else shader = Shader.Find(shaderName);
+
+		// Always fallback to the default shader
+		if (shader == null) shader = Shader.Find("Unlit/Transparent Colored");
 
 		if (mMaterial != null)
 		{
 			mDynamicMat = new Material(mMaterial);
+			mDynamicMat.name = "[NGUI] " + mMaterial.name;
 			mDynamicMat.hideFlags = HideFlags.DontSave | HideFlags.NotEditable;
 			mDynamicMat.CopyPropertiesFromMaterial(mMaterial);
+#if !UNITY_FLASH
+			string[] keywords = mMaterial.shaderKeywords;
+			for (int i = 0; i < keywords.Length; ++i)
+				mDynamicMat.EnableKeyword(keywords[i]);
+#endif
+			// If there is a valid shader, assign it to the custom material
+			if (shader != null)
+			{
+				mDynamicMat.shader = shader;
+			}
+			else if (mClipCount != 0)
+			{
+				Debug.LogError(shaderName + " shader doesn't have a clipped shader version for " + mClipCount + " clip regions");
+			}
 		}
 		else
 		{
 			mDynamicMat = new Material(shader);
+			mDynamicMat.name = "[NGUI] " + shader.name;
 			mDynamicMat.hideFlags = HideFlags.DontSave | HideFlags.NotEditable;
-		}
-
-		// If there is a valid shader, assign it to the custom material
-		if (shader != null)
-		{
-			mDynamicMat.shader = shader;
-		}
-		else if (mClipping != Clipping.None)
-		{
-			Debug.LogError(shaderName + " doesn't have a clipped shader version for " + mClipping);
-			mClipping = Clipping.None;
 		}
 	}
 
@@ -323,9 +371,7 @@ public class UIDrawCall : MonoBehaviour
 
 		// Create a new material
 		CreateMaterial();
-
 		mDynamicMat.renderQueue = mRenderQueue;
-		mLastClip = mClipping;
 
 		// Assign the main texture
 		if (mTexture != null) mDynamicMat.mainTexture = mTexture;
@@ -341,8 +387,10 @@ public class UIDrawCall : MonoBehaviour
 
 	void UpdateMaterials ()
 	{
+		if (panel == null) return;
+
 		// If clipping should be used, we need to find a replacement shader
-		if (mRebuildMat || mDynamicMat == null || mClipping != mLastClip)
+		if (mRebuildMat || mDynamicMat == null || mClipCount != panel.clipCount || mTextureClip != (panel.clipping == Clipping.TextureMask))
 		{
 			RebuildMaterial();
 			mRebuildMat = false;
@@ -356,22 +404,36 @@ public class UIDrawCall : MonoBehaviour
 		}
 	}
 
+	static ColorSpace mColorSpace = ColorSpace.Uninitialized;
+
 	/// <summary>
 	/// Set the draw call's geometry.
 	/// </summary>
 
-	public void Set (
-		BetterList<Vector3> verts,
-		BetterList<Vector3> norms,
-		BetterList<Vector4> tans,
-		BetterList<Vector2> uvs,
-		BetterList<Color32> cols)
+	public void UpdateGeometry (int widgetCount)
 	{
+		this.widgetCount = widgetCount;
 		int count = verts.size;
 
 		// Safety check to ensure we get valid values
 		if (count > 0 && (count == uvs.size && count == cols.size) && (count % 4) == 0)
 		{
+			if (mColorSpace == ColorSpace.Uninitialized)
+				mColorSpace = QualitySettings.activeColorSpace;
+
+			if (mColorSpace == ColorSpace.Linear)
+			{
+				for (int i = 0; i < cols.size; ++i)
+				{
+					var c = cols[i];
+					c.r = Mathf.GammaToLinearSpace(c.r);
+					c.g = Mathf.GammaToLinearSpace(c.g);
+					c.b = Mathf.GammaToLinearSpace(c.b);
+					c.a = Mathf.GammaToLinearSpace(c.a);
+					cols[i] = c;
+				}
+			}
+
 			// Cache all components
 			if (mFilter == null) mFilter = gameObject.GetComponent<MeshFilter>();
 			if (mFilter == null) mFilter = gameObject.AddComponent<MeshFilter>();
@@ -387,23 +449,27 @@ public class UIDrawCall : MonoBehaviour
 				{
 					mMesh = new Mesh();
 					mMesh.hideFlags = HideFlags.DontSave;
-					mMesh.name = (mMaterial != null) ? mMaterial.name : "Mesh";
-#if !UNITY_3_5
-					mMesh.MarkDynamic();
-#endif
+					mMesh.name = (mMaterial != null) ? "[NGUI] " + mMaterial.name : "[NGUI] Mesh";
+					if (dx9BugWorkaround == 0) mMesh.MarkDynamic();
 					setIndices = true;
 				}
 #if !UNITY_FLASH
 				// If the buffer length doesn't match, we need to trim all buffers
 				bool trim = (uvs.buffer.Length != verts.buffer.Length) ||
 					(cols.buffer.Length != verts.buffer.Length) ||
-					(norms != null && norms.buffer.Length != verts.buffer.Length) ||
-					(tans != null && tans.buffer.Length != verts.buffer.Length);
+					(norms.buffer != null && norms.buffer.Length != verts.buffer.Length) ||
+					(tans.buffer != null && tans.buffer.Length != verts.buffer.Length);
 
 				// Non-automatic render queues rely on Z position, so it's a good idea to trim everything
-				if (!trim && panel.renderQueue != UIPanel.RenderQueue.Automatic)
+				if (!trim && panel != null && panel.renderQueue != UIPanel.RenderQueue.Automatic)
 					trim = (mMesh == null || mMesh.vertexCount != verts.buffer.Length);
 
+				// NOTE: Apparently there is a bug with Adreno devices:
+				// http://www.tasharen.com/forum/index.php?topic=8415.0
+#if !UNITY_ANDROID
+				// If the number of vertices in the buffer is less than half of the full buffer, trim it
+				if (!trim && (verts.size << 1) < verts.buffer.Length) trim = true;
+#endif
 				mTriangles = (verts.size >> 1);
 
 				if (trim || verts.buffer.Length > 65000)
@@ -416,7 +482,7 @@ public class UIDrawCall : MonoBehaviour
 
 					mMesh.vertices = verts.ToArray();
 					mMesh.uv = uvs.ToArray();
-					mMesh.colors32 = cols.ToArray();
+					mMesh.colors = cols.ToArray();
 
 					if (norms != null) mMesh.normals = norms.ToArray();
 					if (tans != null) mMesh.tangents = tans.ToArray();
@@ -431,7 +497,7 @@ public class UIDrawCall : MonoBehaviour
 
 					mMesh.vertices = verts.buffer;
 					mMesh.uv = uvs.buffer;
-					mMesh.colors32 = cols.buffer;
+					mMesh.colors = cols.buffer;
 
 					if (norms != null) mMesh.normals = norms.buffer;
 					if (tans != null) mMesh.tangents = tans.buffer;
@@ -447,7 +513,7 @@ public class UIDrawCall : MonoBehaviour
 
 				mMesh.vertices = verts.ToArray();
 				mMesh.uv = uvs.ToArray();
-				mMesh.colors32 = cols.ToArray();
+				mMesh.colors = cols.ToArray();
 
 				if (norms != null) mMesh.normals = norms.ToArray();
 				if (tans != null) mMesh.tangents = tans.ToArray();
@@ -458,7 +524,9 @@ public class UIDrawCall : MonoBehaviour
 					mMesh.triangles = mIndices;
 				}
 
+#if !UNITY_FLASH
 				if (trim || !alwaysOnScreen)
+#endif
 					mMesh.RecalculateBounds();
 
 				mFilter.mesh = mMesh;
@@ -486,6 +554,12 @@ public class UIDrawCall : MonoBehaviour
 			if (mFilter.mesh != null) mFilter.mesh.Clear();
 			Debug.LogError("UIWidgets must fill the buffer with 4 vertices per quad. Found " + count);
 		}
+
+		verts.Clear();
+		uvs.Clear();
+		cols.Clear();
+		norms.Clear();
+		tans.Clear();
 	}
 
 	const int maxIndexBufferCache = 10;
@@ -536,23 +610,142 @@ public class UIDrawCall : MonoBehaviour
 
 	void OnWillRenderObject ()
 	{
-		if (mReset)
-		{
-			mReset = false;
-			UpdateMaterials();
-		}
+		UpdateMaterials();
 
-		if (mDynamicMat != null && isClipped && mClipping != Clipping.ConstrainButDontClip)
+		if (onRender != null) onRender(mDynamicMat ?? mMaterial);
+		if (mDynamicMat == null || mClipCount == 0) return;
+
+		if (mTextureClip)
 		{
-			mDynamicMat.mainTextureOffset = new Vector2(-mClipRange.x / mClipRange.z, -mClipRange.y / mClipRange.w);
-			mDynamicMat.mainTextureScale = new Vector2(1f / mClipRange.z, 1f / mClipRange.w);
+			Vector4 cr = panel.drawCallClipRange;
+			Vector2 soft = panel.clipSoftness;
 
 			Vector2 sharpness = new Vector2(1000.0f, 1000.0f);
-			if (mClipSoft.x > 0f) sharpness.x = mClipRange.z / mClipSoft.x;
-			if (mClipSoft.y > 0f) sharpness.y = mClipRange.w / mClipSoft.y;
+			if (soft.x > 0f) sharpness.x = cr.z / soft.x;
+			if (soft.y > 0f) sharpness.y = cr.w / soft.y;
+
+			mDynamicMat.SetVector(ClipRange[0], new Vector4(-cr.x / cr.z, -cr.y / cr.w, 1f / cr.z, 1f / cr.w));
+			mDynamicMat.SetTexture("_ClipTex", clipTexture);
+		}
+		else if (!mLegacyShader)
+		{
+			UIPanel currentPanel = panel;
+
+			for (int i = 0; currentPanel != null; )
+			{
+				if (currentPanel.hasClipping)
+				{
+					float angle = 0f;
+					Vector4 cr = currentPanel.drawCallClipRange;
+
+					// Clipping regions past the first one need additional math
+					if (currentPanel != panel)
+					{
+						Vector3 pos = currentPanel.cachedTransform.InverseTransformPoint(panel.cachedTransform.position);
+						cr.x -= pos.x;
+						cr.y -= pos.y;
+
+						Vector3 v0 = panel.cachedTransform.rotation.eulerAngles;
+						Vector3 v1 = currentPanel.cachedTransform.rotation.eulerAngles;
+						Vector3 diff = v1 - v0;
+
+						diff.x = NGUIMath.WrapAngle(diff.x);
+						diff.y = NGUIMath.WrapAngle(diff.y);
+						diff.z = NGUIMath.WrapAngle(diff.z);
+
+						if (Mathf.Abs(diff.x) > 0.001f || Mathf.Abs(diff.y) > 0.001f)
+							Debug.LogWarning("Panel can only be clipped properly if X and Y rotation is left at 0", panel);
+
+						angle = diff.z;
+					}
+
+					// Pass the clipping parameters to the shader
+					SetClipping(i++, cr, currentPanel.clipSoftness, angle);
+				}
+				currentPanel = currentPanel.parentPanel;
+			}
+		}
+		else // Legacy functionality
+		{
+			Vector2 soft = panel.clipSoftness;
+			Vector4 cr = panel.drawCallClipRange;
+			Vector2 v0 = new Vector2(-cr.x / cr.z, -cr.y / cr.w);
+			Vector2 v1 = new Vector2(1f / cr.z, 1f / cr.w);
+
+			Vector2 sharpness = new Vector2(1000.0f, 1000.0f);
+			if (soft.x > 0f) sharpness.x = cr.z / soft.x;
+			if (soft.y > 0f) sharpness.y = cr.w / soft.y;
+
+			mDynamicMat.mainTextureOffset = v0;
+			mDynamicMat.mainTextureScale = v1;
 			mDynamicMat.SetVector("_ClipSharpness", sharpness);
 		}
 	}
+
+	static int[] ClipRange = null;
+	static int[] ClipArgs = null;
+
+	/// <summary>
+	/// Set the shader clipping parameters.
+	/// </summary>
+
+	void SetClipping (int index, Vector4 cr, Vector2 soft, float angle)
+	{
+		angle *= -Mathf.Deg2Rad;
+
+		Vector2 sharpness = new Vector2(1000.0f, 1000.0f);
+		if (soft.x > 0f) sharpness.x = cr.z / soft.x;
+		if (soft.y > 0f) sharpness.y = cr.w / soft.y;
+
+		if (index < ClipRange.Length)
+		{
+			mDynamicMat.SetVector(ClipRange[index], new Vector4(-cr.x / cr.z, -cr.y / cr.w, 1f / cr.z, 1f / cr.w));
+			mDynamicMat.SetVector(ClipArgs[index], new Vector4(sharpness.x, sharpness.y, Mathf.Sin(angle), Mathf.Cos(angle)));
+		}
+	}
+
+	// Unity 5.4 bug work-around: http://www.tasharen.com/forum/index.php?topic=14839.0
+	static int dx9BugWorkaround = -1;
+
+	/// <summary>
+	/// Cache the property IDs.
+	/// </summary>
+
+	void Awake ()
+	{
+		if (dx9BugWorkaround == -1)
+		{
+			var pf = Application.platform;
+			dx9BugWorkaround = ((pf == RuntimePlatform.WindowsPlayer || pf == RuntimePlatform.XBOX360) &&
+				SystemInfo.graphicsShaderLevel < 40 && SystemInfo.graphicsDeviceVersion.Contains("Direct3D")) ? 1 : 0;
+		}
+
+		if (ClipRange == null)
+		{
+			ClipRange = new int[]
+			{
+				Shader.PropertyToID("_ClipRange0"),
+				Shader.PropertyToID("_ClipRange1"),
+				Shader.PropertyToID("_ClipRange2"),
+				Shader.PropertyToID("_ClipRange4"),
+			};
+		}
+
+		if (ClipArgs == null)
+		{
+			ClipArgs = new int[]
+			{
+				Shader.PropertyToID("_ClipArgs0"),
+				Shader.PropertyToID("_ClipArgs1"),
+				Shader.PropertyToID("_ClipArgs2"),
+				Shader.PropertyToID("_ClipArgs3"),
+			};
+		}
+	}
+
+	/// <summary>
+	/// The material should be rebuilt when the draw call is enabled.
+	/// </summary>
 
 	void OnEnable () { mRebuildMat = true; }
 
@@ -568,6 +761,10 @@ public class UIDrawCall : MonoBehaviour
 		manager = null;
 		mMaterial = null;
 		mTexture = null;
+		clipTexture = null;
+
+		if (mRenderer != null)
+			mRenderer.sharedMaterials = new Material[] {};
 
 		NGUITools.DestroyImmediate(mDynamicMat);
 		mDynamicMat = null;
@@ -580,6 +777,7 @@ public class UIDrawCall : MonoBehaviour
 	void OnDestroy ()
 	{
 		NGUITools.DestroyImmediate(mMesh);
+		mMesh = null;
 	}
 
 	/// <summary>
@@ -607,11 +805,11 @@ public class UIDrawCall : MonoBehaviour
 	{
 		UIDrawCall dc = Create(name);
 		dc.gameObject.layer = pan.cachedGameObject.layer;
-		dc.clipping = pan.clipping;
 		dc.baseMaterial = mat;
 		dc.mainTexture = tex;
 		dc.shader = shader;
 		dc.renderQueue = pan.startingRenderQueue;
+		dc.sortingOrder = pan.sortingOrder;
 		dc.manager = pan;
 		return dc;
 	}
@@ -625,29 +823,34 @@ public class UIDrawCall : MonoBehaviour
 #if SHOW_HIDDEN_OBJECTS && UNITY_EDITOR
 		name = (name != null) ? "_UIDrawCall [" + name + "]" : "DrawCall";
 #endif
-		if (mInactiveList.size > 0)
+		while (mInactiveList.size > 0)
 		{
 			UIDrawCall dc = mInactiveList.Pop();
-			mActiveList.Add(dc);
-			if (name != null) dc.name = name;
-			NGUITools.SetActive(dc.gameObject, true);
-			return dc;
+
+			if (dc != null)
+			{
+				mActiveList.Add(dc);
+				if (name != null) dc.name = name;
+				NGUITools.SetActive(dc.gameObject, true);
+				return dc;
+			}
 		}
 
 #if UNITY_EDITOR
 		// If we're in the editor, create the game object with hide flags set right away
 		GameObject go = UnityEditor.EditorUtility.CreateGameObjectWithHideFlags(name,
  #if SHOW_HIDDEN_OBJECTS
-			HideFlags.DontSave | HideFlags.NotEditable);
+		HideFlags.DontSave | HideFlags.NotEditable, typeof(UIDrawCall));
  #else
-			HideFlags.HideAndDontSave);
+		HideFlags.HideAndDontSave, typeof(UIDrawCall));
  #endif
+		UIDrawCall newDC = go.GetComponent<UIDrawCall>();
 #else
 		GameObject go = new GameObject(name);
 		DontDestroyOnLoad(go);
+		UIDrawCall newDC = go.AddComponent<UIDrawCall>();
 #endif
 		// Create the draw call
-		UIDrawCall newDC = go.AddComponent<UIDrawCall>();
 		mActiveList.Add(newDC);
 		return newDC;
 	}
@@ -717,6 +920,8 @@ public class UIDrawCall : MonoBehaviour
 	{
 		if (dc)
 		{
+			dc.onRender = null;
+
 			if (Application.isPlaying)
 			{
 				if (mActiveList.Remove(dc))
@@ -732,4 +937,17 @@ public class UIDrawCall : MonoBehaviour
 			}
 		}
 	}
+
+#if !UNITY_4_7 && !UNITY_5_0 && !UNITY_5_1 && !UNITY_5_2 && !UNITY_5_3
+	/// <summary>
+	/// Move all draw calls to the specified scene.
+	/// http://www.tasharen.com/forum/index.php?topic=13965.0
+	/// </summary>
+
+	static public void MoveToScene (UnityEngine.SceneManagement.Scene scene)
+	{
+		foreach (var dc in activeList) UnityEngine.SceneManagement.SceneManager.MoveGameObjectToScene(dc.gameObject, scene);
+		foreach (var dc in inactiveList) UnityEngine.SceneManagement.SceneManager.MoveGameObjectToScene(dc.gameObject, scene);
+	}
+#endif
 }

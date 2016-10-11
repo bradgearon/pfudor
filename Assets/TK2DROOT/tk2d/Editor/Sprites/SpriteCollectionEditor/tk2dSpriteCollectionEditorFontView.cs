@@ -209,7 +209,7 @@ namespace tk2dEditor.SpriteCollectionEditor
 							else if (materials[j].GetTexture("_GradientTex") != tex)
 							{
 								materials[j].SetTexture("_GradientTex", font.gradientTexture);
-								EditorUtility.SetDirty(materials[j]);
+								tk2dUtil.SetDirty(materials[j]);
 							}
 						}
 					}

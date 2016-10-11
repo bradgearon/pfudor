@@ -200,8 +200,8 @@ public class TBOrbit : MonoBehaviour
         pitch = IdealPitch = angles.x;
 
         // Make the rigid body not change rotation
-        if( rigidbody )
-            rigidbody.freezeRotation = true;
+        if( GetComponent<Rigidbody>() )
+            GetComponent<Rigidbody>().freezeRotation = true;
 
         Apply();
     }
@@ -226,7 +226,7 @@ public class TBOrbit : MonoBehaviour
                     return;
                 }
 
-                if( target && !target.collider )
+                if( target && !target.GetComponent<Collider>() )
                 {
                     Debug.LogWarning( "The target object has no collider set. OnlyRotateWhenDragStartsOnObject won't work." );
                     OnlyRotateWhenDragStartsOnObject = false;

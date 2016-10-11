@@ -26,7 +26,7 @@ public class tk2dUIUpDownButtonEditor : tk2dUIBaseItemControlEditor
 
         if (GUI.changed)
         {
-            EditorUtility.SetDirty(upDownButton);
+            tk2dUtil.SetDirty(upDownButton);
         }
     }
 }

@@ -1,9 +1,9 @@
 //----------------------------------------------
 //            NGUI: Next-Gen UI kit
-// Copyright © 2011-2014 Tasharen Entertainment
+// Copyright © 2011-2016 Tasharen Entertainment
 //----------------------------------------------
 
-#if UNITY_IPHONE || UNITY_ANDROID || UNITY_WP8 || UNITY_BLACKBERRY
+#if UNITY_IPHONE || UNITY_ANDROID || UNITY_WP8 || UNITY_WP_8_1 || UNITY_BLACKBERRY
 #define MOBILE
 #endif
 
@@ -52,14 +52,14 @@ public class UIInputEditor : UIWidgetContainerEditor
 
 			NGUIEditorTools.DrawProperty("Caret Color", serializedObject, "caretColor");
 			NGUIEditorTools.DrawProperty("Selection Color", serializedObject, "selectionColor");
-#if !MOBILE
-			NGUIEditorTools.DrawProperty(serializedObject, "selectOnTab");
-#endif
 			NGUIEditorTools.DrawPaddedProperty(serializedObject, "inputType");
-#if MOBILE
-			NGUIEditorTools.DrawPaddedProperty(serializedObject, "keyboardType");
-#endif
 			NGUIEditorTools.DrawPaddedProperty(serializedObject, "validation");
+			NGUIEditorTools.DrawPaddedProperty("Mobile Keyboard", serializedObject, "keyboardType");
+			NGUIEditorTools.DrawPaddedProperty("  Hide Input", serializedObject, "hideInput");
+			NGUIEditorTools.DrawPaddedProperty(serializedObject, "onReturnKey");
+
+			// Deprecated, use UIKeyNavigation instead.
+			//NGUIEditorTools.DrawProperty(serializedObject, "selectOnTab");
 
 			SerializedProperty sp = serializedObject.FindProperty("characterLimit");
 
@@ -68,7 +68,7 @@ public class UIInputEditor : UIWidgetContainerEditor
 			if (sp.hasMultipleDifferentValues || input.characterLimit > 0)
 			{
 				EditorGUILayout.PropertyField(sp);
-				GUILayout.Space(18f);
+				NGUIEditorTools.DrawPadding();
 			}
 			else
 			{
@@ -80,6 +80,7 @@ public class UIInputEditor : UIWidgetContainerEditor
 			NGUIEditorTools.SetLabelWidth(80f);
 			EditorGUI.BeginDisabledGroup(serializedObject.isEditingMultipleObjects);
 			NGUIEditorTools.DrawEvents("On Submit", input, input.onSubmit);
+			NGUIEditorTools.DrawEvents("On Change", input, input.onChange);
 			EditorGUI.EndDisabledGroup();
 		}
 		EditorGUI.EndDisabledGroup();

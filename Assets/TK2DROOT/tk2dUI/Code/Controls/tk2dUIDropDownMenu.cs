@@ -111,7 +111,7 @@ public class tk2dUIDropDownMenu : MonoBehaviour
                 dropDownButton.sendMessageTarget = value;
             
                 #if UNITY_EDITOR
-                    UnityEditor.EditorUtility.SetDirty(dropDownButton);
+                    tk2dUtil.SetDirty(dropDownButton);
                 #endif
             }
         }

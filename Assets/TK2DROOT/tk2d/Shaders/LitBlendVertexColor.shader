@@ -26,25 +26,6 @@ Shader "tk2d/LitBlendVertexColor"
 		}
 		ENDCG		
 	}
-	
-	SubShader 
-	{
-		Tags {"Queue"="Transparent" "IgnoreProjector"="True" "RenderType"="Transparent"}
-		ZWrite Off Blend SrcAlpha OneMinusSrcAlpha Cull Off Fog { Mode Off }
-		LOD 100
-	    Pass 
-	    {
-			Tags {"LightMode" = "Vertex"}
-			
-			ColorMaterial AmbientAndDiffuse
-	        Lighting On
-	        
-	        SetTexture [_MainTex] 
-	        {
-	            Combine texture * primary double, texture * primary
-	        }
-	    }
-	}
 
 	Fallback "tk2d/BlendVertexColor", 1
 }

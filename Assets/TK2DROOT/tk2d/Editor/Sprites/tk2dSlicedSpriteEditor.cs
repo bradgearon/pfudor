@@ -18,9 +18,9 @@ class tk2dSlicedSpriteEditor : tk2dSpriteEditor
 		tk2dSlicedSprite sprite = (tk2dSlicedSprite)target;
 		base.OnInspectorGUI();
 		
-		if (sprite.Collection == null)
+		if (sprite.Collection == null) {
 			return;
-
+		}
 		
 		var spriteData = sprite.GetCurrentSpriteDef();
 		if (spriteData == null) {
@@ -136,7 +136,7 @@ class tk2dSlicedSpriteEditor : tk2dSpriteEditor
 		{
 			foreach (tk2dSlicedSprite spr in targetSlicedSprites) {
 				spr.Build();
-				EditorUtility.SetDirty(spr);
+				tk2dUtil.SetDirty(spr);
 			}
 		}
 
@@ -144,7 +144,9 @@ class tk2dSlicedSpriteEditor : tk2dSpriteEditor
 	}
 
 	public new void OnSceneGUI() {
-		if (tk2dPreferences.inst.enableSpriteHandles == false) return;
+		if (tk2dPreferences.inst.enableSpriteHandles == false || !tk2dEditorUtility.IsEditable(target)) {
+			return;
+		}
 
 		tk2dSlicedSprite spr = (tk2dSlicedSprite)target;
 		var sprite = spr.CurrentSprite;
@@ -171,7 +173,7 @@ class tk2dSlicedSpriteEditor : tk2dSpriteEditor
 				tk2dUndo.RecordObjects (new Object[] {t, spr}, "Resize");
 				spr.ReshapeBounds(new Vector3(resizeRect.xMin, resizeRect.yMin) - new Vector3(localRect.xMin, localRect.yMin),
 					new Vector3(resizeRect.xMax, resizeRect.yMax) - new Vector3(localRect.xMax, localRect.yMax));
-				EditorUtility.SetDirty(spr);
+				tk2dUtil.SetDirty(spr);
 			}
 		}
 		// Rotate handles
@@ -196,11 +198,11 @@ class tk2dSlicedSpriteEditor : tk2dSpriteEditor
 		tk2dSceneHelper.HandleMoveSprites(t, localRect);
 
     	if (GUI.changed) {
-    		EditorUtility.SetDirty(target);
+    		tk2dUtil.SetDirty(target);
     	}
 	}
 
-	[MenuItem("GameObject/Create Other/tk2d/Sliced Sprite", false, 12901)]
+	[MenuItem(tk2dMenu.createBase + "Sliced Sprite", false, 12901)]
 	static void DoCreateSlicedSpriteObject()
 	{
 		tk2dSpriteGuiUtility.GetSpriteCollectionAndCreate( (sprColl) => {

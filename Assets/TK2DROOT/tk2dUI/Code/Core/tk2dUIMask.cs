@@ -111,6 +111,9 @@ public class tk2dUIMask : MonoBehaviour {
 	public void Build() {
 		if (ThisMeshFilter.sharedMesh == null) {
 			Mesh mesh = new Mesh();
+#if !UNITY_3_5
+			mesh.MarkDynamic();
+#endif
 			mesh.hideFlags = HideFlags.DontSave;
 			ThisMeshFilter.mesh = FillMesh(mesh);
 		}

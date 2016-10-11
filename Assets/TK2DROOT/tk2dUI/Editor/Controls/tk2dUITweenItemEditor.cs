@@ -25,7 +25,7 @@ public class tk2dUITweenItemEditor : tk2dUIBaseItemControlEditor
 
         if (GUI.changed)
         {
-            EditorUtility.SetDirty(btnClickScaler);
+            tk2dUtil.SetDirty(btnClickScaler);
         }
     }
 }

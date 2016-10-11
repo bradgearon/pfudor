@@ -1,16 +1,12 @@
 //----------------------------------------------
 //            NGUI: Next-Gen UI kit
-// Copyright © 2011-2014 Tasharen Entertainment
+// Copyright © 2011-2016 Tasharen Entertainment
 //----------------------------------------------
 
 using UnityEngine;
 using UnityEditor;
 
-#if UNITY_3_5
-[CustomEditor(typeof(UITweener))]
-#else
 [CustomEditor(typeof(UITweener), true)]
-#endif
 public class UITweenerEditor : Editor
 {
 	public override void OnInspectorGUI ()
@@ -59,7 +55,7 @@ public class UITweenerEditor : Editor
 				tw.tweenGroup = tg;
 				tw.duration = dur;
 				tw.delay = del;
-				UnityEditor.EditorUtility.SetDirty(tw);
+				NGUITools.SetDirty(tw);
 			}
 			NGUIEditorTools.EndContents();
 		}

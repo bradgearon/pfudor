@@ -31,7 +31,7 @@ public class tk2dUIMultiStateToggleButtonEditor : tk2dUIBaseItemControlEditor
 
         if (GUI.changed)
         {
-            EditorUtility.SetDirty(multiStateToggleBtn);
+            tk2dUtil.SetDirty(multiStateToggleBtn);
         }
     }
 

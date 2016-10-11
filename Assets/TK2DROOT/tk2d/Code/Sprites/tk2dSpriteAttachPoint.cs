@@ -58,6 +58,19 @@ public class tk2dSpriteAttachPoint : MonoBehaviour {
 		t.localEulerAngles = new Vector3(0, 0, attachPoint.angle * scl); // handle angle fixup
 	}
 
+	// Cache instance names as UnityEngine.Object.name allocates memory
+	Dictionary<Transform, string> cachedInstanceNames = new Dictionary<Transform, string>();
+	string GetInstanceName(Transform t) {
+		string r = "";
+		if (cachedInstanceNames.TryGetValue(t, out r)) {
+			return r;
+		}
+		else {
+			cachedInstanceNames[t] = t.name;
+			return t.name;
+		}
+	}
+
 	void HandleSpriteChanged(tk2dBaseSprite spr) {
 		tk2dSpriteDefinition def = spr.CurrentSprite;
 
@@ -70,11 +83,12 @@ public class tk2dSpriteAttachPoint : MonoBehaviour {
 		foreach (tk2dSpriteDefinition.AttachPoint ap in def.attachPoints) {
 			bool found = false;
 			int currAttachPointId = 0;
-			foreach (Transform inst in attachPoints ) {
+			for (int i = 0; i < attachPoints.Count; ++i) {
+				Transform inst = attachPoints[i];
 				// A dictionary would be ideal here, but could end up in an indeterminate state due to
 				// user deleting things at runtime. Hopefully the user won't have that many attach points
 				// that a linear search becomes an issue
-				if (inst != null && inst.name == ap.name) {
+				if (inst != null && GetInstanceName(inst) == ap.name) {
 					attachPointUpdated[currAttachPointId] = true;
 					UpdateAttachPointTransform( ap, inst );
 					found = true;

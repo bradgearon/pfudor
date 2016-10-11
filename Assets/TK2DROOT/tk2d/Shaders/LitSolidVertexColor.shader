@@ -25,25 +25,6 @@ Shader "tk2d/LitSolidVertexColor"
 		}
 		ENDCG		
 	}
-	
-	SubShader 
-	{
-		Tags {"IgnoreProjector"="True" "RenderType"="Opaque"}
-		Blend Off Cull Off
-		LOD 100
-	    Pass 
-	    {
-			Tags {"LightMode" = "Vertex"}
-			
-			ColorMaterial AmbientAndDiffuse
-	        Lighting On
-	        
-	        SetTexture [_MainTex] 
-	        {
-	            Combine texture * primary double, texture * primary
-	        }
-	    }
-	}
 
 	Fallback "tk2d/SolidVertexColor", 1
 }

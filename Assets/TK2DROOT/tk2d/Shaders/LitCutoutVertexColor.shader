@@ -27,25 +27,6 @@ Shader "tk2d/LitCutoutVertexColor"
 		}
 		ENDCG		
 	}
-	
-	SubShader 
-	{
-		Tags {"IgnoreProjector"="True" "RenderType"="TransparentCutout"}
-		AlphaTest Greater 0.5 Blend Off	Cull Off
-		LOD 100
-	    Pass 
-	    {
-			Tags {"LightMode" = "Vertex" }
-	    
-			ColorMaterial AmbientAndDiffuse
-	        Lighting On
-	        
-	        SetTexture [_MainTex] 
-	        {
-	            Combine texture * primary double, texture * primary
-	        }
-	    }
-	}
 
 	Fallback "tk2d/BlendVertexColor", 1
 }

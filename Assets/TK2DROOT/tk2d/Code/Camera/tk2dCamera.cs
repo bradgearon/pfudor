@@ -118,7 +118,7 @@ public class tk2dCamera : MonoBehaviour
 	private Camera UnityCamera {
 		get {
 			if (_unityCamera == null) {
-				_unityCamera = camera;
+				_unityCamera = GetComponent<Camera>();
 				if (_unityCamera == null) {
 					Debug.LogError("A unity camera must be attached to the tk2dCamera script");
 				}
@@ -275,7 +275,7 @@ public class tk2dCamera : MonoBehaviour
 			UpdateCameraMatrix();
 		}
 		else {
-			this.camera.enabled = false;
+			this.GetComponent<Camera>().enabled = false;
 		}
 		
 		if (!viewportClippingEnabled) // the main camera can't display rect
@@ -580,6 +580,8 @@ public class tk2dCamera : MonoBehaviour
 		float right = pixelWidth + offset.x, top = pixelHeight + offset.y;
 		Vector2 nativeResolutionOffset = Vector2.zero;
 
+		bool usingLegacyViewportClipping = false;
+
 		// Correct for viewport clipping rendering
 		// Coordinates in subrect are "native" pixels, but origin is from the extrema of screen
 		if (this.viewportClippingEnabled && this.InheritConfig != null) {
@@ -588,6 +590,7 @@ public class tk2dCamera : MonoBehaviour
 			Vector4 sr = new Vector4((int)this.viewportRegion.x, (int)this.viewportRegion.y,
 									 (int)this.viewportRegion.z, (int)this.viewportRegion.w);
 
+			usingLegacyViewportClipping = true;
 	
 			float viewportLeft = -offset.x / pixelWidth + sr.x / vw;
 			float viewportBottom = -offset.y / pixelHeight + sr.y / vh;
@@ -649,11 +652,11 @@ public class tk2dCamera : MonoBehaviour
 
 		float zoomScale = 1.0f / ZoomFactor;
 
-		// Only need the half texel offset on PC/D3D
+		// Only need the half texel offset on PC/D3D, when not running in d3d11 mode
 		bool needHalfTexelOffset = (Application.platform == RuntimePlatform.WindowsPlayer ||
 						   			Application.platform == RuntimePlatform.WindowsWebPlayer ||
 						   			Application.platform == RuntimePlatform.WindowsEditor);
-		float halfTexel = (halfTexelOffset && needHalfTexelOffset) ? 0.5f : 0.0f;
+		float halfTexel = (halfTexelOffset && needHalfTexelOffset && SystemInfo.graphicsShaderLevel < 40) ? 0.5f : 0.0f;
 
 		float orthoSize = settings.cameraSettings.orthographicSize;
 		switch (settings.cameraSettings.orthographicType) {
@@ -663,6 +666,16 @@ public class tk2dCamera : MonoBehaviour
 			case tk2dCameraSettings.OrthographicType.PixelsPerMeter:
 				orthoSize = 1.0f / settings.cameraSettings.orthographicPixelsPerMeter;
 				break;
+		}
+
+		// Fixup for clipping
+		if (!usingLegacyViewportClipping) {
+			float clipWidth = Mathf.Min(UnityCamera.rect.width, 1.0f - UnityCamera.rect.x);
+			float clipHeight = Mathf.Min(UnityCamera.rect.height, 1.0f - UnityCamera.rect.y);
+			if (clipWidth > 0 && clipHeight > 0) {
+				scale.x /= clipWidth;
+				scale.y /= clipHeight;
+			}
 		}
 
 		float s = orthoSize * zoomScale;
@@ -724,10 +737,10 @@ public class tk2dCamera : MonoBehaviour
 				}
 
 				// Mirror camera settings
-				Camera unityCamera = camera;
+				Camera unityCamera = GetComponent<Camera>();
 				if (unityCamera != null) {
 					cameraSettings.rect = unityCamera.rect;
-					if (!unityCamera.isOrthoGraphic) {
+					if (!unityCamera.orthographic) {
 						cameraSettings.projection = tk2dCameraSettings.ProjectionType.Perspective;
 						cameraSettings.fieldOfView = unityCamera.fieldOfView * ZoomFactor;
 					}

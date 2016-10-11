@@ -3,22 +3,27 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using GooglePlayGames;
+using System.Linq;
+using wds.pink.fluffy;
+using UnityEngine.SocialPlatforms;
 
-public class GameManager : GooglePlayGames.BasicApi.OnStateLoadedListener
+#if !UNITY_ANDROID && !UNITY_IOS
+using UnityEngine.SocialPlatforms.Impl;
+#endif
+
+public class GameManager
 {
     private static GameManager sInstance = new GameManager();
     private int mLevel = 0;
     private bool mAuthenticating;
 
     public bool playGameDebugEnabled = true;
-    private static string leaderboardId = "CgkI_evIy5UYEAIQAA";
 
     // what is the highest score we have posted to the leaderboard?
     private int mHighestPostedScore = 0;
 
     // cloud save callbacks
-    private GooglePlayGames.BasicApi.OnStateLoadedListener mAppStateListener;
-    private GooglePlayGames.BasicApi.Achievement[] achievements;
+    private IAchievement[] achievements;
 
     public static GameManager Instance
     {
@@ -57,7 +62,7 @@ public class GameManager : GooglePlayGames.BasicApi.OnStateLoadedListener
         // Set the default leaderboard for the leaderboards UI
         var platform = ((PlayGamesPlatform)Social.Active);
         
-        platform.SetDefaultLeaderboardForUI(leaderboardId);
+        platform.SetDefaultLeaderboardForUI(Constants.leaderboard_longest_bouncers);
 
         // Sign in to Google Play Games
         mAuthenticating = true;
@@ -67,7 +72,10 @@ public class GameManager : GooglePlayGames.BasicApi.OnStateLoadedListener
             if (success)
             {
                 PlayerPrefs.SetInt("autoAuth", 1);
-                achievements = platform.GetAchievements();
+                platform.LoadAchievements(achievements =>
+                {
+                    this.achievements = achievements.Cast<PlayGamesAchievement>().ToArray();
+                });
             }
             else
             {
@@ -83,11 +91,11 @@ public class GameManager : GooglePlayGames.BasicApi.OnStateLoadedListener
     }
 #endif
 
-    public Achievement[] GetAchievements()
+    public IAchievement[] GetAchievements()
     {
         if (achievements == null)
         {
-            achievements = new Achievement[0];
+            achievements = new IAchievement[0];
         }
         return achievements;
     }
@@ -130,7 +138,9 @@ public class GameManager : GooglePlayGames.BasicApi.OnStateLoadedListener
 
     public void SignOut()
     {
+#if UNITY_ANDROID || UNITY_IOS
         ((PlayGamesPlatform)Social.Active).SignOut();
+#endif
     }
 
     public void ShowLeaderboardUI()
@@ -154,7 +164,7 @@ public class GameManager : GooglePlayGames.BasicApi.OnStateLoadedListener
         if (Authenticated && score > mHighestPostedScore)
         {
             // post score to the leaderboard
-            Social.ReportScore(score, leaderboardId, (bool success) => { });
+            Social.ReportScore(score, Constants.leaderboard_longest_bouncers, (bool success) => { });
             mHighestPostedScore = score;
         }
     }
