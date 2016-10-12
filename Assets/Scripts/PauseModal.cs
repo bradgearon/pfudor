@@ -23,6 +23,7 @@ public class PauseModal : MonoBehaviour
 
     private void OnQuitClick(GameObject go)
     {
+        Debug.Log("quit clcked");
         Application.Quit();
     }
 
