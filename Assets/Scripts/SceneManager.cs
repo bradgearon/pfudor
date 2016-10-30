@@ -163,7 +163,8 @@ public class SceneManager : MonoBehaviour
                 }
             }
 
-            spin.enabled = GameManager.Instance.Authenticating;
+            spin.enabled = !GameManager.Instance.Authenticated 
+        && GameManager.Instance.Authenticating;
 
             if (GameManager.Instance.Authenticated)
             {
