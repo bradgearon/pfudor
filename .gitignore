@@ -41,3 +41,5 @@ ScriptMapper
 /builds
 
 Thumbs.db
+/Assets/Editor/PreloadSigningAlias.cs
+/Assets/Editor/PreloadSigningAlias.cs.meta
