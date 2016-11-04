@@ -1,46 +1,56 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.Advertisements;
+using System;
 
-public class AdLauncher : MonoBehaviour {
+public class AdLauncher : MonoBehaviour
+{
 
-    public string zoneId = "defaultVideoAndPictureZone";
-    
-    void Start () {
-        Advertisement.Initialize("1234567", true);
-    }
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+  public string zoneId = "defaultVideoAndPictureZone";
 
-    public void ShowAdPlacement()
+  void Start()
+  {
+    Advertisement.Initialize("1234567", true);
+  }
+
+  // Update is called once per frame
+  void Update()
+  {
+
+  }
+
+  public void ShowAdPlacement()
+  {
+    if(DateTime.Now <= new DateTime(2016, 12, 25))
     {
-        if (string.IsNullOrEmpty(zoneId))
-        {
-            zoneId = null;
-        }
-        ShowOptions options = new ShowOptions();
-        options.resultCallback = HandleShowResult;
-        Advertisement.Show(options);
+      return;
     }
 
-    private void HandleShowResult(ShowResult result)
+    if (string.IsNullOrEmpty(zoneId))
     {
-        switch (result)
-        {
-            case ShowResult.Finished:
-                Debug.Log("Video completed. Offer a reward to the player.");
-                break;
-            case ShowResult.Skipped:
-                Debug.LogWarning("Video was skipped.");
-                break;
-            case ShowResult.Failed:
-                Debug.LogError("Video failed to show.");
-                break;
-        }
+      zoneId = null;
     }
+
+    ShowOptions options = new ShowOptions();
+    options.resultCallback = HandleShowResult;
+    Advertisement.Show(options);
+  }
+
+  private void HandleShowResult(ShowResult result)
+  {
+    switch (result)
+    {
+      case ShowResult.Finished:
+        Debug.Log("Video completed. Offer a reward to the player.");
+        break;
+      case ShowResult.Skipped:
+        Debug.LogWarning("Video was skipped.");
+        break;
+      case ShowResult.Failed:
+        Debug.LogError("Video failed to show.");
+        break;
+    }
+  }
 
 
 }
