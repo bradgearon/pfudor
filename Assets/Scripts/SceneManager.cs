@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using System.Collections;
+using Facebook.Unity;
 
 public class SceneManager : MonoBehaviour
 {
@@ -16,6 +17,8 @@ public class SceneManager : MonoBehaviour
     public UIWidget spin;
     public UIWidget signedIn;
     public UIWidget startButton;
+    public string facebookAppLinkUrl = "https://fb.me/1836746063223607";
+    public string facebookPreviewImage = "https://raw.githubusercontent.com/bradgearon/pfudor/master/Assets/fluffle/apprentice-bouncer.png";
 
     public UIWidget[] titleObjects;
     public UIWidget[] playObjects;
@@ -34,12 +37,22 @@ public class SceneManager : MonoBehaviour
     void Awake()
     {
         scoreManager = FindObjectOfType<ScoreManager>();
+
+        if (FB.IsInitialized)
+        {
+            FB.ActivateApp();
+        }
+        else
+        {
+            FB.Init(FB.ActivateApp);
+        }
+
     }
 
     // Use this for initialization
     void Start()
     {
-        if (Application.platform == RuntimePlatform.Android || 
+        if (Application.platform == RuntimePlatform.Android ||
             Application.platform == RuntimePlatform.IPhonePlayer)
         {
             autoAuth = PlayerPrefs.GetInt("autoAuth", 0);
@@ -80,6 +93,15 @@ public class SceneManager : MonoBehaviour
         {
             OnLoadMain();
         }
+    }
+
+    public void OnShareDown()
+    {
+        FB.Mobile.AppInvite(
+            new Uri(facebookAppLinkUrl),
+            new Uri(facebookPreviewImage),
+            (result) => { }
+        );
     }
 
     public void HideLeaders()
@@ -163,7 +185,7 @@ public class SceneManager : MonoBehaviour
                 }
             }
 
-            spin.enabled = !GameManager.Instance.Authenticated 
+            spin.enabled = !GameManager.Instance.Authenticated
         && GameManager.Instance.Authenticating;
 
             if (GameManager.Instance.Authenticated)
