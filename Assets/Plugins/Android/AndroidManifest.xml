@@ -18,6 +18,8 @@
         <data android:scheme="pink://fluffy/unicorns" />
       </intent-filter>
     </activity>
+
+	
     <activity android:name="com.facebook.unity.FBUnityDeepLinkingActivity" android:exported="true" />
     <activity android:name="com.facebook.unity.FBUnityGameRequestActivity" />
     <activity android:name="com.facebook.unity.FBUnityCreateGameGroupActivity" />
@@ -25,5 +27,20 @@
     <activity android:name="com.facebook.unity.AppInviteDialogActivity" />
     <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="fb1836727603225453" />
     <provider android:name="com.facebook.FacebookContentProvider" android:authorities="com.facebook.app.FacebookContentProvider1836727603225453" android:exported="true" />
+	
+	<meta-data android:name="android.app.lib_name" android:value="app"/>
+	<meta-data android:name="environment.variables" android:value="QT_ANDROID_WORKS=true" />
+	
+	
+	<meta-data android:name="android.app.repository" android:value="default"/>
+	<meta-data android:name="android.app.bundle_local_qt_libs" android:value="1"/>
+	<meta-data android:name="android.app.use_local_qt_libs" android:value="1"/>
+	<meta-data android:name="android.app.load_local_libs" android:value="plugins/platforms/android/libqtforandroid.so:plugins/bearer/libqandroidbearer.so:lib/libQt5QuickParticles.so"/>
+	<meta-data android:name="android.app.load_local_jars" android:value="jar/QtAndroid.jar:jar/QtAndroid-bundled.jar:jar/QtAndroidBearer.jar:jar/QtAndroidBearer-bundled.jar"/>
+	<meta-data android:name="android.app.background_running" android:value="false"/>
+	<meta-data android:name="android.app.auto_screen_scale_factor" android:value="false"/>
+	<meta-data android:name="android.app.extract_android_style" android:value="full"/>
+	
   </application>
+ 
 </manifest>
