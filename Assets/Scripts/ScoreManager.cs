@@ -27,7 +27,6 @@ public class ScoreManager : MonoBehaviour
     public UILabel achievementsTableHeader;
     public UIButton buttonPrefab;
     public UISprite spritePrefab;
-    public AdLauncher adLauncher;
     private UnityEngine.Random random = new UnityEngine.Random();
 
     public long highScore;
@@ -335,7 +334,7 @@ public class ScoreManager : MonoBehaviour
         var showAd = UnityEngine.Random.Range(0, 1);
         if (showAd < .77)
         {
-            adLauncher.ShowAdPlacement();
+            UntitledLauncher.Show();
         }
 
         Debug.Log("score loading");
