@@ -38,10 +38,6 @@ public class SceneManager : MonoBehaviour
     {
         scoreManager = FindObjectOfType<ScoreManager>();
 
-#if !UNITY_EDITOR
-        UntitledLauncher.Init();
-#endif
-
         if (FB.IsInitialized)
         {
             FB.ActivateApp();
