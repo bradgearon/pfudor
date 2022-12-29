@@ -3,47 +3,28 @@ using System.Collections;
 
 public class GlowTrigger : MonoBehaviour
 {
-    public Material glowMaterial;
-    public Material fallbackMaterial;
+    public Sprite glowSprite;
+    public Sprite normSprite;
+
     public LayerMask glowMask;
 
     private bool glowEnabled = false;
 
-    private Renderer glowTarget;
-    private Material targetMaterial;
-
+    private SpriteRenderer glowTarget;
 
     void Start()
     {
-        glowTarget = GetComponentInChildren<Renderer>();
+        glowTarget = GetComponentInChildren<SpriteRenderer>();
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (targetMaterial == null)
-        {
-            var otherMask = (1 << other.gameObject.layer);
-            if ((glowMask.value & otherMask) > 0)
-            {
-                targetMaterial = glowTarget.material;
-                glowMaterial.mainTexture = glowTarget.material.mainTexture;
-                glowTarget.material = glowMaterial;
-            }
-        }
+        glowTarget.sprite = glowSprite;
     }
 
     void OnTriggerExit2D(Collider2D other)
     {
-        Debug.Log("exit " + other);
-        if (targetMaterial != null)
-        {
-            var otherMask = (1 << other.gameObject.layer);
-            if ((glowMask.value & otherMask) > 0)
-            {
-                glowTarget.material = targetMaterial;
-                targetMaterial = null;
-            }
-        }
+        glowTarget.sprite = normSprite;
     }
 
 }
