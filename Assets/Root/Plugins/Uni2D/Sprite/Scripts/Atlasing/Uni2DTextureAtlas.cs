@@ -889,7 +889,7 @@ public class Uni2DTextureAtlas : MonoBehaviour
 	// Prepares Texture
 	public static void SetDefaultAtlasTextureImportSettings(TextureImporter a_rTextureImporter)
 	{
-		a_rTextureImporter.textureType    = TextureImporterType.Advanced;
+		a_rTextureImporter.textureType    = TextureImporterType.Default;
 		a_rTextureImporter.maxTextureSize = 4096;
 		a_rTextureImporter.textureFormat  = TextureImporterFormat.AutomaticTruecolor;
 		a_rTextureImporter.mipmapEnabled  = false;

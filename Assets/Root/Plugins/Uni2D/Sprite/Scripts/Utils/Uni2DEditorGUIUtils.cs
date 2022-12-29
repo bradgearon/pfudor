@@ -503,7 +503,7 @@ public static class Uni2DEditorGUIUtils
 	public static Uni2DTextureAtlas AtlasPopup( Uni2DTextureAtlas a_rTextureAtlas, IEnumerable<string> a_rTextureGUIDs, params GUILayoutOption[ ] a_rGUILayoutOptions )
 	{
 		// Get button control ID
-		int iControlID = GUIUtility.GetControlID( FocusType.Native );
+		int iControlID = GUIUtility.GetControlID( FocusType.Passive );
 
 		// Get selected value for our control
 		// If no PopupCallbackInfo instance exists, the returned value is a_rTextureAtlas
@@ -585,7 +585,7 @@ public static class Uni2DEditorGUIUtils
 		bool bHasChanged;
 		
 		// Get button control ID
-		int iControlID = GUIUtility.GetControlID( FocusType.Native );
+		int iControlID = GUIUtility.GetControlID( FocusType.Passive );
 
 		EditorGUI.BeginChangeCheck( );
 		{

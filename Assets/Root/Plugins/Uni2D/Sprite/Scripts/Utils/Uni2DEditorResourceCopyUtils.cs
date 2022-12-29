@@ -100,7 +100,7 @@ public static class Uni2DEditorResourceCopyUtils
 		}
 
 		rNewMesh.RecalculateBounds( );
-		rNewMesh.Optimize( );
+		;
 		
 		return rNewMesh;
 	}
