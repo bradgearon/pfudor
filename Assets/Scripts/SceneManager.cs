@@ -243,7 +243,10 @@ public class SceneManager : MonoBehaviour
     {
         foreach (var so in titleObjects)
         {
-            so.gameObject.SetActive(title);
+            if(so.name != "Sound Button")
+            {
+                so.gameObject.SetActive(title);
+            }
         }
 
         foreach (var so in playObjects)
