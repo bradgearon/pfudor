@@ -28,7 +28,6 @@ public class ScoreManager : MonoBehaviour
     public UIButton buttonPrefab;
     public UISprite spritePrefab;
     public AdLauncher adLauncher;
-    private UnityEngine.Random random = new UnityEngine.Random();
 
     public long highScore;
     public int fontSize = 32;

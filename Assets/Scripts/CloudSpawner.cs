@@ -3,7 +3,7 @@ using System.Collections;
 
 public class CloudSpawner : MonoBehaviour
 {
-    public tk2dSprite prefab;
+    // public tk2dSprite prefab;
     public Texture2D[] prefabs;
 
     public float minTimeBetweenSpawns;		// The shortest possible time between spawns.
@@ -13,14 +13,12 @@ public class CloudSpawner : MonoBehaviour
 
     private Vector3 screenMax;
     private Vector3 screenMin;
-    private Random random;
-
-
+    
     void Start()
     {
         // Set the random seed so it's not the same each game.
-        Random.seed = System.DateTime.Today.Millisecond;
-        random = new Random();
+        // Random.seed = System.DateTime.Today.Millisecond;
+        // random = new Random();
 
         // Start the Spawn coroutine.
         StartCoroutine("Spawn");
@@ -51,32 +49,33 @@ public class CloudSpawner : MonoBehaviour
         Vector3 spawnPos = new Vector3(posX, posY, transform.position.z);
 
         // Instantiate the prop at the desired position.
-        var propInstance = Instantiate(prefab, spawnPos, Quaternion.identity) as tk2dSprite;
-        var spriteName = prefabs[Random.Range(0, prefabs.Length)].name;
-        propInstance.SetSprite(spriteName);
-        propInstance.transform.parent = transform;
+        //var propInstance = Instantiate(prefab, spawnPos, Quaternion.identity) as tk2dSprite;
+        //var spriteName = prefabs[Random.Range(0, prefabs.Length)].name;
+
+        //propInstance.SetSprite(spriteName);
+        //propInstance.transform.parent = transform;
 
         // Create a random speed.
         float speed = Random.Range(minSpeed, maxSpeed) * -1;
 
         StartCoroutine(Spawn());
         // Set the prop's velocity to this speed in the x axis
-        if (propInstance.GetComponent<Rigidbody2D>() != null)
-        {
-            propInstance.GetComponent<Rigidbody2D>().velocity = new Vector2(speed, 0);
+        //if (propInstance.GetComponent<Rigidbody2D>() != null)
+        //{
+        //    propInstance.GetComponent<Rigidbody2D>().velocity = new Vector2(speed, 0);
 
-            // While the prop exists...
-            while (propInstance != null)
-            {
-                if (propInstance.transform.position.x < screenMin.x - 0.5f)
-                {
-                    // ... destroy the prop.
-                    Destroy(propInstance.gameObject);
-                }
-                // Return to this point after the next update.
-                yield return null;
-            }
-        }
+        //    // While the prop exists...
+        //    while (propInstance != null)
+        //    {
+        //        if (propInstance.transform.position.x < screenMin.x - 0.5f)
+        //        {
+        //            // ... destroy the prop.
+        //            Destroy(propInstance.gameObject);
+        //        }
+        //        // Return to this point after the next update.
+        //        yield return null;
+        //    }
+        //}
 
 
     }

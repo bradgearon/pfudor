@@ -169,12 +169,12 @@ public class Uni2DEditorSpriteSettings
 				case SkinQuality.Auto:
 				default:
 				{
-					switch( QualitySettings.blendWeights )
+					switch( QualitySettings.skinWeights )
 					{
 						default:
-						case BlendWeights.OneBone:		return 1;
-						case BlendWeights.TwoBones:		return 2;
-						case BlendWeights.FourBones:	return 4;
+						case SkinWeights.OneBone:		return 1;
+						case SkinWeights.TwoBones:		return 2;
+						case SkinWeights.FourBones:	return 4;
 					}
 				}
 			}

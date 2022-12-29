@@ -375,7 +375,7 @@ public class Uni2DEditorSmoothBindingGUI
 				break;	// End MouseUp
 			}	// End switch( event.type )
 		}	// end if( mouse events )
-		else if( a_rEvent.isKey && a_rEvent.type == EventType.keyDown )
+		else if( a_rEvent.isKey && a_rEvent.type == EventType.KeyDown )
 		{
 			switch( a_rEvent.keyCode )
 			{
@@ -846,7 +846,7 @@ public class Uni2DEditorSmoothBindingGUI
 				break;	// End MouseUp
 			}	// End switch( event.type )
 		}	// end if( mouse events )
-		else if( a_rEvent.isKey && a_rEvent.type == EventType.keyDown )
+		else if( a_rEvent.isKey && a_rEvent.type == EventType.KeyDown )
 		{
 			switch( a_rEvent.keyCode )
 			{

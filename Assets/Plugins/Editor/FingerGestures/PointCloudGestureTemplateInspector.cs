@@ -65,8 +65,8 @@ public class PointCloudGestureTemplateInspector : Editor
     {
         base.OnPreviewSettings();
 
-        PointCloudGestureTemplate template = target as PointCloudGestureTemplate;
-        GUILayout.Label( template.PointCount + " points, " + template.StrokeCount + " stroke(s)" );
+        //PointCloudGestureTemplate template = target as PointCloudGestureTemplate;
+        //GUILayout.Label( template.PointCount + " points, " + template.StrokeCount + " stroke(s)" );
     }
 
     public override void OnPreviewGUI( Rect r, GUIStyle background )
@@ -76,31 +76,31 @@ public class PointCloudGestureTemplateInspector : Editor
         float size = 0.95f * Mathf.Min( r.width, r.height );
         Rect canvasRect = new Rect( r.center.x - 0.5f * size, r.center.y - 0.5f * size, size, size );
         
-        PointCloudGestureTemplate template = target as PointCloudGestureTemplate;
+    //    PointCloudGestureTemplate template = target as PointCloudGestureTemplate;
 
-        Vector2 center = canvasRect.center;
+    //    Vector2 center = canvasRect.center;
 
-        float scale = 0.95f * size;
+    //    float scale = 0.95f * size;
 
-        Handles.color = Color.white;
-        for( int i = 1; i < template.PointCount; ++i )
-        {
-            Vector2 p1 = template.GetPosition( i - 1 );
-            Vector2 p2 = template.GetPosition( i );
+    //    Handles.color = Color.white;
+    //    for( int i = 1; i < template.PointCount; ++i )
+    //    {
+    //        Vector2 p1 = template.GetPosition( i - 1 );
+    //        Vector2 p2 = template.GetPosition( i );
             
-            p1.y = -p1.y;
-            p2.y = -p2.y;
+    //        p1.y = -p1.y;
+    //        p2.y = -p2.y;
             
-            p1 = center + scale * p1;
-            p2 = center + scale * p2;
+    //        p1 = center + scale * p1;
+    //        p2 = center + scale * p2;
 
-            if( canvasRect.width > 100 )
-            {
-                float handleSize = canvasRect.width / 200.0f;
-                Handles.CircleCap( 0, p1, Quaternion.identity, handleSize );
-            }
+    //        if( canvasRect.width > 100 )
+    //        {
+    //            float handleSize = canvasRect.width / 200.0f;
+    //            Handles.CircleCap( 0, p1, Quaternion.identity, handleSize );
+    //        }
 
-            Handles.DrawLine( p1, p2 );
-        }        
+    //        Handles.DrawLine( p1, p2 );
+    // }        
     }
 }

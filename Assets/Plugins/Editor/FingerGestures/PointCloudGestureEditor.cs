@@ -117,7 +117,7 @@ public class PointCloudGestureEditor : EditorWindow
                 Vector2 p1 = points[i - 1];
                 Vector2 p2 = points[i];
 
-                Handles.CircleCap( 0, p1, Quaternion.identity, 2.0f );
+                // Handles.CircleHandleCap( 0, p1, Quaternion.identity, 2.0f );
                 Handles.DrawLine( p1, p2 );
             }
         }

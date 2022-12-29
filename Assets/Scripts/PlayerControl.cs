@@ -7,7 +7,7 @@ public class PlayerControl : MonoBehaviour
     public bool jump = false;
     public int maxJump;
 
-    private Animator mecanim;
+    // private tk2dSpriteAnimator mecanim;
 
     private Uni2DAnimationPlayer ap;
     private CharacterController2D controller;
@@ -31,7 +31,8 @@ public class PlayerControl : MonoBehaviour
         {
             render.sortingLayerName = "Character";
         }
-        mecanim = GetComponentInChildren<Animator>();
+        
+        // mecanim = GetComponentInChildren<tk2dSpriteAnimator>();
 
         controller = GetComponent<CharacterController2D>();
         scoreManager = FindObjectOfType<ScoreManager>();
@@ -68,11 +69,10 @@ public class PlayerControl : MonoBehaviour
                 jumpLeft--;
                 scoreManager.jumpCountLabel.text = jumpLeft.ToString();
                 jumpForceRemain = jumpForce;
+                // mecanim.Play("jump");
                 inJump = true;
             }
         }
-
-        mecanim.SetBool("jump", jump);
 
         var vSpeed = 0f;
         if (jumpForceRemain > 0f)
@@ -92,20 +92,20 @@ public class PlayerControl : MonoBehaviour
             vSpeed += gravity * Time.deltaTime;
         }
 
-        mecanim.SetFloat("vSpeed", vSpeed);
         controller.move(new Vector3(xSpeed, vSpeed));
 
         if (controller.collisionState.becameGroundedThisFrame)
         {
-            mecanim.SetBool("thisframe", true);
+            // mecanim.SetBool("thisframe", true);
             jumpForceRemain = 0;
         }
         else
         {
-            mecanim.SetBool("thisframe", false);
+            // mecanim.SetBool("thisframe", false);
         }
 
-        mecanim.SetBool("grounded", controller.collisionState.below);
+        // mecanim.SetBool("grounded", controller.collisionState.below);
+
         jump = false;
     }
 

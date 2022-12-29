@@ -8,10 +8,9 @@ public class GlowTrigger : MonoBehaviour
     public LayerMask glowMask;
 
     private bool glowEnabled = false;
-    public tk2dSlicedSprite glowOverlay;
+
     private Renderer glowTarget;
     private Material targetMaterial;
-    private tk2dSlicedSprite ob;
 
 
     void Start()
