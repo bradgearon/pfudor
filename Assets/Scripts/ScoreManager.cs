@@ -391,8 +391,8 @@ public class ScoreManager : MonoBehaviour
 
     public void ActivateAchievements()
     {
-        var customization = FindObjectOfType<SpriteCustomization>();
-        if (customization == null) return;
+        //var customization = FindObjectOfType<SpriteCustomization>();
+        //if (customization == null) return;
         foreach (var localAchievement in achievements)
         {
             var achievement = localAchievement.FirstOrDefault();
@@ -405,7 +405,7 @@ public class ScoreManager : MonoBehaviour
             
             if (achievement.IsUnlocked && savedAchievement.RewardEnabled)
             {
-                customization.SendMessage(achievement.activateMessage);
+                //customization.SendMessage(achievement.activateMessage);
             }
 
 

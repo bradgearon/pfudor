@@ -9,7 +9,7 @@ public class PlayerControl : MonoBehaviour
 
     private Animator mecanim;
 
-    private Uni2DAnimationPlayer ap;
+    //private Uni2DAnimationPlayer ap;
     private CharacterController2D controller;
 
     public Vector2 initialVelocity = new Vector2(15f, 0);

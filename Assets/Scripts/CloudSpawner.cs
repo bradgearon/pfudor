@@ -4,7 +4,7 @@ using System.Collections;
 public class CloudSpawner : MonoBehaviour
 {
     public GameObject prefab;
-    public SpriteRenderer[] prefabs;
+    public Sprite[] prefabs;
 
     public float minTimeBetweenSpawns;		// The shortest possible time between spawns.
     public float maxTimeBetweenSpawns;		// The longest possible time between spawns.
@@ -51,10 +51,9 @@ public class CloudSpawner : MonoBehaviour
         // Instantiate the prop at the desired position.
         var sprite = prefabs[Random.Range(0, prefabs.Length)];
         var propInstance = Instantiate(prefab, spawnPos, Quaternion.identity, transform);
-
-        var spriteRenderer = propInstance.AddComponent<SpriteRenderer>();
-
-        spriteRenderer.sprite = sprite.sprite;
+        
+        var spriteRenderer = propInstance.GetComponent<SpriteRenderer>();
+        spriteRenderer.sprite = sprite;
 
         // Create a random speed.
         float speed = Random.Range(minSpeed, maxSpeed) * -1;

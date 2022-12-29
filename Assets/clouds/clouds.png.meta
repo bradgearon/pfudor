@@ -1,45 +1,12 @@
 fileFormatVersion: 2
-guid: 989345663450b7948b247fa202466169
+guid: bfd658a4e42a2b748b811354c6c34ba6
 TextureImporter:
-  internalIDToNameTable:
-  - first:
-      213: -8667466294985060184
-    second: tree_0
-  - first:
-      213: 5281997702118322174
-    second: tree_1
-  - first:
-      213: -3105659087322419395
-    second: tree_2
-  - first:
-      213: -25497680464327838
-    second: tree_3
-  - first:
-      213: -2187617102101193605
-    second: tree_4
-  - first:
-      213: 6962057269733102035
-    second: tree_5
-  - first:
-      213: -3386072866006247602
-    second: tree_6
-  - first:
-      213: 2374228815192248797
-    second: tree_7
-  - first:
-      213: -1328196128117911941
-    second: tree_8
-  - first:
-      213: 6399430291284773974
-    second: tree_9
-  - first:
-      213: 7003882221379653708
-    second: tree_10
+  internalIDToNameTable: []
   externalObjects: {}
   serializedVersion: 12
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 0
+    enableMipMap: 1
     sRGBTexture: 1
     linearTexture: 0
     fadeOut: 0
@@ -69,8 +36,8 @@ TextureImporter:
     filterMode: 1
     aniso: 1
     mipBias: 0
-    wrapU: 1
-    wrapV: 1
+    wrapU: 0
+    wrapV: 0
     wrapW: 0
   nPOTScale: 0
   lightmap: 0
@@ -80,11 +47,11 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 20
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
-  alphaIsTransparency: 1
+  alphaIsTransparency: 0
   spriteTessellationDetail: -1
   textureType: 8
   textureShape: 1
@@ -95,8 +62,8 @@ TextureImporter:
   compressionQualitySet: 0
   textureFormatSet: 0
   ignorePngGamma: 0
-  applyGammaDecoding: 1
-  cookieLightType: 1
+  applyGammaDecoding: 0
+  cookieLightType: 0
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -150,13 +117,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: tree_0
+      name: clouds_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 150
-        height: 250
+        width: 244
+        height: 126
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -164,20 +131,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8a09eb0b359f6b780800000000000000
-      internalID: -8667466294985060184
+      spriteID: 94a13ed95f3f3944392c35647dc4af92
+      internalID: -155462816
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tree_1
+      name: clouds_1
       rect:
         serializedVersion: 2
-        x: 150
+        x: 244
         y: 0
-        width: 150
-        height: 250
+        width: 244
+        height: 126
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -185,20 +152,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: eff2133ccec6d4940800000000000000
-      internalID: 5281997702118322174
+      spriteID: 98b8bbcad15e781429eceb73976d716d
+      internalID: -1126749845
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tree_2
+      name: clouds_2
       rect:
         serializedVersion: 2
-        x: 300
+        x: 488
         y: 0
-        width: 150
-        height: 250
+        width: 244
+        height: 126
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -206,20 +173,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d3feeaab38b76e4d0800000000000000
-      internalID: -3105659087322419395
+      spriteID: e3298dcffffa6fc448ef6d124dd39c2c
+      internalID: 261323097
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tree_3
+      name: clouds_3
       rect:
         serializedVersion: 2
-        x: 450
+        x: 732
         y: 0
-        width: 150
-        height: 250
+        width: 244
+        height: 126
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -227,20 +194,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 26bc355aef965aff0800000000000000
-      internalID: -25497680464327838
+      spriteID: 030a3f9b005a6414ea99ce78d50e8bcd
+      internalID: 1919493083
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tree_4
+      name: clouds_4
       rect:
         serializedVersion: 2
-        x: 600
+        x: 976
         y: 0
-        width: 150
-        height: 250
+        width: 244
+        height: 126
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -248,20 +215,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b7c50bc06d504a1e0800000000000000
-      internalID: -2187617102101193605
+      spriteID: 990135c0ae04d5840b8df58ae71005aa
+      internalID: 944453193
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tree_5
+      name: clouds_5
       rect:
         serializedVersion: 2
-        x: 750
+        x: 1220
         y: 0
-        width: 150
-        height: 250
+        width: 244
+        height: 126
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -269,20 +236,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3d11e5443323e9060800000000000000
-      internalID: 6962057269733102035
+      spriteID: 10f81c43b12fe274c83fbbaeb2bcd7c0
+      internalID: -488167487
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tree_6
+      name: clouds_6
       rect:
         serializedVersion: 2
-        x: 900
+        x: 1464
         y: 0
-        width: 150
-        height: 250
+        width: 244
+        height: 126
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -290,20 +257,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e47db162ba04201d0800000000000000
-      internalID: -3386072866006247602
+      spriteID: 1c4875bd7b4203142bb698e1057939c4
+      internalID: 148013648
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tree_7
+      name: clouds_7
       rect:
         serializedVersion: 2
-        x: 1050
+        x: 1708
         y: 0
-        width: 150
-        height: 250
+        width: 244
+        height: 126
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -311,20 +278,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dd1d7093784f2f020800000000000000
-      internalID: 2374228815192248797
+      spriteID: ab56604408b63be46b6364bdb3f28954
+      internalID: -1233303817
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tree_8
+      name: clouds_8
       rect:
         serializedVersion: 2
-        x: 1200
+        x: 1952
         y: 0
-        width: 150
-        height: 250
+        width: 244
+        height: 126
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -332,20 +299,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b7e8b7798ac419de0800000000000000
-      internalID: -1328196128117911941
+      spriteID: bcb2d89a622574e4e930a18b263052ba
+      internalID: 409610925
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tree_9
+      name: clouds_9
       rect:
         serializedVersion: 2
-        x: 1350
+        x: 2196
         y: 0
-        width: 150
-        height: 250
+        width: 244
+        height: 126
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -353,20 +320,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 65c47ecb1f75fc850800000000000000
-      internalID: 6399430291284773974
+      spriteID: 338d963b6b7f4524382f648f02a00e3a
+      internalID: -1553650570
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tree_10
+      name: clouds_10
       rect:
         serializedVersion: 2
-        x: 1500
+        x: 2440
         y: 0
-        width: 150
-        height: 250
+        width: 244
+        height: 126
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -374,8 +341,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c40120ea5c9c23160800000000000000
-      internalID: 7003882221379653708
+      spriteID: c3f1e4e90153113418f0fd1118bd6f0d
+      internalID: -2080740088
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: clouds_11
+      rect:
+        serializedVersion: 2
+        x: 2684
+        y: 0
+        width: 244
+        height: 126
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9f71c252831dae04e94f4ccb3239c165
+      internalID: -2077448040
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: clouds_12
+      rect:
+        serializedVersion: 2
+        x: 2928
+        y: 0
+        width: 244
+        height: 126
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8b2242c56c9bdc2448068b7d041a751b
+      internalID: -1010853414
       vertices: []
       indices: 
       edges: []
@@ -383,7 +392,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: ce38a0bc8f1fbb642a9235f194013be9
+    spriteID: 2ae3a528ea0cafd4b98ea82d61093829
     internalID: 0
     vertices: []
     indices: 
@@ -391,17 +400,19 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      tree_7: 2374228815192248797
-      tree_5: 6962057269733102035
-      tree_10: 7003882221379653708
-      tree_6: -3386072866006247602
-      tree_0: -8667466294985060184
-      tree_2: -3105659087322419395
-      tree_4: -2187617102101193605
-      tree_9: 6399430291284773974
-      tree_3: -25497680464327838
-      tree_1: 5281997702118322174
-      tree_8: -1328196128117911941
+      clouds_11: -2077448040
+      clouds_12: -1010853414
+      clouds_7: -1233303817
+      clouds_9: -1553650570
+      clouds_1: -1126749845
+      clouds_5: -488167487
+      clouds_6: 148013648
+      clouds_0: -155462816
+      clouds_8: 409610925
+      clouds_10: -2080740088
+      clouds_2: 261323097
+      clouds_3: 1919493083
+      clouds_4: 944453193
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

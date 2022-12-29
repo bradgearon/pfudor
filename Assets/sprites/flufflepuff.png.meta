@@ -78,6 +78,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -154,6 +155,18 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -545,6 +558,25 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      flufflepuff_3: 9015492247338299327
+      flufflepuff_17: 964993484352830612
+      flufflepuff_9: 6948080474079995148
+      flufflepuff_6: 732731343800781521
+      flufflepuff_4: -1797057591659385595
+      flufflepuff_11: -8677387059298672632
+      flufflepuff_13: 3054023523445767574
+      flufflepuff_12: -4125056163349008078
+      flufflepuff_0: -2585838565331944830
+      flufflepuff_8: 3698568707331313509
+      flufflepuff_14: 3262569860890046579
+      flufflepuff_7: 8391093088444594348
+      flufflepuff_15: 2482090241394392315
+      flufflepuff_1: 7217782416483229138
+      flufflepuff_2: 7736304162611127788
+      flufflepuff_10: 6777717513407387634
+      flufflepuff_5: -7763529477612038118
+      flufflepuff_16: 3366737712133489739
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

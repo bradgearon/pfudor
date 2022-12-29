@@ -93,6 +93,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -147,6 +148,30 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -653,6 +678,30 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      cheep_0: 3796839771926074011
+      cheep_7: 6431717813204303497
+      cheep_11: 5458707272371896451
+      cheep_5: -7249099168315963402
+      cheep_9: -5930859658618792250
+      cheep_10: -1584140558931531463
+      cheep_17: -9061506817885166344
+      cheep_4: 2431782707645918910
+      cheep_15: 5830679394175256891
+      cheep_3: -2109864396465087126
+      cheep_8: 2161576311466979221
+      cheep_19: -3628160173177212580
+      cheep_13: 4040473144842205438
+      cheep_18: -3790821224526845306
+      cheep_16: -1851672272351362390
+      cheep_20: 4534132948846629685
+      cheep_6: -4660134805421465912
+      cheep_14: -3063221085474489965
+      cheep_21: -5775703690640932198
+      cheep_12: 5590076484406638510
+      cheep_2: 5287416993055898113
+      cheep_22: -5924655229446391758
+      cheep_1: -5066493454749629800
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
