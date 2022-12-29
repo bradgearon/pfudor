@@ -7,7 +7,7 @@ public class PlayerControl : MonoBehaviour
     public bool jump = false;
     public int maxJump;
 
-    // private tk2dSpriteAnimator mecanim;
+    private Animator mecanim;
 
     private Uni2DAnimationPlayer ap;
     private CharacterController2D controller;
@@ -32,7 +32,7 @@ public class PlayerControl : MonoBehaviour
             render.sortingLayerName = "Character";
         }
         
-        // mecanim = GetComponentInChildren<tk2dSpriteAnimator>();
+        mecanim = GetComponentInChildren<Animator>();
 
         controller = GetComponent<CharacterController2D>();
         scoreManager = FindObjectOfType<ScoreManager>();
@@ -69,7 +69,7 @@ public class PlayerControl : MonoBehaviour
                 jumpLeft--;
                 scoreManager.jumpCountLabel.text = jumpLeft.ToString();
                 jumpForceRemain = jumpForce;
-                // mecanim.Play("jump");
+                mecanim.Play("jump");
                 inJump = true;
             }
         }
