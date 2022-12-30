@@ -47,7 +47,7 @@ public class ScoreManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        sceneManager = FindObjectOfType<SceneManager>().gameObject;
+        sceneManager = FindObjectOfType<PfudorSceneManager>().gameObject;
         loadAchievements();
     }
 

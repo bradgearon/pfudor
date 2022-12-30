@@ -5,12 +5,12 @@ public class DefaultDown : MonoBehaviour
 {
     public GameObject playerControl;
     private bool gameOver;
-    private SceneManager sceneManager;
+    private PfudorSceneManager sceneManager;
     public ScreenRaycaster raycaster;
 
     void Awake()
     {
-        sceneManager = FindObjectOfType<SceneManager>();
+        sceneManager = FindObjectOfType<PfudorSceneManager>();
         /*
         var fingerDown = gameObject.AddComponent<FingerDownDetector>();
         fingerDown.MessageTarget = gameObject;

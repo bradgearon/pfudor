@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class PlayerControl : MonoBehaviour
 {
@@ -22,7 +23,7 @@ public class PlayerControl : MonoBehaviour
     private ScoreManager scoreManager;
     private bool isSM;
     private bool grounded;
-    private SceneManager sceneManager;
+    private PfudorSceneManager sceneManager;
     private DefaultDown defaultDown;
 
     void Awake()
@@ -39,7 +40,7 @@ public class PlayerControl : MonoBehaviour
 
         if (Application.isEditor && Camera.main == null)
         {
-            Application.LoadLevel("title");
+            SceneManager.LoadScene("title");
             return;
         }
 
@@ -111,7 +112,6 @@ public class PlayerControl : MonoBehaviour
 
     public void OnDefaultDown()
     {
-        Debug.Log("default down");
         if (!(Time.timeScale > 0)) return;
         if (jumpLeft > 0)
         {
@@ -121,7 +121,6 @@ public class PlayerControl : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("enter " + other.name);
         if (other.CompareTag("platform"))
         {
             jumpLeft = maxJump;

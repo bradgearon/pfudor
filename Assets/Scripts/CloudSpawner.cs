@@ -16,11 +16,6 @@ public class CloudSpawner : MonoBehaviour
 
     void Start()
     {
-        // Set the random seed so it's not the same each game.
-        // Random.seed = System.DateTime.Today.Millisecond;
-        // random = new Random();
-
-        // Start the Spawn coroutine.
         StartCoroutine("Spawn");
     }
 
@@ -59,6 +54,7 @@ public class CloudSpawner : MonoBehaviour
         float speed = Random.Range(minSpeed, maxSpeed) * -1;
 
         StartCoroutine(Spawn());
+
         // Set the prop's velocity to this speed in the x axis
         if (propInstance.GetComponent<Rigidbody2D>() != null)
         {

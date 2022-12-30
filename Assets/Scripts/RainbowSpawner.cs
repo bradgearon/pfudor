@@ -41,24 +41,6 @@ public class RainbowSpawner : MonoBehaviour
 
         var bottomEnd = screenMin.y + bottomPadY;
         screenMin = new Vector3(screenMin.x, bottomEnd);
-
-        if (drawDebug)
-        {
-            Debug.DrawLine(new Vector3(1, bottomEnd), new Vector3(1, topEnd), Color.yellow);
-        }
-    }
-
-    void OnGUI()
-    {
-        if (drawDebug)
-        {
-            GUILayout.Label("Top: " + screenMax.y);
-            GUILayout.Label("top pad: " + (screenMax.y - topPadY));
-
-            GUILayout.Label("Bottom: " + screenMin.y);
-            GUILayout.Label("player: " + player.transform.position);
-            GUILayout.Label("player max: " + (player.transform.position.y + maxDistanceYFromPlayer));
-        }
     }
 
     IEnumerator Spawn()
@@ -71,6 +53,7 @@ public class RainbowSpawner : MonoBehaviour
             // Wait for the designated period.
             yield return new WaitForSeconds(waitTime);
         }
+
         first = false;
 
         // If the prop is facing left, it should start on the right hand side, otherwise it should start on the left.

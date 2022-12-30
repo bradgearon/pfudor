@@ -2,8 +2,9 @@
 using UnityEngine;
 using System.Collections;
 using Facebook.Unity;
+using UnityEngine.SceneManagement;
 
-public class SceneManager : MonoBehaviour
+public class PfudorSceneManager : MonoBehaviour
 {
     public string mainScene = "default";
     public Color mainSceneBackground;
@@ -114,7 +115,7 @@ public class SceneManager : MonoBehaviour
     {
         if (gameOver)
         {
-            Application.LoadLevel("title");
+            SceneManager.LoadScene("title");
         }
         if (!loaded)
         {
@@ -227,7 +228,7 @@ public class SceneManager : MonoBehaviour
             if (!loaded && loading)
             {
                 SetSceneObjects(false, true, false);
-                Application.LoadLevelAdditive(mainScene);
+                SceneManager.LoadScene(mainScene, LoadSceneMode.Additive);
                 loaded = true;
             }
         }
