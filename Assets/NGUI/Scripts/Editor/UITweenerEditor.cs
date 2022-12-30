@@ -1,7 +1,7 @@
-//----------------------------------------------
+//-------------------------------------------------
 //            NGUI: Next-Gen UI kit
-// Copyright © 2011-2016 Tasharen Entertainment
-//----------------------------------------------
+// Copyright © 2011-2020 Tasharen Entertainment Inc
+//-------------------------------------------------
 
 using UnityEngine;
 using UnityEditor;
@@ -42,8 +42,11 @@ public class UITweenerEditor : Editor
 			GUILayout.Label("seconds");
 			GUILayout.EndHorizontal();
 
+			var deff = (UITweener.DelayAffects)EditorGUILayout.EnumPopup("Delay Affects", tw.delayAffects);
+
 			int tg = EditorGUILayout.IntField("Tween Group", tw.tweenGroup, GUILayout.Width(170f));
 			bool ts = EditorGUILayout.Toggle("Ignore TimeScale", tw.ignoreTimeScale);
+			bool fx = EditorGUILayout.Toggle("Use Fixed Update", tw.useFixedUpdate);
 
 			if (GUI.changed)
 			{
@@ -55,6 +58,8 @@ public class UITweenerEditor : Editor
 				tw.tweenGroup = tg;
 				tw.duration = dur;
 				tw.delay = del;
+				tw.delayAffects = deff;
+				tw.useFixedUpdate = fx;
 				NGUITools.SetDirty(tw);
 			}
 			NGUIEditorTools.EndContents();

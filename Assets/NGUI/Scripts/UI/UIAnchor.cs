@@ -1,7 +1,7 @@
-//----------------------------------------------
+//-------------------------------------------------
 //            NGUI: Next-Gen UI kit
-// Copyright © 2011-2016 Tasharen Entertainment
-//----------------------------------------------
+// Copyright © 2011-2020 Tasharen Entertainment Inc
+//-------------------------------------------------
 
 using UnityEngine;
 
@@ -13,7 +13,7 @@ using UnityEngine;
 [AddComponentMenu("NGUI/UI/Anchor")]
 public class UIAnchor : MonoBehaviour
 {
-	public enum Side
+	[DoNotObfuscateNGUI] public enum Side
 	{
 		BottomLeft,
 		Left,

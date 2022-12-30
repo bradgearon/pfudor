@@ -1,7 +1,7 @@
-//----------------------------------------------
+//-------------------------------------------------
 //            NGUI: Next-Gen UI kit
-// Copyright © 2011-2016 Tasharen Entertainment
-//----------------------------------------------
+// Copyright © 2011-2020 Tasharen Entertainment Inc
+//-------------------------------------------------
 
 using UnityEngine;
 using System.Collections.Generic;
@@ -14,11 +14,10 @@ using System.Collections.Generic;
 /// </summary>
 
 [ExecuteInEditMode]
-[AddComponentMenu("NGUI/UI/NGUI Unity2D Sprite")]
+[AddComponentMenu("NGUI/UI/Unity2D Sprite")]
 public class UI2DSprite : UIBasicSprite
 {
 	[HideInInspector][SerializeField] UnityEngine.Sprite mSprite;
-	[HideInInspector][SerializeField] Material mMat;
 	[HideInInspector][SerializeField] Shader mShader;
 	[HideInInspector][SerializeField] Vector4 mBorder = Vector4.zero;
 	[HideInInspector][SerializeField] bool mFixedAspect = false;
@@ -103,7 +102,7 @@ public class UI2DSprite : UIBasicSprite
 			}
 		}
 	}
-	
+
 	/// <summary>
 	/// Texture used by the UITexture. You can set it directly, without the need to specify a material.
 	/// </summary>
@@ -276,10 +275,10 @@ public class UI2DSprite : UIBasicSprite
 	{
 		if (nextSprite != null)
 		{
-			if (nextSprite != mSprite)
-				sprite2D = nextSprite;
+			if (nextSprite != mSprite) sprite2D = nextSprite;
 			nextSprite = null;
 		}
+
 		base.OnUpdate();
 
 		if (mFixedAspect)
@@ -365,7 +364,7 @@ public class UI2DSprite : UIBasicSprite
 	/// Virtual function called by the UIPanel that fills the buffers.
 	/// </summary>
 
-	public override void OnFill (BetterList<Vector3> verts, BetterList<Vector2> uvs, BetterList<Color> cols)
+	public override void OnFill (List<Vector3> verts, List<Vector2> uvs, List<Color> cols)
 	{
 		Texture tex = mainTexture;
 		if (tex == null) return;
@@ -391,7 +390,7 @@ public class UI2DSprite : UIBasicSprite
 		inner.yMin *= h;
 		inner.yMax *= h;
 
-		int offset = verts.size;
+		int offset = verts.Count;
 		Fill(verts, uvs, cols, outer, inner);
 
 		if (onPostFill != null)

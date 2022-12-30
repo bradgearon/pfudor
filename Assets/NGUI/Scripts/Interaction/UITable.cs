@@ -1,7 +1,7 @@
-//----------------------------------------------
+//-------------------------------------------------
 //            NGUI: Next-Gen UI kit
-// Copyright © 2011-2016 Tasharen Entertainment
-//----------------------------------------------
+// Copyright © 2011-2020 Tasharen Entertainment Inc
+//-------------------------------------------------
 
 using UnityEngine;
 using System.Collections.Generic;
@@ -17,13 +17,13 @@ public class UITable : UIWidgetContainer
 {
 	public delegate void OnReposition ();
 
-	public enum Direction
+	[DoNotObfuscateNGUI] public enum Direction
 	{
 		Down,
 		Up,
 	}
 
-	public enum Sorting
+	[DoNotObfuscateNGUI] public enum Sorting
 	{
 		None,
 		Alphabetic,
@@ -49,6 +49,9 @@ public class UITable : UIWidgetContainer
 	/// </summary>
 
 	public Sorting sorting = Sorting.None;
+
+	[Tooltip("Whether the sort order will be inverted")]
+	public bool inverted = false;
 
 	/// <summary>
 	/// Final pivot point for the table itself.
@@ -121,9 +124,9 @@ public class UITable : UIWidgetContainer
 		// Sort the list using the desired sorting logic
 		if (sorting != Sorting.None)
 		{
-			if (sorting == Sorting.Alphabetic) list.Sort(UIGrid.SortByName);
-			else if (sorting == Sorting.Horizontal) list.Sort(UIGrid.SortHorizontal);
-			else if (sorting == Sorting.Vertical) list.Sort(UIGrid.SortVertical);
+			if (sorting == Sorting.Alphabetic) { if (inverted) list.Sort(UIGrid.SortByNameInv); else list.Sort(UIGrid.SortByName); }
+			else if (sorting == Sorting.Horizontal) { if (inverted) list.Sort(UIGrid.SortHorizontalInv); else list.Sort(UIGrid.SortHorizontal); }
+			else if (sorting == Sorting.Vertical) { if (inverted) list.Sort(UIGrid.SortVerticalInv); else list.Sort(UIGrid.SortVertical); }
 			else if (onCustomSort != null) list.Sort(onCustomSort);
 			else Sort(list);
 		}
@@ -135,6 +138,8 @@ public class UITable : UIWidgetContainer
 	/// </summary>
 
 	protected virtual void Sort (List<Transform> list) { list.Sort(UIGrid.SortByName); }
+
+	protected virtual void OnEnable () { mReposition = true; }
 
 	/// <summary>
 	/// Position the grid's contents when the script starts.
@@ -274,8 +279,10 @@ public class UITable : UIWidgetContainer
 
 				if (sp != null)
 				{
+					sp.enabled = false;
 					sp.target.x -= fx;
 					sp.target.y -= fy;
+					sp.enabled = true;
 				}
 				else
 				{
@@ -298,18 +305,17 @@ public class UITable : UIWidgetContainer
 		if (Application.isPlaying && !mInitDone && NGUITools.GetActive(this)) Init();
 
 		mReposition = false;
-		Transform myTrans = transform;
-		List<Transform> ch = GetChildList();
+		var myTrans = transform;
+		var ch = GetChildList();
 		if (ch.Count > 0) RepositionVariableSize(ch);
 
 		if (keepWithinPanel && mPanel != null)
 		{
 			mPanel.ConstrainTargetToBounds(myTrans, true);
-			UIScrollView sv = mPanel.GetComponent<UIScrollView>();
+			var sv = mPanel.GetComponent<UIScrollView>();
 			if (sv != null) sv.UpdateScrollbars(true);
 		}
 
-		if (onReposition != null)
-			onReposition();
+		if (onReposition != null) onReposition();
 	}
 }

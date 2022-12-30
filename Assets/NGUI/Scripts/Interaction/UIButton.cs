@@ -1,7 +1,7 @@
-//----------------------------------------------
+//-------------------------------------------------
 //            NGUI: Next-Gen UI kit
-// Copyright © 2011-2016 Tasharen Entertainment
-//----------------------------------------------
+// Copyright © 2011-2020 Tasharen Entertainment Inc
+//-------------------------------------------------
 
 using UnityEngine;
 using System.Collections.Generic;
@@ -77,7 +77,8 @@ public class UIButton : UIButtonColor
 	[System.NonSerialized] UISprite mSprite;
 	[System.NonSerialized] UI2DSprite mSprite2D;
 	[System.NonSerialized] string mNormalSprite;
-	[System.NonSerialized] UnityEngine.Sprite mNormalSprite2D;
+	[System.NonSerialized] Sprite mNormalSprite2D;
+	[System.NonSerialized] int mIgnoreFrame = 0;
 
 	/// <summary>
 	/// Whether the button should be enabled.
@@ -89,12 +90,12 @@ public class UIButton : UIButtonColor
 		{
 			if (!enabled) return false;
 #if UNITY_4_3 || UNITY_4_5 || UNITY_4_6 || UNITY_4_7
-			Collider col = collider;
+			var col = collider;
 #else
-			Collider col = gameObject.GetComponent<Collider>();
+			var col = gameObject.GetComponent<Collider>();
 #endif
 			if (col && col.enabled) return true;
-			Collider2D c2d = GetComponent<Collider2D>();
+			var c2d = GetComponent<Collider2D>();
 			return (c2d && c2d.enabled);
 		}
 		set
@@ -102,25 +103,27 @@ public class UIButton : UIButtonColor
 			if (isEnabled != value)
 			{
 #if UNITY_4_3 || UNITY_4_5 || UNITY_4_6 || UNITY_4_7
-				Collider col = collider;
+				var col = collider;
 #else
-				Collider col = gameObject.GetComponent<Collider>();
+				var col = gameObject.GetComponent<Collider>();
 #endif
+				var instant = !gameObject.activeInHierarchy;
+
 				if (col != null)
 				{
 					col.enabled = value;
-					UIButton[] buttons = GetComponents<UIButton>();
-					foreach (UIButton btn in buttons) btn.SetState(value ? State.Normal : State.Disabled, false);
+					var buttons = GetComponents<UIButtonColor>();
+					foreach (var btn in buttons) btn.SetState(value ? State.Normal : State.Disabled, instant);
 				}
 				else
 				{
-					Collider2D c2d = GetComponent<Collider2D>();
+					var c2d = GetComponent<Collider2D>();
 
 					if (c2d != null)
 					{
 						c2d.enabled = value;
-						UIButton[] buttons = GetComponents<UIButton>();
-						foreach (UIButton btn in buttons) btn.SetState(value ? State.Normal : State.Disabled, false);
+						var buttons = GetComponents<UIButtonColor>();
+						foreach (var btn in buttons) btn.SetState(value ? State.Normal : State.Disabled, instant);
 					}
 					else enabled = value;
 				}
@@ -209,6 +212,8 @@ public class UIButton : UIButtonColor
 			return;
 		}
 #endif
+		mIgnoreFrame = Time.frameCount;
+
 		if (isEnabled)
 		{
 			if (mInitDone) OnHover(UICamera.hoveredObject == gameObject);
@@ -242,9 +247,12 @@ public class UIButton : UIButtonColor
 
 	protected virtual void OnClick ()
 	{
+		if (mIgnoreFrame == Time.frameCount) return;
+
 		if (current == null && isEnabled && UICamera.currentTouchID != -2 && UICamera.currentTouchID != -3)
 		{
 			current = this;
+			mIgnoreFrame = Time.frameCount;
 			EventDelegate.Execute(onClick);
 			current = null;
 		}

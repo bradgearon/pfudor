@@ -1,7 +1,7 @@
-//----------------------------------------------
+//-------------------------------------------------
 //            NGUI: Next-Gen UI kit
-// Copyright © 2011-2016 Tasharen Entertainment
-//----------------------------------------------
+// Copyright © 2011-2020 Tasharen Entertainment Inc
+//-------------------------------------------------
 
 using UnityEngine;
 
@@ -37,11 +37,13 @@ public class UIEventListener : MonoBehaviour
 	public ObjectDelegate onDrop;
 	public KeyCodeDelegate onKey;
 	public BoolDelegate onTooltip;
+	public bool needsActiveCollider = true;
 
 	bool isColliderEnabled
 	{
 		get
 		{
+			if (!needsActiveCollider) return true;
 			Collider c = GetComponent<Collider>();
 			if (c != null) return c.enabled;
 			Collider2D b = GetComponent<Collider2D>();
@@ -64,6 +66,25 @@ public class UIEventListener : MonoBehaviour
 	void OnDrop (GameObject go)		{ if (isColliderEnabled && onDrop != null) onDrop(gameObject, go); }
 	void OnKey (KeyCode key)		{ if (isColliderEnabled && onKey != null) onKey(gameObject, key); }
 	void OnTooltip (bool show)		{ if (isColliderEnabled && onTooltip != null) onTooltip(gameObject, show); }
+
+	public void Clear ()
+	{
+		onSubmit = null;
+		onClick = null;
+		onDoubleClick = null;
+		onHover = null;
+		onPress = null;
+		onSelect = null;
+		onScroll = null;
+		onDragStart = null;
+		onDrag = null;
+		onDragOver = null;
+		onDragOut = null;
+		onDragEnd = null;
+		onDrop = null;
+		onKey = null;
+		onTooltip = null;
+	}
 
 	/// <summary>
 	/// Get or add an event listener to the specified game object.

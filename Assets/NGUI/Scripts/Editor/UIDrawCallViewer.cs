@@ -1,7 +1,7 @@
-//----------------------------------------------
+//-------------------------------------------------
 //            NGUI: Next-Gen UI kit
-// Copyright © 2011-2016 Tasharen Entertainment
-//----------------------------------------------
+// Copyright © 2011-2020 Tasharen Entertainment Inc
+//-------------------------------------------------
 
 using UnityEditor;
 using UnityEngine;
@@ -77,14 +77,14 @@ public class UIDrawCallViewer : EditorWindow
 
 		for (int i = 0; i < dcs.size; ++i)
 		{
-			UIDrawCall dc = dcs[i];
+			UIDrawCall dc = dcs.buffer[i];
 			string key = "Draw Call " + (i + 1);
 			bool highlight = (selectedPanel == null || selectedPanel == dc.manager);
 
 			if (!highlight)
 			{
 				if (!NGUISettings.showAllDCs) continue;
-				
+
 				if (UnityEditor.EditorPrefs.GetBool(key, true))
 				{
 					GUI.color = new Color(0.85f, 0.85f, 0.85f);

@@ -1,7 +1,7 @@
-//----------------------------------------------
+//-------------------------------------------------
 //            NGUI: Next-Gen UI kit
-// Copyright © 2011-2016 Tasharen Entertainment
-//----------------------------------------------
+// Copyright © 2011-2020 Tasharen Entertainment Inc
+//-------------------------------------------------
 
 using UnityEngine;
 
@@ -17,7 +17,7 @@ public class UIScrollView : MonoBehaviour
 {
 	static public BetterList<UIScrollView> list = new BetterList<UIScrollView>();
 
-	public enum Movement
+	[DoNotObfuscateNGUI] public enum Movement
 	{
 		Horizontal,
 		Vertical,
@@ -25,14 +25,14 @@ public class UIScrollView : MonoBehaviour
 		Custom,
 	}
 
-	public enum DragEffect
+	[DoNotObfuscateNGUI] public enum DragEffect
 	{
 		None,
 		Momentum,
 		MomentumAndSpring,
 	}
 
-	public enum ShowCondition
+	[DoNotObfuscateNGUI] public enum ShowCondition
 	{
 		Always,
 		OnlyIfNeeded,
@@ -96,10 +96,10 @@ public class UIScrollView : MonoBehaviour
 
 	public float momentumAmount = 35f;
 
-	/// <summary>
-	/// Strength of the spring dampening effect.
-	/// </summary>
+	[Tooltip("Strength of the spring effect when moving the contents back into viewable area")]
+	public float springStrength = 8f;
 
+	[Tooltip("Strength of the spring dampening effect.")]
 	public float dampenStrength = 9f;
 
 	/// <summary>
@@ -282,14 +282,14 @@ public class UIScrollView : MonoBehaviour
 
 			if (canMoveHorizontally)
 			{
-				if (b.min.x < clip.x - hx) return true;
-				if (b.max.x > clip.x + hx) return true;
+				if (b.min.x + 0.001f < clip.x - hx) return true;
+				if (b.max.x - 0.001f > clip.x + hx) return true;
 			}
 
 			if (canMoveVertically)
 			{
-				if (b.min.y < clip.y - hy) return true;
-				if (b.max.y > clip.y + hy) return true;
+				if (b.min.y + 0.001f < clip.y - hy) return true;
+				if (b.max.y - 0.001f > clip.y + hy) return true;
 			}
 			return false;
 		}
@@ -409,8 +409,8 @@ public class UIScrollView : MonoBehaviour
 	{
 		if (mPanel == null) return false;
 
-		Bounds b = bounds;
-		Vector3 constraint = mPanel.CalculateConstrainOffset(b.min, b.max);
+		var b = bounds;
+		var constraint = mPanel.CalculateConstrainOffset(b.min, b.max);
 
 		if (!horizontal) constraint.x = 0f;
 		if (!vertical) constraint.y = 0f;
@@ -420,10 +420,10 @@ public class UIScrollView : MonoBehaviour
 			if (!instant && dragEffect == DragEffect.MomentumAndSpring)
 			{
 				// Spring back into place
-				Vector3 pos = mTrans.localPosition + constraint;
+				var pos = mTrans.localPosition + constraint;
 				pos.x = Mathf.Round(pos.x);
 				pos.y = Mathf.Round(pos.y);
-				SpringPanel.Begin(mPanel.gameObject, pos, 8f);
+				SpringPanel.Begin(mPanel.gameObject, pos, springStrength);
 			}
 			else
 			{
@@ -457,6 +457,23 @@ public class UIScrollView : MonoBehaviour
 
 	public void UpdateScrollbars () { UpdateScrollbars(true); }
 
+	[System.NonSerialized] bool mUpdateScrollbars = false;
+
+	/// <summary>
+	/// Make scroll view update its scroll bars on the next update.
+	/// </summary>
+
+	public void QueueUpdateScrollbars () { mUpdateScrollbars = true; }
+
+	protected void Update ()
+	{
+		if (mUpdateScrollbars)
+		{
+			mUpdateScrollbars = false;
+			UpdateScrollbars(true);
+		}
+	}
+
 	/// <summary>
 	/// Update the values of the associated scroll bars.
 	/// </summary>
@@ -464,6 +481,8 @@ public class UIScrollView : MonoBehaviour
 	public virtual void UpdateScrollbars (bool recalculateBounds)
 	{
 		if (mPanel == null) return;
+
+		mUpdateScrollbars = false;
 
 		if (horizontalScrollBar != null || verticalScrollBar != null)
 		{
@@ -727,7 +746,7 @@ public class UIScrollView : MonoBehaviour
 
 	public void Press (bool pressed)
 	{
-		if (UICamera.currentScheme == UICamera.ControlScheme.Controller) return;
+		if (mPressed == pressed || UICamera.currentScheme == UICamera.ControlScheme.Controller) return;
 
 		if (smoothDragStart && pressed)
 		{
@@ -779,6 +798,7 @@ public class UIScrollView : MonoBehaviour
 			}
 			else if (centerOnChild)
 			{
+				if (mDragStarted && onDragFinished != null) onDragFinished();
 				centerOnChild.Recenter();
 			}
 			else

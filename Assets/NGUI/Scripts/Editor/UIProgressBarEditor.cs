@@ -1,7 +1,7 @@
-//----------------------------------------------
+//-------------------------------------------------
 //            NGUI: Next-Gen UI kit
-// Copyright © 2011-2016 Tasharen Entertainment
-//----------------------------------------------
+// Copyright © 2011-2020 Tasharen Entertainment Inc
+//-------------------------------------------------
 
 using UnityEngine;
 using UnityEditor;
@@ -56,19 +56,16 @@ public class UIProgressBarEditor : UIWidgetContainerEditor
 	{
 		UIProgressBar sb = target as UIProgressBar;
 		float val = EditorGUILayout.Slider("Value", sb.value, 0f, 1f);
-		float alpha = EditorGUILayout.Slider("Alpha", sb.alpha, 0f, 1f);
 
-		if (sb.value != val ||
-			sb.alpha != alpha)
+		if (sb.value != val)
 		{
 			NGUIEditorTools.RegisterUndo("Progress Bar Change", sb);
 			sb.value = val;
-			sb.alpha = alpha;
 			NGUITools.SetDirty(sb);
 
 			for (int i = 0; i < UIScrollView.list.size; ++i)
 			{
-				UIScrollView sv = UIScrollView.list[i];
+				UIScrollView sv = UIScrollView.list.buffer[i];
 
 				if (sv.horizontalScrollBar == sb || sv.verticalScrollBar == sb)
 				{

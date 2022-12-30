@@ -1,7 +1,7 @@
-//----------------------------------------------
+//-------------------------------------------------
 //            NGUI: Next-Gen UI kit
-// Copyright © 2011-2016 Tasharen Entertainment
-//----------------------------------------------
+// Copyright © 2011-2020 Tasharen Entertainment Inc
+//-------------------------------------------------
 
 using UnityEngine;
 using UnityEditor;
@@ -30,7 +30,7 @@ public class UIScrollBarEditor : UIProgressBarEditor
 
 			for (int i = 0; i < UIScrollView.list.size; ++i)
 			{
-				UIScrollView sv = UIScrollView.list[i];
+				UIScrollView sv = UIScrollView.list.buffer[i];
 
 				if (sv.horizontalScrollBar == sb || sv.verticalScrollBar == sb)
 				{

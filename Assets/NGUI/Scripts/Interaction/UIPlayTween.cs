@@ -1,7 +1,7 @@
-//----------------------------------------------
+//-------------------------------------------------
 //            NGUI: Next-Gen UI kit
-// Copyright © 2011-2016 Tasharen Entertainment
-//----------------------------------------------
+// Copyright © 2011-2020 Tasharen Entertainment Inc
+//-------------------------------------------------
 
 using UnityEngine;
 using AnimationOrTween;
@@ -53,6 +53,12 @@ public class UIPlayTween : MonoBehaviour
 
 	public bool resetIfDisabled = false;
 
+	[Tooltip("If true, Play Tween will reset all associated tweens to their starting state at the very start, before activation triggers")]
+	public bool setState = false;
+
+	[Tooltip("Starting factor to assume, 0 being the start and 1 being the end"), Range(0f, 1f)]
+	public float startState = 0f;
+
 	/// <summary>
 	/// What to do if the tweenTarget game object is currently disabled.
 	/// </summary>
@@ -85,6 +91,12 @@ public class UIPlayTween : MonoBehaviour
 	bool mStarted = false;
 	int mActive = 0;
 	bool mActivated = false;
+	
+	/// <summary>
+	/// Whether the tween is currently playing.
+	/// </summary>
+
+	public bool isActive { get { return mActive > 0; } }
 
 	void Awake ()
 	{
@@ -109,6 +121,37 @@ public class UIPlayTween : MonoBehaviour
 #if UNITY_EDITOR
 			NGUITools.SetDirty(this);
 #endif
+		}
+
+		if (setState && Application.isPlaying)
+		{
+			var go = (tweenTarget == null) ? gameObject : tweenTarget;
+			mTweens = includeChildren ? go.GetComponentsInChildren<UITweener>() : go.GetComponents<UITweener>();
+
+			if (mTweens.Length == 0)
+			{
+				// No tweeners found -- should we disable the object?
+				if (disableWhenFinished != DisableCondition.DoNotDisable)
+					NGUITools.SetActive(tweenTarget, false);
+			}
+			else
+			{
+				var forward = true;
+				if (playDirection == Direction.Reverse) forward = !forward;
+
+				for (int i = 0, imax = mTweens.Length; i < imax; ++i)
+				{
+					var tw = mTweens[i];
+
+					if (tw.tweenGroup == tweenGroup)
+					{
+						//tw.enabled = true;
+						tw.Play(forward ? startState == 1f : startState != 1f);
+						tw.Sample(forward ? startState : 1f - startState, true);
+						tw.enabled = false;
+					}
+				}
+			}
 		}
 	}
 
@@ -151,9 +194,37 @@ public class UIPlayTween : MonoBehaviour
 				(trigger == Trigger.OnHoverTrue && isOver) ||
 				(trigger == Trigger.OnHoverFalse && !isOver))
 			{
+				if (isOver == mActivated) return;
+
+				// Hover out action happened on a child object -- we want to maintain the hovered state
+				if (!isOver && UICamera.hoveredObject != null && UICamera.hoveredObject.transform.IsChildOf(transform))
+				{
+					// Subscribe to a global hover listener so we can keep receiving hover notifications
+					UICamera.onHover += CustomHoverListener;
+					isOver = true;
+					if (mActivated) return;
+				}
+
 				mActivated = isOver && (trigger == Trigger.OnHover);
 				Play(isOver);
 			}
+		}
+	}
+
+	/// <summary>
+	/// Wait for the hover event to happen outside the object's hierarchy before removing the hovered state.
+	/// </summary>
+
+	void CustomHoverListener (GameObject go, bool isOver)
+	{
+		if (!this) return;
+		var myGo = gameObject;
+		var hover = myGo && go && (go == myGo || go.transform.IsChildOf(transform));
+
+		if (!hover)
+		{
+			OnHover(false);
+			UICamera.onHover -= CustomHoverListener;
 		}
 	}
 
@@ -226,12 +297,12 @@ public class UIPlayTween : MonoBehaviour
 #endif
 		if (disableWhenFinished != DisableCondition.DoNotDisable && mTweens != null)
 		{
-			bool isFinished = true;
-			bool properDirection = true;
+			var isFinished = true;
+			var properDirection = true;
 
 			for (int i = 0, imax = mTweens.Length; i < imax; ++i)
 			{
-				UITweener tw = mTweens[i];
+				var tw = mTweens[i];
 				if (tw.tweenGroup != tweenGroup) continue;
 
 				if (tw.enabled)
@@ -252,6 +323,28 @@ public class UIPlayTween : MonoBehaviour
 			}
 		}
 	}
+
+	[ContextMenu("Stop")]
+	public void Stop ()
+	{
+		if (mTweens != null) foreach(var tw in mTweens) tw.Finish();
+
+		if (mActive != 0)
+		{
+			mActive = 1;
+			OnFinished();
+		}
+	}
+
+	/// <summary>
+	/// Activate the tweeners.
+	/// </summary>
+
+	[ContextMenu("Play")]
+	public void Play () { Play(true); }
+
+	[ContextMenu("Play in reverse")]
+	public void PlayReverse () { Play(false); }
 
 	/// <summary>
 	/// Activate the tweeners.
@@ -288,7 +381,7 @@ public class UIPlayTween : MonoBehaviour
 			// Run through all located tween components
 			for (int i = 0, imax = mTweens.Length; i < imax; ++i)
 			{
-				UITweener tw = mTweens[i];
+				var tw = mTweens[i];
 
 				// If the tweener's group matches, we can work with it
 				if (tw.tweenGroup == tweenGroup)

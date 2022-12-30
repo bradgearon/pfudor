@@ -1,7 +1,7 @@
-//----------------------------------------------
+//-------------------------------------------------
 //            NGUI: Next-Gen UI kit
-// Copyright © 2011-2016 Tasharen Entertainment
-//----------------------------------------------
+// Copyright © 2011-2020 Tasharen Entertainment Inc
+//-------------------------------------------------
 
 using UnityEngine;
 using System.Collections.Generic;
@@ -25,30 +25,58 @@ public class UIPopupList : UIWidgetContainer
 
 	const float animSpeed = 0.15f;
 
-	public enum Position
+	[DoNotObfuscateNGUI] public enum Position
 	{
 		Auto,
 		Above,
 		Below,
 	}
 
+	[DoNotObfuscateNGUI] public enum Selection
+	{
+		OnPress,
+		OnClick,
+	}
+
 	/// <summary>
 	/// Atlas used by the sprites.
 	/// </summary>
 
-	public UIAtlas atlas;
+	public Object atlas;
 
 	/// <summary>
 	/// Font used by the labels.
 	/// </summary>
 
-	public UIFont bitmapFont;
+	public Object bitmapFont;
 
 	/// <summary>
 	/// True type font used by the labels. Alternative to specifying a bitmap font ('font').
 	/// </summary>
 
 	public Font trueTypeFont;
+
+	/// <summary>
+	/// NGUI font interface, if it's using a bitmap font.
+	/// </summary>
+
+	public INGUIFont font
+	{
+		get
+		{
+			if (bitmapFont != null)
+			{
+				if (bitmapFont is GameObject) return (bitmapFont as GameObject).GetComponent<UIFont>();
+				return bitmapFont as INGUIFont;
+			}
+			return null;
+		}
+		set
+		{
+			bitmapFont = (value as Object);
+			trueTypeFont = null;
+		}
+	}
 
 	/// <summary>
 	/// Font used by the popup list. Conveniently wraps both dynamic and bitmap fonts into one property.
@@ -59,8 +87,13 @@ public class UIPopupList : UIWidgetContainer
 		get
 		{
 			if (trueTypeFont != null) return trueTypeFont;
-			if (bitmapFont != null) return bitmapFont;
-			return font;
+
+			if (bitmapFont != null)
+			{
+				if (bitmapFont is GameObject) return (bitmapFont as GameObject).GetComponent<UIFont>();
+				return bitmapFont as Object;
+			}
+			return null;
 		}
 		set
 		{
@@ -68,13 +101,16 @@ public class UIPopupList : UIWidgetContainer
 			{
 				trueTypeFont = value as Font;
 				bitmapFont = null;
-				font = null;
 			}
-			else if (value is UIFont)
+			else if (value is INGUIFont)
 			{
-				bitmapFont = value as UIFont;
+				bitmapFont = value as Object;
 				trueTypeFont = null;
-				font = null;
+			}
+			else if (value is GameObject)
+			{
+				bitmapFont = (value as GameObject).GetComponent<UIFont>();
+				trueTypeFont = null;
 			}
 		}
 	}
@@ -122,6 +158,12 @@ public class UIPopupList : UIWidgetContainer
 	public Position position = Position.Auto;
 
 	/// <summary>
+	/// Whether the popup item selection is chosen by pressing on it or by clicking on it.
+	/// </summary>
+
+	public Selection selection = Selection.OnPress;
+
+	/// <summary>
 	/// Label alignment to use.
 	/// </summary>
 
@@ -139,6 +181,12 @@ public class UIPopupList : UIWidgetContainer
 	/// </summary>
 
 	public List<object> itemData = new List<object>();
+
+	/// <summary>
+	/// You can associate specific callbacks with each entry if you like.
+	/// </summary>
+
+	public List<System.Action> itemCallbacks = new List<System.Action>();
 
 	/// <summary>
 	/// Amount of padding added to labels.
@@ -177,6 +225,12 @@ public class UIPopupList : UIWidgetContainer
 	public bool isLocalized = false;
 
 	/// <summary>
+	/// Custom text modifier for child labels.
+	/// </summary>
+
+	public UILabel.Modifier textModifier = UILabel.Modifier.None;
+
+	/// <summary>
 	/// Whether a separate panel will be used to ensure that the popup will appear on top of everything else.
 	/// </summary>
 
@@ -185,10 +239,10 @@ public class UIPopupList : UIWidgetContainer
 	/// <summary>
 	/// Amount by which the popup's border will overlap with the content that opened it.
 	/// </summary>
-	
+
 	public int overlap = 0;
 
-	public enum OpenOn
+	[DoNotObfuscateNGUI] public enum OpenOn
 	{
 		ClickOrTap,
 		RightClick,
@@ -217,6 +271,12 @@ public class UIPopupList : UIWidgetContainer
 	[HideInInspector][SerializeField] protected List<UILabel> mLabelList = new List<UILabel>();
 	[HideInInspector][SerializeField] protected float mBgBorder = 0f;
 
+	[Tooltip("Whether the selection will be persistent even after the popup list is closed. By default the selection is " +
+		"cleared when the popup is closed so that the same selection can be chosen again the next time the popup list is opened. " +
+		"If enabled, the selection will persist, but selecting the same choice in succession will not result in the onChange " +
+		"notification being triggered more than once.")]
+	public bool keepValue = false;
+
 	[System.NonSerialized] protected GameObject mSelection;
 	[System.NonSerialized] protected int mOpenFrame = 0;
 
@@ -224,7 +284,6 @@ public class UIPopupList : UIWidgetContainer
 	[HideInInspector][SerializeField] GameObject eventReceiver;
 	[HideInInspector][SerializeField] string functionName = "OnSelectionChange";
 	[HideInInspector][SerializeField] float textScale = 0f;
-	[HideInInspector][SerializeField] UIFont font; // Use 'bitmapFont' instead
 
 	// This functionality is no longer needed as the same can be achieved by choosing a
 	// OnValueChange notification targeting a label's SetCurrentSelection function.
@@ -267,6 +326,19 @@ public class UIPopupList : UIWidgetContainer
 	}
 
 	/// <summary>
+	/// Callback associated with the current selection.
+	/// </summary>
+
+	public System.Action callback
+	{
+		get
+		{
+			int index = items.IndexOf(mSelectedItem);
+			return (index > -1) && index < itemCallbacks.Count ? itemCallbacks[index] : null;
+		}
+	}
+
+	/// <summary>
 	/// Whether the collider is enabled and the widget can be interacted with.
 	/// </summary>
 
@@ -279,28 +351,72 @@ public class UIPopupList : UIWidgetContainer
 			Collider2D b = GetComponent<Collider2D>();
 			return (b != null && b.enabled);
 		}
+		set
+		{
+			Collider c = GetComponent<Collider>();
+			if (c != null) { c.enabled = value; return; }
+			Collider2D b = GetComponent<Collider2D>();
+			if (b != null) { b.enabled = value; return; }
+		}
 	}
-
-	[System.Obsolete("Use 'value' instead")]
-	public string selection { get { return value; } set { this.value = value; } }
 
 	/// <summary>
 	/// Whether the popup list is actually usable.
 	/// </summary>
 
-	protected bool isValid { get { return bitmapFont != null || trueTypeFont != null; } }
+	protected bool isValid { get { return ambigiousFont != null; } }
 
 	/// <summary>
 	/// Active font size.
 	/// </summary>
 
-	protected int activeFontSize { get { return (trueTypeFont != null || bitmapFont == null) ? fontSize : bitmapFont.defaultSize; } }
+	protected int activeFontSize
+	{
+		get
+		{
+			var bm = font;
+			if (trueTypeFont != null || bm == null) return fontSize;
+			return (bm != null) ? bm.defaultSize : fontSize;
+		}
+	}
 
 	/// <summary>
 	/// Font scale applied to the popup list's text.
 	/// </summary>
 
-	protected float activeFontScale { get { return (trueTypeFont != null || bitmapFont == null) ? 1f : (float)fontSize / bitmapFont.defaultSize; } }
+	protected float activeFontScale
+	{
+		get
+		{
+			var bm = font;
+			if (trueTypeFont != null || bm == null) return 1f;
+			return (bm != null) ? (float)fontSize / bm.defaultSize : 1f;
+		}
+	}
+
+	/// <summary>
+	/// Scale needed to be applied to the popup in order for it to fit on the screen.
+	/// </summary>
+
+	protected float fitScale
+	{
+		get
+		{
+			if (separatePanel)
+			{
+				var height = items.Count * (fontSize + padding.y) + padding.y;
+				var size = NGUITools.screenSize.y;
+				if (height > size) return size / height;
+			}
+			else if (mPanel != null && mPanel.anchorCamera != null && mPanel.anchorCamera.orthographic)
+			{
+				var height = items.Count * (fontSize + padding.y) + padding.y;
+				var size = mPanel.height;
+				if (height > size) return size / height;
+			}
+			return 1f;
+		}
+	}
 
 	/// <summary>
 	/// Set the current selection.
@@ -311,6 +427,7 @@ public class UIPopupList : UIWidgetContainer
 		if (mSelectedItem != value)
 		{
 			mSelectedItem = value;
+
 			if (mSelectedItem == null) return;
 #if UNITY_EDITOR
 			if (!Application.isPlaying) return;
@@ -318,7 +435,7 @@ public class UIPopupList : UIWidgetContainer
 			if (notify && mSelectedItem != null)
 				TriggerCallbacks();
 
-			mSelectedItem = null;
+			if (!keepValue) mSelectedItem = null;
 		}
 	}
 
@@ -330,6 +447,7 @@ public class UIPopupList : UIWidgetContainer
 	{
 		items.Clear();
 		itemData.Clear();
+		itemCallbacks.Clear();
 	}
 
 	/// <summary>
@@ -339,17 +457,29 @@ public class UIPopupList : UIWidgetContainer
 	public virtual void AddItem (string text)
 	{
 		items.Add(text);
-		itemData.Add(null);
+		itemData.Add(text);
+		itemCallbacks.Add(null);
 	}
 
 	/// <summary>
 	/// Add a new item to the popup list.
 	/// </summary>
 
-	public virtual void AddItem (string text, object data)
+	public virtual void AddItem (string text, System.Action del)
+	{
+		items.Add(text);
+		itemCallbacks.Add(del);
+	}
+
+	/// <summary>
+	/// Add a new item to the popup list.
+	/// </summary>
+
+	public virtual void AddItem (string text, object data, System.Action del = null)
 	{
 		items.Add(text);
 		itemData.Add(data);
+		itemCallbacks.Add(del);
 	}
 
 	/// <summary>
@@ -364,6 +494,7 @@ public class UIPopupList : UIWidgetContainer
 		{
 			items.RemoveAt(index);
 			itemData.RemoveAt(index);
+			if (index < itemCallbacks.Count) itemCallbacks.RemoveAt(index);
 		}
 	}
 
@@ -379,6 +510,7 @@ public class UIPopupList : UIWidgetContainer
 		{
 			items.RemoveAt(index);
 			itemData.RemoveAt(index);
+			if (index < itemCallbacks.Count) itemCallbacks.RemoveAt(index);
 		}
 	}
 
@@ -408,6 +540,10 @@ public class UIPopupList : UIWidgetContainer
 				// Legacy functionality support (for backwards compatibility)
 				eventReceiver.SendMessage(functionName, mSelectedItem, SendMessageOptions.DontRequireReceiver);
 			}
+
+			var cb = callback;
+			if (cb != null) cb();
+
 			current = old;
 			mExecuting = false;
 		}
@@ -425,74 +561,20 @@ public class UIPopupList : UIWidgetContainer
 			functionName = null;
 		}
 
-		// 'font' is no longer used
-		if (font != null)
-		{
-			if (font.isDynamic)
-			{
-				trueTypeFont = font.dynamicFont;
-				fontStyle = font.dynamicFontStyle;
-				mUseDynamicFont = true;
-			}
-			else if (bitmapFont == null)
-			{
-				bitmapFont = font;
-				mUseDynamicFont = false;
-			}
-			font = null;
-		}
+		var bm = font;
 
 		// 'textScale' is no longer used
 		if (textScale != 0f)
 		{
-			fontSize = (bitmapFont != null) ? Mathf.RoundToInt(bitmapFont.defaultSize * textScale) : 16;
+			fontSize = (bm != null) ? Mathf.RoundToInt(bm.defaultSize * textScale) : 16;
 			textScale = 0f;
 		}
 
 		// Auto-upgrade to the true type font
-		if (trueTypeFont == null && bitmapFont != null && bitmapFont.isDynamic)
+		if (trueTypeFont == null && bm != null && bm.isDynamic && bm.replacement == null)
 		{
-			trueTypeFont = bitmapFont.dynamicFont;
+			trueTypeFont = bm.dynamicFont;
 			bitmapFont = null;
-		}
-	}
-
-	protected bool mUseDynamicFont = false;
-
-	protected virtual void OnValidate ()
-	{
-		Font ttf = trueTypeFont;
-		UIFont fnt = bitmapFont;
-
-		bitmapFont = null;
-		trueTypeFont = null;
-
-		if (ttf != null && (fnt == null || !mUseDynamicFont))
-		{
-			bitmapFont = null;
-			trueTypeFont = ttf;
-			mUseDynamicFont = true;
-		}
-		else if (fnt != null)
-		{
-			// Auto-upgrade from 3.0.2 and earlier
-			if (fnt.isDynamic)
-			{
-				trueTypeFont = fnt.dynamicFont;
-				fontStyle = fnt.dynamicFontStyle;
-				fontSize = fnt.defaultSize;
-				mUseDynamicFont = true;
-			}
-			else
-			{
-				bitmapFont = fnt;
-				mUseDynamicFont = false;
-			}
-		}
-		else
-		{
-			trueTypeFont = ttf;
-			mUseDynamicFont = true;
 		}
 	}
 
@@ -506,6 +588,14 @@ public class UIPopupList : UIWidgetContainer
 	{
 		if (mStarted) return;
 		mStarted = true;
+
+		if (keepValue)
+		{
+			var sel = mSelectedItem;
+			mSelectedItem = null;
+			value = sel;
+		}
+		else mSelectedItem = null;
 
 		// Auto-upgrade legacy functionality
 		if (textLabel != null)
@@ -568,9 +658,13 @@ public class UIPopupList : UIWidgetContainer
 	protected virtual Vector3 GetHighlightPosition ()
 	{
 		if (mHighlightedLabel == null || mHighlight == null) return Vector3.zero;
-		
+
 		Vector4 border = mHighlight.border;
-		float scaleFactor = (atlas != null) ? atlas.pixelSize : 1f;
+		float scaleFactor = 1f;
+
+		var atl = atlas as INGUIAtlas;
+		if (atl != null) scaleFactor = atl.pixelSize;
+
 		float offsetX = border.x * scaleFactor;
 		float offsetY = border.w * scaleFactor;
 		return mHighlightedLabel.cachedTransform.localPosition + new Vector3(-offsetX, offsetY, 1f);
@@ -588,7 +682,7 @@ public class UIPopupList : UIWidgetContainer
 		if (mHighlight != null && mHighlightedLabel != null)
 		{
 			TweenPosition tp = mHighlight.GetComponent<TweenPosition>();
-			
+
 			while (tp != null && tp.enabled)
 			{
 				tp.to = GetHighlightPosition();
@@ -612,27 +706,33 @@ public class UIPopupList : UIWidgetContainer
 	}
 
 	/// <summary>
-	/// Event function triggered when the drop-down list item gets clicked on.
+	/// Event function triggered when the drop-down list item gets pressed on.
 	/// </summary>
 
 	protected virtual void OnItemPress (GameObject go, bool isPressed)
 	{
-		if (isPressed)
+		if (isPressed && selection == Selection.OnPress) OnItemClick(go);
+	}
+
+	/// <summary>
+	/// Event function triggered when the drop-down list item gets clicked on.
+	/// </summary>
+
+	protected virtual void OnItemClick (GameObject go)
+	{
+		Select(go.GetComponent<UILabel>(), true);
+
+		UIEventListener listener = go.GetComponent<UIEventListener>();
+		value = listener.parameter as string;
+		UIPlaySound[] sounds = GetComponents<UIPlaySound>();
+
+		for (int i = 0, imax = sounds.Length; i < imax; ++i)
 		{
-			Select(go.GetComponent<UILabel>(), true);
-
-			UIEventListener listener = go.GetComponent<UIEventListener>();
-			value = listener.parameter as string;
-			UIPlaySound[] sounds = GetComponents<UIPlaySound>();
-
-			for (int i = 0, imax = sounds.Length; i < imax; ++i)
-			{
-				UIPlaySound snd = sounds[i];
-				if (snd.trigger == UIPlaySound.Trigger.OnClick)
-					NGUITools.PlaySound(snd.audioClip, snd.volume, 1f);
-			}
-			CloseSelf();
+			UIPlaySound snd = sounds[i];
+			if (snd.trigger == UIPlaySound.Trigger.OnClick)
+				NGUITools.PlaySound(snd.audioClip, snd.volume, 1f);
 		}
+		CloseSelf();
 	}
 
 	/// <summary>
@@ -692,7 +792,15 @@ public class UIPopupList : UIWidgetContainer
 	/// Get rid of the popup dialog when the selection gets lost.
 	/// </summary>
 
-	protected virtual void OnSelect (bool isSelected) { if (!isSelected) CloseSelf(); }
+	protected virtual void OnSelect (bool isSelected)
+	{
+		if (!isSelected)
+		{
+			var sel = UICamera.selectedObject;
+			if (sel == null || !(sel == mChild || (mChild != null && sel != null && NGUITools.IsChild(mChild.transform, sel.transform))))
+				CloseSelf();
+		}
+	}
 
 	/// <summary>
 	/// Manually close the popup list.
@@ -786,14 +894,15 @@ public class UIPopupList : UIWidgetContainer
 		GameObject go = widget.gameObject;
 		Transform t = widget.cachedTransform;
 
-		float minHeight = activeFontSize * activeFontScale + mBgBorder * 2f;
-		t.localScale = new Vector3(1f, minHeight / widget.height, 1f);
+		var fitScale = this.fitScale;
+		var minHeight = activeFontSize * activeFontScale + mBgBorder * 2f;
+		t.localScale = new Vector3(fitScale, fitScale * minHeight / widget.height, fitScale);
 		TweenScale.Begin(go, animSpeed, Vector3.one).method = UITweener.Method.EaseOut;
 
 		if (placeAbove)
 		{
 			Vector3 pos = t.localPosition;
-			t.localPosition = new Vector3(pos.x, pos.y - widget.height + minHeight, pos.z);
+			t.localPosition = new Vector3(pos.x, pos.y - fitScale * widget.height + fitScale * minHeight, pos.z);
 			TweenPosition.Begin(go, animSpeed, pos).method = UITweener.Method.EaseOut;
 		}
 	}
@@ -844,7 +953,9 @@ public class UIPopupList : UIWidgetContainer
 		{
 			yield return null;
 
-			if (UICamera.selectedObject != mSelection)
+			var sel = UICamera.selectedObject;
+
+			if (sel != mSelection && (sel == null || !(sel == mChild || NGUITools.IsChild(mChild.transform, sel.transform))))
 			{
 				CloseSelf();
 				break;
@@ -866,9 +977,9 @@ public class UIPopupList : UIWidgetContainer
 			StopCoroutine("CloseIfUnselected");
 
 			// Ensure the popup's source has the selection
-			UICamera.selectedObject = (UICamera.hoveredObject ?? gameObject);
+			UICamera.selectedObject = (UICamera.hoveredObject != null ? UICamera.hoveredObject : gameObject);
 			mSelection = UICamera.selectedObject;
-			source = UICamera.selectedObject;
+			source = mSelection;
 
 			if (source == null)
 			{
@@ -905,25 +1016,38 @@ public class UIPopupList : UIWidgetContainer
 					Rigidbody2D rb = mChild.AddComponent<Rigidbody2D>();
 					rb.isKinematic = true;
 				}
-				mChild.AddComponent<UIPanel>().depth = 1000000;
+
+				var panel = mChild.AddComponent<UIPanel>();
+				panel.depth = 1000000;
+				panel.sortingOrder = mPanel.sortingOrder;
 			}
+
 			current = this;
 
+			var pTrans = mPanel.cachedTransform;
 			Transform t = mChild.transform;
-			t.parent = mPanel.cachedTransform;
+			t.parent = pTrans;
+			Transform rootTrans = pTrans;
+
+			if (separatePanel)
+			{
+				var root = mPanel.GetComponentInParent<UIRoot>();
+				if (root == null && UIRoot.list.Count != 0) root = UIRoot.list[0];
+				if (root != null) rootTrans = root.transform;
+			}
 
 			// Manually triggered popup list on some other game object
 			if (openOn == OpenOn.Manual && mSelection != gameObject)
 			{
 				startingPosition = UICamera.lastEventPosition;
-				min = mPanel.cachedTransform.InverseTransformPoint(mPanel.anchorCamera.ScreenToWorldPoint(startingPosition));
+				min = pTrans.InverseTransformPoint(mPanel.anchorCamera.ScreenToWorldPoint(startingPosition));
 				max = min;
 				t.localPosition = min;
 				startingPosition = t.position;
 			}
 			else
 			{
-				Bounds bounds = NGUIMath.CalculateRelativeWidgetBounds(mPanel.cachedTransform, transform, false, false);
+				Bounds bounds = NGUIMath.CalculateRelativeWidgetBounds(pTrans, transform, false, false);
 				min = bounds.min;
 				max = bounds.max;
 				t.localPosition = min;
@@ -932,8 +1056,9 @@ public class UIPopupList : UIWidgetContainer
 
 			StartCoroutine("CloseIfUnselected");
 
+			var f = fitScale;
 			t.localRotation = Quaternion.identity;
-			t.localScale = Vector3.one;
+			t.localScale = new Vector3(f, f, f);
 
 			int depth = separatePanel ? 0 : NGUITools.CalculateNextDepth(mPanel.gameObject);
 
@@ -944,7 +1069,7 @@ public class UIPopupList : UIWidgetContainer
 				sp2.sprite2D = background2DSprite;
 				mBackground = sp2;
 			}
-			else if (atlas != null) mBackground = NGUITools.AddSprite(mChild, atlas, backgroundSprite, depth);
+			else if (atlas != null) mBackground = NGUITools.AddSprite(mChild, atlas as INGUIAtlas, backgroundSprite, depth);
 			else return;
 
 			bool placeAbove = (position == Position.Above);
@@ -975,7 +1100,7 @@ public class UIPopupList : UIWidgetContainer
 				sp2.sprite2D = highlight2DSprite;
 				mHighlight = sp2;
 			}
-			else if (atlas != null) mHighlight = NGUITools.AddSprite(mChild, atlas, highlightSprite, ++depth);
+			else if (atlas != null) mHighlight = NGUITools.AddSprite(mChild, atlas as INGUIAtlas, highlightSprite, ++depth);
 			else return;
 
 			float hlspHeight = 0f, hlspLeft = 0f;
@@ -989,9 +1114,7 @@ public class UIPopupList : UIWidgetContainer
 			mHighlight.pivot = UIWidget.Pivot.TopLeft;
 			mHighlight.color = highlightColor;
 
-			float fontHeight = activeFontSize;
-			float dynScale = activeFontScale;
-			float labelHeight = fontHeight * dynScale;
+			float labelHeight = activeFontSize * activeFontScale;
 			float lineHeight = labelHeight + padding.y;
 			float x = 0f, y = placeAbove ? bgPadding.y - padding.y - overlap : -padding.y - bgPadding.y + overlap;
 			float contentHeight = bgPadding.y * 2f + padding.y;
@@ -1009,15 +1132,17 @@ public class UIPopupList : UIWidgetContainer
 				UILabel lbl = NGUITools.AddWidget<UILabel>(mChild, mBackground.depth + 2);
 				lbl.name = i.ToString();
 				lbl.pivot = UIWidget.Pivot.TopLeft;
-				lbl.bitmapFont = bitmapFont;
+				lbl.font = bitmapFont as INGUIFont;
 				lbl.trueTypeFont = trueTypeFont;
 				lbl.fontSize = fontSize;
 				lbl.fontStyle = fontStyle;
 				lbl.text = isLocalized ? Localization.Get(s) : s;
+				lbl.modifier = textModifier;
 				lbl.color = textColor;
 				lbl.cachedTransform.localPosition = new Vector3(bgPadding.x + padding.x - lbl.pivotOffset.x, y, -1f);
 				lbl.overflowMethod = UILabel.Overflow.ResizeFreely;
 				lbl.alignment = alignment;
+				lbl.symbolStyle = NGUIText.SymbolStyle.Normal;
 				labels.Add(lbl);
 
 				contentHeight += lineHeight;
@@ -1029,6 +1154,7 @@ public class UIPopupList : UIWidgetContainer
 				UIEventListener listener = UIEventListener.Get(lbl.gameObject);
 				listener.onHover = OnItemHover;
 				listener.onPress = OnItemPress;
+				listener.onClick = OnItemClick;
 				listener.parameter = s;
 
 				// Move the selection here if this is the right label
@@ -1089,7 +1215,11 @@ public class UIPopupList : UIWidgetContainer
 			}
 
 			// Scale the highlight sprite to envelop a single item
-			float scaleFactor = (atlas != null) ? 2f * atlas.pixelSize : 2f;
+
+			float scaleFactor = 2f;
+			var atl = atlas as INGUIAtlas;
+			if (atl != null) scaleFactor *= atl.pixelSize;
+
 			float w = x - (bgPadding.x + padding.x) * 2f + hlspLeft * scaleFactor;
 			float h = labelHeight + hlspHeight * scaleFactor;
 			mHighlight.width = Mathf.RoundToInt(w);
@@ -1113,34 +1243,48 @@ public class UIPopupList : UIWidgetContainer
 			// If we need to place the popup list above the item, we need to reposition everything by the size of the list
 			if (placeAbove)
 			{
-				min.y = max.y - bgPadding.y;
-				max.y = min.y + mBackground.height;
-				max.x = min.x + mBackground.width;
-				t.localPosition = new Vector3(min.x, max.y - bgPadding.y, min.z);
+				var bgY = bgPadding.y * f;
+				min.y = max.y - bgPadding.y * f;
+				max.y = min.y + (mBackground.height - bgPadding.y * 2f) * f;
+				max.x = min.x + mBackground.width * f;
+				t.localPosition = new Vector3(min.x, max.y - bgY, min.z);
 			}
 			else
 			{
-				max.y = min.y + bgPadding.y;
-				min.y = max.y - mBackground.height;
-				max.x = min.x + mBackground.width;
+				max.y = min.y + bgPadding.y * f;
+				min.y = max.y - mBackground.height * f;
+				max.x = min.x + mBackground.width * f;
 			}
 
-			Transform pt = mPanel.cachedTransform.parent;
+			var absoluteParent = mPanel;// UIRoot.list[0].GetComponent<UIPanel>();
 
-			if (pt != null)
+			for (;;)
 			{
-				min = mPanel.cachedTransform.TransformPoint(min);
-				max = mPanel.cachedTransform.TransformPoint(max);
-				min = pt.InverseTransformPoint(min);
-				max = pt.InverseTransformPoint(max);
+				var p = absoluteParent.parent;
+				if (p == null) break;
+				var pp = p.GetComponentInParent<UIPanel>();
+				if (pp == null) break;
+				absoluteParent = pp;
+			}
+
+			if (pTrans != null)
+			{
+				min = pTrans.TransformPoint(min);
+				max = pTrans.TransformPoint(max);
+				min = absoluteParent.cachedTransform.InverseTransformPoint(min);
+				max = absoluteParent.cachedTransform.InverseTransformPoint(max);
+				var adj = UIRoot.GetPixelSizeAdjustment(gameObject);
+				min /= adj;
+				max /= adj;
 			}
 
 			// Ensure that everything fits into the panel's visible range
-			Vector3 offset = mPanel.hasClipping ? Vector3.zero : mPanel.CalculateConstrainOffset(min, max);
-			Vector3 pos = t.localPosition + offset;
+			var offset = absoluteParent.CalculateConstrainOffset(min, max);
+			var pos = t.localPosition + offset;
 			pos.x = Mathf.Round(pos.x);
 			pos.y = Mathf.Round(pos.y);
 			t.localPosition = pos;
+			t.parent = rootTrans;
 		}
 		else OnSelect(false);
 	}

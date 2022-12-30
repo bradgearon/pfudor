@@ -1,7 +1,7 @@
-//----------------------------------------------
+//-------------------------------------------------
 //            NGUI: Next-Gen UI kit
-// Copyright © 2011-2016 Tasharen Entertainment
-//----------------------------------------------
+// Copyright © 2011-2020 Tasharen Entertainment Inc
+//-------------------------------------------------
 
 using UnityEngine;
 using System.Collections.Generic;
@@ -11,10 +11,10 @@ using System.Collections.Generic;
 /// </summary>
 
 [ExecuteInEditMode]
-[AddComponentMenu("NGUI/UI/NGUI Widget")]
+[AddComponentMenu("NGUI/UI/Invisible Widget")]
 public class UIWidget : UIRect
 {
-	public enum Pivot
+	[DoNotObfuscateNGUI] public enum Pivot
 	{
 		TopLeft,
 		Top,
@@ -34,20 +34,25 @@ public class UIWidget : UIRect
 	[HideInInspector][SerializeField] protected int mHeight = 100;
 	[HideInInspector][SerializeField] protected int mDepth = 0;
 
-	public delegate void OnDimensionsChanged ();
-	public delegate void OnPostFillCallback (UIWidget widget, int bufferOffset, BetterList<Vector3> verts, BetterList<Vector2> uvs, BetterList<Color> cols);
+	[Tooltip("Boundless widgets won't be used for bounds calculations. Useful for widgets inside scroll views that can go outside its bounds without forcing the rest of the contents to adjust.")]
+	public bool boundless = false;
+
+	[Tooltip("Custom material, if desired")]
+	[HideInInspector][SerializeField] protected Material mMat;
 
 	/// <summary>
 	/// Notification triggered when the widget's dimensions or position changes.
 	/// </summary>
 
 	public OnDimensionsChanged onChange;
+	public delegate void OnDimensionsChanged ();
 
 	/// <summary>
 	/// Notification triggered after the widget's buffer has been filled.
 	/// </summary>
 
 	public OnPostFillCallback onPostFill;
+	public delegate void OnPostFillCallback (UIWidget widget, int bufferOffset, List<Vector3> verts, List<Vector2> uvs, List<Color> cols);
 
 	/// <summary>
 	/// Callback triggered when the widget is about to be renderered (OnWillRenderObject).
@@ -98,7 +103,7 @@ public class UIWidget : UIRect
 
 	public bool hideIfOffScreen = false;
 
-	public enum AspectRatioSource
+	[DoNotObfuscateNGUI] public enum AspectRatioSource
 	{
 		Free,
 		BasedOnWidth,
@@ -305,6 +310,21 @@ public class UIWidget : UIRect
 	}
 
 	/// <summary>
+	/// Change the color without affecting the alpha.
+	/// </summary>
+
+	public void SetColorNoAlpha (Color c)
+	{
+		if (mColor.r != c.r || mColor.g != c.g || mColor.b != c.b)
+		{
+			mColor.r = c.r;
+			mColor.g = c.g;
+			mColor.b = c.b;
+			Invalidate(false);
+		}
+	}
+
+	/// <summary>
 	/// Widget's alpha -- a convenience method.
 	/// </summary>
 
@@ -320,6 +340,9 @@ public class UIWidget : UIRect
 			{
 				mColor.a = value;
 				Invalidate(true);
+#if UNITY_EDITOR
+				NGUITools.SetDirty(this);
+#endif
 			}
 		}
 	}
@@ -361,7 +384,7 @@ public class UIWidget : UIRect
 	/// Set or get the value that specifies where the widget's pivot point should be.
 	/// </summary>
 
-	public Pivot pivot
+	public virtual Pivot pivot
 	{
 		get
 		{
@@ -371,18 +394,19 @@ public class UIWidget : UIRect
 		{
 			if (mPivot != value)
 			{
-				Vector3 before = worldCorners[0];
+				var rot = transform.rotation;
+				var invRot = Quaternion.Inverse(rot);
+				var before = invRot * worldCorners[0];
 
 				mPivot = value;
 				mChanged = true;
 
-				Vector3 after = worldCorners[0];
-
-				Transform t = cachedTransform;
-				Vector3 pos = t.position;
-				float z = t.localPosition.z;
-				pos.x += (before.x - after.x);
-				pos.y += (before.y - after.y);
+				var after = invRot * worldCorners[0];
+				var t = cachedTransform;
+				var pos = t.position;
+				var z = t.localPosition.z;
+				var offset = new Vector3(before.x - after.x, before.y - after.y, 0f);
+				pos += rot * offset;
 				cachedTransform.position = pos;
 
 				pos = cachedTransform.localPosition;
@@ -398,7 +422,7 @@ public class UIWidget : UIRect
 	/// Depth controls the rendering order -- lowest to highest.
 	/// </summary>
 
-	public int depth
+	public virtual int depth
 	{
 		get
 		{
@@ -417,8 +441,9 @@ public class UIWidget : UIRect
 			if (mDepth != value)
 			{
 				if (panel != null) panel.RemoveWidget(this);
+
 				mDepth = value;
-				
+
 				if (panel != null)
 				{
 					panel.AddWidget(this);
@@ -458,12 +483,12 @@ public class UIWidget : UIRect
 	{
 		get
 		{
-			Vector2 offset = pivotOffset;
+			var offset = pivotOffset;
 
-			float x0 = -offset.x * mWidth;
-			float y0 = -offset.y * mHeight;
-			float x1 = x0 + mWidth;
-			float y1 = y0 + mHeight;
+			var x0 = -offset.x * mWidth;
+			var y0 = -offset.y * mHeight;
+			var x1 = x0 + mWidth;
+			var y1 = y0 + mHeight;
 
 			mCorners[0] = new Vector3(x0, y0);
 			mCorners[1] = new Vector3(x0, y1);
@@ -482,7 +507,7 @@ public class UIWidget : UIRect
 	{
 		get
 		{
-			Vector3[] cr = localCorners;
+			var cr = localCorners;
 			return cr[2] - cr[0];
 		}
 	}
@@ -495,7 +520,7 @@ public class UIWidget : UIRect
 	{
 		get
 		{
-			Vector3[] cr = localCorners;
+			var cr = localCorners;
 			return Vector3.Lerp(cr[0], cr[2], 0.5f);
 		}
 	}
@@ -508,14 +533,14 @@ public class UIWidget : UIRect
 	{
 		get
 		{
-			Vector2 offset = pivotOffset;
+			var offset = pivotOffset;
 
-			float x0 = -offset.x * mWidth;
-			float y0 = -offset.y * mHeight;
-			float x1 = x0 + mWidth;
-			float y1 = y0 + mHeight;
+			var x0 = -offset.x * mWidth;
+			var y0 = -offset.y * mHeight;
+			var x1 = x0 + mWidth;
+			var y1 = y0 + mHeight;
 
-			Transform wt = cachedTransform;
+			var wt = cachedTransform;
 
 			mCorners[0] = wt.TransformPoint(x0, y0, 0f);
 			mCorners[1] = wt.TransformPoint(x0, y1, 0f);
@@ -541,12 +566,11 @@ public class UIWidget : UIRect
 	{
 		get
 		{
-			Vector2 offset = pivotOffset;
-
-			float x0 = -offset.x * mWidth;
-			float y0 = -offset.y * mHeight;
-			float x1 = x0 + mWidth;
-			float y1 = y0 + mHeight;
+			var offset = pivotOffset;
+			var x0 = -offset.x * mWidth;
+			var y0 = -offset.y * mHeight;
+			var x1 = x0 + mWidth;
+			var y1 = y0 + mHeight;
 
 			return new Vector4(
 				mDrawRegion.x == 0f ? x0 : Mathf.Lerp(x0, x1, mDrawRegion.x),
@@ -557,18 +581,23 @@ public class UIWidget : UIRect
 	}
 
 	/// <summary>
-	/// Material used by the widget.
+	/// Custom material associated with the widget, if any.
 	/// </summary>
 
 	public virtual Material material
 	{
 		get
 		{
-			return null;
+			return mMat;
 		}
 		set
 		{
-			throw new System.NotImplementedException(GetType() + " has no material setter");
+			if (mMat != value)
+			{
+				RemoveFromPanel();
+				mMat = value;
+				MarkAsChanged();
+			}
 		}
 	}
 
@@ -580,7 +609,7 @@ public class UIWidget : UIRect
 	{
 		get
 		{
-			Material mat = material;
+			var mat = material;
 			return (mat != null) ? mat.mainTexture : null;
 		}
 		set
@@ -746,7 +775,7 @@ public class UIWidget : UIRect
 
 	public float CalculateCumulativeAlpha (int frameID)
 	{
-		UIRect pt = parent;
+		var pt = parent;
 		return (pt != null) ? pt.CalculateFinalAlpha(frameID) * mColor.a : mColor.a;
 	}
 
@@ -756,19 +785,19 @@ public class UIWidget : UIRect
 
 	public override void SetRect (float x, float y, float width, float height)
 	{
-		Vector2 po = pivotOffset;
+		var po = pivotOffset;
 
-		float fx = Mathf.Lerp(x, x + width, po.x);
-		float fy = Mathf.Lerp(y, y + height, po.y);
+		var fx = Mathf.Lerp(x, x + width, po.x);
+		var fy = Mathf.Lerp(y, y + height, po.y);
 
-		int finalWidth = Mathf.FloorToInt(width + 0.5f);
-		int finalHeight = Mathf.FloorToInt(height + 0.5f);
+		var finalWidth = Mathf.FloorToInt(width + 0.5f);
+		var finalHeight = Mathf.FloorToInt(height + 0.5f);
 
 		if (po.x == 0.5f) finalWidth = ((finalWidth >> 1) << 1);
 		if (po.y == 0.5f) finalHeight = ((finalHeight >> 1) << 1);
 
-		Transform t = cachedTransform;
-		Vector3 pos = t.localPosition;
+		var t = cachedTransform;
+		var pos = t.localPosition;
 		pos.x = Mathf.Floor(fx + 0.5f);
 		pos.y = Mathf.Floor(fy + 0.5f);
 
@@ -797,7 +826,12 @@ public class UIWidget : UIRect
 	/// Adjust the widget's collider size to match the widget's dimensions.
 	/// </summary>
 
-	public void ResizeCollider () { if (NGUITools.GetActive(this)) NGUITools.UpdateWidgetCollider(gameObject); }
+	public void ResizeCollider ()
+	{
+		var bc = GetComponent<BoxCollider>();
+		if (bc != null) NGUITools.UpdateWidgetCollider(this, bc);
+		else NGUITools.UpdateWidgetCollider(this, GetComponent<BoxCollider2D>());
+	}
 
 	/// <summary>
 	/// Static widget comparison function used for depth sorting.
@@ -865,7 +899,7 @@ public class UIWidget : UIRect
 	/// Mark the widget as changed so that the geometry can be rebuilt.
 	/// </summary>
 
-	public void SetDirty ()
+	public virtual void SetDirty ()
 	{
 		if (drawCall != null)
 		{
@@ -1265,6 +1299,12 @@ public class UIWidget : UIRect
 
 	void OnDestroy () { RemoveFromPanel(); }
 
+	/// <summary>
+	/// Whether this widget will be selectable in the scene view or not.
+	/// </summary>
+
+	public virtual bool isSelectable { get { return true; } }
+
 #if UNITY_EDITOR
 	static int mHandles = -1;
 
@@ -1318,9 +1358,9 @@ public class UIWidget : UIRect
 	/// Draw some selectable gizmos.
 	/// </summary>
 
-	void OnDrawGizmos ()
+	protected void OnDrawGizmos ()
 	{
-		if (isVisible && NGUITools.GetActive(this))
+		if (isVisible && isSelectable && NGUITools.GetActive(this))
 		{
 			if (UnityEditor.Selection.activeGameObject == gameObject && showHandles) return;
 
@@ -1453,6 +1493,7 @@ public class UIWidget : UIRect
 						mLocalToPanel = panel.worldToLocal * cachedTransform.localToWorldMatrix;
 						mMatrixFrame = frame;
 					}
+
 					geometry.ApplyTransform(mLocalToPanel, panel.generateNormals);
 					mMoved = false;
 					mChanged = false;
@@ -1494,9 +1535,9 @@ public class UIWidget : UIRect
 	/// Append the local geometry buffers to the specified ones.
 	/// </summary>
 
-	public void WriteToBuffers (BetterList<Vector3> v, BetterList<Vector2> u, BetterList<Color> c, BetterList<Vector3> n, BetterList<Vector4> t)
+	public void WriteToBuffers (List<Vector3> v, List<Vector2> u, List<Color> c, List<Vector3> n, List<Vector4> t, List<Vector4> u2)
 	{
-		geometry.WriteToBuffers(v, u, c, n, t);
+		geometry.WriteToBuffers(v, u, c, n, t, u2);
 	}
 
 	/// <summary>
@@ -1537,10 +1578,22 @@ public class UIWidget : UIRect
 	/// Virtual function called by the UIPanel that fills the buffers.
 	/// </summary>
 
-	virtual public void OnFill(BetterList<Vector3> verts, BetterList<Vector2> uvs, BetterList<Color> cols)
+	virtual public void OnFill (List<Vector3> verts, List<Vector2> uvs, List<Color> cols)
 	{
 		// Call this in your derived classes:
 		//if (onPostFill != null)
 		//	onPostFill(this, verts.size, verts, uvs, cols);
 	}
+
+	/// <summary>
+	/// Called when NGUI adds this widget to a panel.
+	/// </summary>
+
+	virtual public void OnAddToPanel (UIPanel p) { }
+
+	/// <summary>
+	/// Called when NGUI removes this widget from a panel.
+	/// </summary>
+
+	virtual public void OnRemoveFromPanel (UIPanel p) { }
 }

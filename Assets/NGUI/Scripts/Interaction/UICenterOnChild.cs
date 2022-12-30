@@ -1,7 +1,7 @@
-//----------------------------------------------
+//-------------------------------------------------
 //            NGUI: Next-Gen UI kit
-// Copyright © 2011-2016 Tasharen Entertainment
-//----------------------------------------------
+// Copyright © 2011-2020 Tasharen Entertainment Inc
+//-------------------------------------------------
 
 using UnityEngine;
 using System.Collections.Generic;
@@ -82,7 +82,7 @@ public class UICenterOnChild : MonoBehaviour
 				if (mScrollView)
 				{
 					mScrollView.centerOnChild = this;
-					mScrollView.onDragFinished += OnDragFinished;
+					//mScrollView.onDragFinished += OnDragFinished;
 				}
 
 				if (mScrollView.horizontalScrollBar != null)
@@ -174,7 +174,7 @@ public class UICenterOnChild : MonoBehaviour
 					}
 					case UIScrollView.Movement.Vertical:
 					{
-						delta = totalDelta.y;
+						delta = -totalDelta.y;
 						break;
 					}
 					default:
@@ -261,8 +261,11 @@ public class UICenterOnChild : MonoBehaviour
 			else
 #endif
 			{
-				SpringPanel.Begin(mScrollView.panel.cachedGameObject,
-					panelTrans.localPosition - localOffset, springStrength).onFinished = onFinished;
+				var pos = panelTrans.localPosition - localOffset;
+				pos.x = Mathf.Round(pos.x);
+				pos.y = Mathf.Round(pos.y);
+				pos.z = Mathf.Round(pos.z);
+				SpringPanel.Begin(mScrollView.panel.cachedGameObject, pos, springStrength).onFinished = onFinished;
 			}
 		}
 		else mCenteredObject = null;
