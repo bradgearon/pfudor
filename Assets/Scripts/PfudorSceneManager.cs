@@ -88,6 +88,11 @@ public class PfudorSceneManager : MonoBehaviour
         GameManager.Instance.Authenticate();
     }
 
+    public void OnSnowmanDown()
+    {
+        SceneManager.LoadScene("pillows");
+    }
+    
     public void OnStartDown()
     {
         if (!starting)
