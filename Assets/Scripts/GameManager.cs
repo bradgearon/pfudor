@@ -74,7 +74,7 @@ public class GameManager
                 PlayerPrefs.SetInt("autoAuth", 1);
                 platform.LoadAchievements(achievements =>
                 {
-                    this.achievements = achievements.Cast<PlayGamesAchievement>().ToArray();
+                    this.achievements = achievements.ToArray();
                 });
             }
             else
@@ -139,7 +139,7 @@ public class GameManager
     public void SignOut()
     {
 #if UNITY_ANDROID || UNITY_IOS
-        ((PlayGamesPlatform)Social.Active).SignOut();
+        // ((PlayGamesPlatform)Social.Active).SignOut();
 #endif
     }
 

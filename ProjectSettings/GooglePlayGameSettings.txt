@@ -1,7 +1,7 @@
 proj.AppId=458700874615
 android.SetupDone=true
-lastUpgrade=00934
-proj.pluginVersion=0.9.34
+lastUpgrade=01101
+proj.pluginVersion=0.11.01
 and.BundleId=wds.pink.fluffy
 proj.classDir=Assets
 proj.ConstantsClassName=wds.pink.fluffy.Constants
