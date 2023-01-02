@@ -334,7 +334,7 @@ public class ScoreManager : MonoBehaviour
         var showAd = UnityEngine.Random.Range(0, 1);
         if (showAd < .77)
         {
-            adLauncher.ShowAdPlacement();
+            // adLauncher.ShowAdPlacement();
         }
 
         Debug.Log("score loading");
