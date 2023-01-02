@@ -19,12 +19,18 @@ public class GlowTrigger : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        glowTarget.sprite = glowSprite;
+        if (other.CompareTag("Player"))
+        {
+            glowTarget.sprite = glowSprite;
+        }
     }
 
     void OnTriggerExit2D(Collider2D other)
     {
-        glowTarget.sprite = normSprite;
+        if (other.CompareTag("Player"))
+        {
+            glowTarget.sprite = normSprite;
+        }
     }
 
 }

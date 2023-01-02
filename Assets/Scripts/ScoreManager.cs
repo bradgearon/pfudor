@@ -161,7 +161,7 @@ public class ScoreManager : MonoBehaviour
             Destroy(achievementsTable.gameObject.transform.GetChild(i).gameObject);
         }
 
-        var font = scoreLabel.bitmapFont;
+        var font = scoreLabel.font;
         foreach (var achievementItem in achievements.AsEnumerable())
         {
             var nameLabel = NGUITools.AddWidget<UILabel>(achievementsTable.gameObject);
@@ -205,19 +205,19 @@ public class ScoreManager : MonoBehaviour
             };
 
 
-            nameLabel.bitmapFont = font;
+            nameLabel.font = font;
             nameLabel.fontSize = fontSize;
             nameLabel.width = 200;
             nameLabel.height = 50;
             nameLabel.text = achievement.Name;
 
-            descriptionLabel.bitmapFont = font;
+            descriptionLabel.font = font;
             descriptionLabel.fontSize = fontSize;
             descriptionLabel.width = 400;
             descriptionLabel.height = 100;
             descriptionLabel.text = achievement.Description;
 
-            unlockedLabel.bitmapFont = font;
+            unlockedLabel.font = font;
             unlockedLabel.fontSize = fontSize;
             unlockedLabel.width = 100;
             unlockedLabel.height = 50;
@@ -250,7 +250,7 @@ public class ScoreManager : MonoBehaviour
             scoresOrdered.Add(new Scores() { Name = "None" });
         }
 
-        var font = scoreLabel.bitmapFont;
+        var font = scoreLabel.font;
 
         foreach (var s in scoresOrdered)
         {
@@ -259,13 +259,13 @@ public class ScoreManager : MonoBehaviour
             var nameLabel = NGUITools.AddWidget<UILabel>(scoreTable.gameObject);
             var valueLabel = NGUITools.AddWidget<UILabel>(scoreTable.gameObject);
 
-            nameLabel.bitmapFont = font;
+            nameLabel.font = font;
             nameLabel.fontSize = fontSize;
             nameLabel.width = 100;
             nameLabel.height = 50;
             nameLabel.text = s.Name;
 
-            valueLabel.bitmapFont = font;
+            valueLabel.font = font;
             valueLabel.fontSize = fontSize;
             valueLabel.width = 100;
             valueLabel.height = 50;

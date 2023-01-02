@@ -101,6 +101,11 @@ public class PfudorSceneManager : MonoBehaviour
         }
     }
 
+    public void OnDistanceTraveled()
+    {
+        SceneManager.LoadScene("pillows");
+    }
+
     public void OnShareDown()
     {
         FB.Mobile.AppInvite(

@@ -1,17 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class BiggerOnTimer : MonoBehaviour
+public class IslandManager : MonoBehaviour
 {
     public Vector3 startScale;
     public float scalePerSecond;
     private bool end;
+    public Vector2 distanceRemaining;
+
+    public string distanceTraveledMessageReceiver;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -30,10 +35,18 @@ public class BiggerOnTimer : MonoBehaviour
 
         if (newScale.x > .99f || newScale.y > .99f)
         {
+            distanceRemaining = new Vector2(newScale.y, newScale.x);
+
+            var distranceTraveledReceiver = GameObject.Find(distanceTraveledMessageReceiver);
+            if (distranceTraveledReceiver != null)
+            {
+                distranceTraveledReceiver.SendMessage("OnDistanceTraveled");
+            }
+
             end = true;
             transform.localScale = Vector3.one;
         }
-        
+
         transform.localScale = newScale;
 
         var bottomCenter = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width / 2, newScale.y));
