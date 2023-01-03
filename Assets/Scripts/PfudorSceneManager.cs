@@ -103,7 +103,7 @@ public class PfudorSceneManager : MonoBehaviour
 
     public void OnDistanceTraveled()
     {
-        SceneManager.LoadScene("pillows");
+        SceneManager.LoadScene("level-one-boss");
     }
 
     public void OnShareDown()

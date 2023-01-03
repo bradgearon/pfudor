@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -49,7 +48,7 @@ public class IslandManager : MonoBehaviour
 
         transform.localScale = newScale;
 
-        var bottomCenter = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width / 2, newScale.y));
+        var bottomCenter = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width - Screen.width / 2 * newScale.x, newScale.y));
 
         transform.position = new Vector3(bottomCenter.x, bottomCenter.y, 0);
     }

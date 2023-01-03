@@ -136,7 +136,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
+        y: 504
         width: 244
         height: 126
       alignment: 0
@@ -157,7 +157,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 244
-        y: 0
+        y: 504
         width: 244
         height: 126
       alignment: 0
@@ -178,7 +178,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 488
-        y: 0
+        y: 504
         width: 244
         height: 126
       alignment: 0
@@ -199,7 +199,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 732
-        y: 0
+        y: 504
         width: 244
         height: 126
       alignment: 0
@@ -220,7 +220,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 976
-        y: 0
+        y: 504
         width: 244
         height: 126
       alignment: 0
@@ -240,8 +240,8 @@ TextureImporter:
       name: cloud_5
       rect:
         serializedVersion: 2
-        x: 1220
-        y: 0
+        x: 0
+        y: 378
         width: 244
         height: 126
       alignment: 0
@@ -261,8 +261,8 @@ TextureImporter:
       name: cloud_6
       rect:
         serializedVersion: 2
-        x: 1464
-        y: 0
+        x: 244
+        y: 378
         width: 244
         height: 126
       alignment: 0
@@ -282,8 +282,8 @@ TextureImporter:
       name: cloud_7
       rect:
         serializedVersion: 2
-        x: 1708
-        y: 0
+        x: 488
+        y: 378
         width: 244
         height: 126
       alignment: 0
@@ -303,8 +303,8 @@ TextureImporter:
       name: cloud_8
       rect:
         serializedVersion: 2
-        x: 1952
-        y: 0
+        x: 732
+        y: 378
         width: 244
         height: 126
       alignment: 0
@@ -324,8 +324,8 @@ TextureImporter:
       name: cloud_9
       rect:
         serializedVersion: 2
-        x: 2196
-        y: 0
+        x: 976
+        y: 378
         width: 244
         height: 126
       alignment: 0
@@ -345,8 +345,8 @@ TextureImporter:
       name: cloud_10
       rect:
         serializedVersion: 2
-        x: 2440
-        y: 0
+        x: 0
+        y: 252
         width: 244
         height: 126
       alignment: 0
@@ -366,8 +366,8 @@ TextureImporter:
       name: cloud_11
       rect:
         serializedVersion: 2
-        x: 2684
-        y: 0
+        x: 244
+        y: 252
         width: 244
         height: 126
       alignment: 0
@@ -387,8 +387,8 @@ TextureImporter:
       name: cloud_12
       rect:
         serializedVersion: 2
-        x: 2928
-        y: 0
+        x: 488
+        y: 252
         width: 244
         height: 126
       alignment: 0
@@ -408,8 +408,8 @@ TextureImporter:
       name: cloud_13
       rect:
         serializedVersion: 2
-        x: 3172
-        y: 0
+        x: 732
+        y: 252
         width: 244
         height: 126
       alignment: 0
@@ -429,8 +429,8 @@ TextureImporter:
       name: cloud_14
       rect:
         serializedVersion: 2
-        x: 3416
-        y: 0
+        x: 976
+        y: 252
         width: 244
         height: 126
       alignment: 0
@@ -450,8 +450,8 @@ TextureImporter:
       name: cloud_15
       rect:
         serializedVersion: 2
-        x: 3660
-        y: 0
+        x: 0
+        y: 126
         width: 244
         height: 126
       alignment: 0
@@ -471,8 +471,8 @@ TextureImporter:
       name: cloud_16
       rect:
         serializedVersion: 2
-        x: 3904
-        y: 0
+        x: 244
+        y: 126
         width: 244
         height: 126
       alignment: 0
@@ -492,8 +492,8 @@ TextureImporter:
       name: cloud_17
       rect:
         serializedVersion: 2
-        x: 4148
-        y: 0
+        x: 488
+        y: 126
         width: 244
         height: 126
       alignment: 0
@@ -513,8 +513,8 @@ TextureImporter:
       name: cloud_18
       rect:
         serializedVersion: 2
-        x: 4392
-        y: 0
+        x: 732
+        y: 126
         width: 244
         height: 126
       alignment: 0
@@ -534,8 +534,8 @@ TextureImporter:
       name: cloud_19
       rect:
         serializedVersion: 2
-        x: 4636
-        y: 0
+        x: 976
+        y: 126
         width: 244
         height: 126
       alignment: 0
@@ -555,7 +555,7 @@ TextureImporter:
       name: cloud_20
       rect:
         serializedVersion: 2
-        x: 4880
+        x: 0
         y: 0
         width: 244
         height: 126
@@ -576,7 +576,7 @@ TextureImporter:
       name: cloud_21
       rect:
         serializedVersion: 2
-        x: 5124
+        x: 244
         y: 0
         width: 244
         height: 126
@@ -597,7 +597,7 @@ TextureImporter:
       name: cloud_22
       rect:
         serializedVersion: 2
-        x: 5368
+        x: 488
         y: 0
         width: 244
         height: 126
@@ -618,7 +618,7 @@ TextureImporter:
       name: cloud_23
       rect:
         serializedVersion: 2
-        x: 5612
+        x: 732
         y: 0
         width: 244
         height: 126

@@ -120,7 +120,7 @@ TextureImporter:
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
-  alphaIsTransparency: 1
+  alphaIsTransparency: 0
   spriteTessellationDetail: -1
   textureType: 8
   textureShape: 1
@@ -136,7 +136,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 4096
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -190,9 +190,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
-        width: 250
-        height: 250
+        y: 1500
+        width: 500
+        height: 500
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -210,10 +210,10 @@ TextureImporter:
       name: cheep_1
       rect:
         serializedVersion: 2
-        x: 250
-        y: 0
-        width: 250
-        height: 250
+        x: 500
+        y: 1500
+        width: 500
+        height: 500
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -231,10 +231,10 @@ TextureImporter:
       name: cheep_2
       rect:
         serializedVersion: 2
-        x: 500
-        y: 0
-        width: 250
-        height: 250
+        x: 1000
+        y: 1500
+        width: 500
+        height: 500
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -252,10 +252,10 @@ TextureImporter:
       name: cheep_3
       rect:
         serializedVersion: 2
-        x: 750
-        y: 0
-        width: 250
-        height: 250
+        x: 1500
+        y: 1500
+        width: 500
+        height: 500
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -273,10 +273,10 @@ TextureImporter:
       name: cheep_4
       rect:
         serializedVersion: 2
-        x: 1000
-        y: 0
-        width: 250
-        height: 250
+        x: 2000
+        y: 1500
+        width: 500
+        height: 500
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -294,10 +294,10 @@ TextureImporter:
       name: cheep_5
       rect:
         serializedVersion: 2
-        x: 1250
-        y: 0
-        width: 250
-        height: 250
+        x: 0
+        y: 1000
+        width: 500
+        height: 500
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -315,10 +315,10 @@ TextureImporter:
       name: cheep_6
       rect:
         serializedVersion: 2
-        x: 1500
-        y: 0
-        width: 250
-        height: 250
+        x: 500
+        y: 1000
+        width: 500
+        height: 500
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -336,10 +336,10 @@ TextureImporter:
       name: cheep_7
       rect:
         serializedVersion: 2
-        x: 1750
-        y: 0
-        width: 250
-        height: 250
+        x: 1000
+        y: 1000
+        width: 500
+        height: 500
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -357,10 +357,10 @@ TextureImporter:
       name: cheep_8
       rect:
         serializedVersion: 2
-        x: 2000
-        y: 0
-        width: 250
-        height: 250
+        x: 1500
+        y: 1000
+        width: 500
+        height: 500
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -378,10 +378,10 @@ TextureImporter:
       name: cheep_9
       rect:
         serializedVersion: 2
-        x: 2250
-        y: 0
-        width: 250
-        height: 250
+        x: 2000
+        y: 1000
+        width: 500
+        height: 500
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -399,10 +399,10 @@ TextureImporter:
       name: cheep_10
       rect:
         serializedVersion: 2
-        x: 2500
-        y: 0
-        width: 250
-        height: 250
+        x: 0
+        y: 500
+        width: 500
+        height: 500
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -420,10 +420,10 @@ TextureImporter:
       name: cheep_11
       rect:
         serializedVersion: 2
-        x: 2750
-        y: 0
-        width: 250
-        height: 250
+        x: 500
+        y: 500
+        width: 500
+        height: 500
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -441,10 +441,10 @@ TextureImporter:
       name: cheep_12
       rect:
         serializedVersion: 2
-        x: 3000
-        y: 0
-        width: 250
-        height: 250
+        x: 1000
+        y: 500
+        width: 500
+        height: 500
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -462,10 +462,10 @@ TextureImporter:
       name: cheep_13
       rect:
         serializedVersion: 2
-        x: 3250
-        y: 0
-        width: 250
-        height: 250
+        x: 1500
+        y: 500
+        width: 500
+        height: 500
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -483,10 +483,10 @@ TextureImporter:
       name: cheep_14
       rect:
         serializedVersion: 2
-        x: 3500
-        y: 0
-        width: 250
-        height: 250
+        x: 2000
+        y: 500
+        width: 500
+        height: 500
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -504,10 +504,10 @@ TextureImporter:
       name: cheep_15
       rect:
         serializedVersion: 2
-        x: 3750
+        x: 0
         y: 0
-        width: 250
-        height: 250
+        width: 500
+        height: 500
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -525,10 +525,10 @@ TextureImporter:
       name: cheep_16
       rect:
         serializedVersion: 2
-        x: 4000
+        x: 500
         y: 0
-        width: 250
-        height: 250
+        width: 500
+        height: 500
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -546,10 +546,10 @@ TextureImporter:
       name: cheep_17
       rect:
         serializedVersion: 2
-        x: 4250
+        x: 1000
         y: 0
-        width: 250
-        height: 250
+        width: 500
+        height: 500
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -559,216 +559,6 @@ TextureImporter:
       bones: []
       spriteID: 8f4ac2e1f8f0f3280800000000000000
       internalID: -9061506817885166344
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: cheep_18
-      rect:
-        serializedVersion: 2
-        x: 4500
-        y: 0
-        width: 250
-        height: 250
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 68ae0115e2c446bc0800000000000000
-      internalID: -3790821224526845306
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: cheep_19
-      rect:
-        serializedVersion: 2
-        x: 4750
-        y: 0
-        width: 250
-        height: 250
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c517d899b8f26adc0800000000000000
-      internalID: -3628160173177212580
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: cheep_20
-      rect:
-        serializedVersion: 2
-        x: 5000
-        y: 0
-        width: 250
-        height: 250
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 533d564e4e97cee30800000000000000
-      internalID: 4534132948846629685
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: cheep_21
-      rect:
-        serializedVersion: 2
-        x: 5250
-        y: 0
-        width: 250
-        height: 250
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a924f67281498dfa0800000000000000
-      internalID: -5775703690640932198
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: cheep_22
-      rect:
-        serializedVersion: 2
-        x: 5500
-        y: 0
-        width: 250
-        height: 250
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 238ff20857567cda0800000000000000
-      internalID: -5924655229446391758
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: cheep_23
-      rect:
-        serializedVersion: 2
-        x: 5750
-        y: 0
-        width: 250
-        height: 250
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 589075f56baa2c542aef665093768f47
-      internalID: -1577988308
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: cheep_24
-      rect:
-        serializedVersion: 2
-        x: 6000
-        y: 0
-        width: 250
-        height: 250
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6b95aae1191b4614f86d0bbf0952490a
-      internalID: 263430508
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: cheep_25
-      rect:
-        serializedVersion: 2
-        x: 6250
-        y: 0
-        width: 250
-        height: 250
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 23e29b4702cdc4e41be85eb32f5bef8d
-      internalID: 1007334533
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: cheep_26
-      rect:
-        serializedVersion: 2
-        x: 6500
-        y: 0
-        width: 250
-        height: 250
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 84beba11517559a49916e522e49069e1
-      internalID: -1170142002
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: cheep_27
-      rect:
-        serializedVersion: 2
-        x: 6750
-        y: 0
-        width: 250
-        height: 250
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3e5ff9c8497eb3e40890e9def6e0543b
-      internalID: -372781340
       vertices: []
       indices: 
       edges: []
@@ -789,28 +579,18 @@ TextureImporter:
       cheep_11: 5458707272371896451
       cheep_5: -7249099168315963402
       cheep_9: -5930859658618792250
-      cheep_27: -372781340
       cheep_10: -1584140558931531463
       cheep_17: -9061506817885166344
-      cheep_24: 263430508
       cheep_4: 2431782707645918910
       cheep_15: 5830679394175256891
       cheep_3: -2109864396465087126
       cheep_8: 2161576311466979221
-      cheep_19: -3628160173177212580
       cheep_13: 4040473144842205438
-      cheep_18: -3790821224526845306
-      cheep_26: -1170142002
       cheep_16: -1851672272351362390
-      cheep_20: 4534132948846629685
       cheep_6: -4660134805421465912
       cheep_14: -3063221085474489965
-      cheep_23: -1577988308
-      cheep_21: -5775703690640932198
-      cheep_25: 1007334533
       cheep_12: 5590076484406638510
       cheep_2: 5287416993055898113
-      cheep_22: -5924655229446391758
       cheep_1: -5066493454749629800
   spritePackingTag: 
   pSDRemoveMatte: 0

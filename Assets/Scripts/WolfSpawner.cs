@@ -1,9 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UIElements;
+using Unity.Mathematics;
+using Random = UnityEngine.Random;
+using UnityEngine.SceneManagement;
 
 public class WolfSpawner : MonoBehaviour
 {
     public GameObject rainbowPrefab;
+    public UILabel remainLabel;
+    public UILabel landedLabel; 
+
+    public int startWolves = 10;
+
+    private int destroyedWolves = 0;
+    private int landedWolves = 0;
 
     public float minTimeBetweenSpawns;		// The shortest possible time between spawns.
     public float maxTimeBetweenSpawns;		// The longest possible time between spawns.
@@ -25,11 +36,59 @@ public class WolfSpawner : MonoBehaviour
 
     public Transform player;
     public float maxDistanceYFromPlayer;
-
-    void Start()
+    public GameObject cloudSpawner;
+    public void StartSpawner()
     {
         // Start the Spawn coroutine.
         StartCoroutine("Spawn");
+    }
+
+    public void DecideVictory()
+    {
+        Stars.stars = new Stars
+        {
+            landed = landedWolves,
+            won = destroyedWolves > landedWolves
+        };
+
+        SceneManager.LoadScene("stars");
+    }
+
+    private void CheckFinish()
+    {
+        if (destroyedWolves + landedWolves >= startWolves)
+        {
+            DecideVictory();
+        }
+    }
+
+    public void OnWolfDestroy()
+    {
+        destroyedWolves++;
+        UpdateRemain();
+
+        CheckFinish();
+    }
+
+    private void UpdateRemain()
+    {
+        var remaining = startWolves - (destroyedWolves + landedWolves);
+        remainLabel.text = remainLabel.text.Split(":")[0] + ": " + remaining;
+    }
+
+    public void OnWolfLand()
+    {
+        landedWolves++;
+        
+        landedLabel.text = landedLabel.text.Split(":")[0] + ": " + landedWolves;
+        UpdateRemain();
+
+        CheckFinish();
+    }
+
+    private void Start()
+    {
+        remainLabel.text = remainLabel.text.Split(":")[0] + ": " + startWolves;
     }
 
     void Update()
@@ -74,26 +133,17 @@ public class WolfSpawner : MonoBehaviour
         propInstance.transform.parent = transform;
         propInstance.transform.localScale = new Vector3(scaleX, propInstance.transform.localScale.y, propInstance.transform.localScale.z);
 
-        StartCoroutine(Spawn());
-        // Set the prop's velocity to this speed in the x axis
-        if (propInstance.GetComponent<Rigidbody2D>() != null)
-        {
-            propInstance.GetComponent<Rigidbody2D>().velocity = new Vector2(speed, antiGravity);
 
-            // While the prop exists...
-            while (propInstance != null)
-            {
-                if (propInstance.transform.position.x < screenMin.x - 0.5f)
-                {
-                    // ... destroy the prop.
-                    Destroy(propInstance.gameObject);
-                }
-                // Return to this point after the next update.
-                yield return null;
-            }
+        var rigidBody = propInstance.GetComponent<Rigidbody2D>();
+        // Set the prop's velocity to this speed in the x axis
+        if (rigidBody != null)
+        {
+            int gravity = Random.Range(0, 2);
+            rigidBody.velocity = new Vector2(speed, gravity == 1 ? antiGravity : 0);
+            rigidBody.gravityScale = gravity;           
         }
 
-
+        StartCoroutine("Spawn");
     }
 
 

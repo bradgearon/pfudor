@@ -14,6 +14,7 @@ public class DestroyPillowCollider : MonoBehaviour
     {
         if (collision.collider.CompareTag("mob"))
         {
+            collision.collider.attachedRigidbody.gravityScale = 1;
             Debug.Log("squish tigger");
             mecanim.Play("pillow-squish");
         }
@@ -21,8 +22,6 @@ public class DestroyPillowCollider : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log(other.name);
-
         if (other.CompareTag("Dead"))
         {
             Destroy(gameObject);

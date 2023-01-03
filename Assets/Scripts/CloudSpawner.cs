@@ -13,6 +13,7 @@ public class CloudSpawner : MonoBehaviour
 
     private Vector3 screenMax;
     private Vector3 screenMin;
+    private bool stopped;
 
     void Start()
     {
@@ -24,7 +25,6 @@ public class CloudSpawner : MonoBehaviour
         screenMax = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height));
         screenMin = Camera.main.ScreenToWorldPoint(new Vector3(0, 0));
     }
-
 
     IEnumerator Spawn()
     {
